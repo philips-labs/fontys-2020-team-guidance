@@ -121,7 +121,6 @@ img.desktopIcon {
   width: 25.5%;
   float: left;
   z-index: 1;
-  background-color: rgb(26, 26, 26);
 }
 
 img.desktopIcon:hover {

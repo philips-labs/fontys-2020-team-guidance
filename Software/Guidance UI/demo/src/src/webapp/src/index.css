@@ -72,12 +72,22 @@ h6 {
   background: transparent;
 }
 
+img.Logo {
+  position: absolute;
+  margin: 10px;
+  width: 2.5vw;
+  transform: translate(-50%, 0);
+}
+
+/*Menus*/
 div.mobileMenu {
   position: absolute;
   margin: 3vw;
   bottom: 0;
-  width: 94vw;
+  width: 40vw;
   height: 5vh;
+  left: 50%;
+  transform: translate(-50%, 0);
   background-color: rgb(40, 40, 40);
   border-radius: 10vw;
   justify-content: center;
@@ -86,16 +96,9 @@ div.mobileMenu {
   z-index: 1;
 }
 
-div.mobileMenu img.PFImage {
+div.mobileMenu img.MobileAccountImage {
   position: absolute;
   left: 2%;
-  color: white;
-  font-size: 5vw;
-}
-
-div.mobileMenu img.SettingsImage {
-  position: absolute;
-  left: 45%;
   color: white;
   font-size: 5vw;
 }
@@ -109,21 +112,21 @@ div.mobileMenu img {
 
 div.desktopMenu {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 0vh;
   height: 5vh;
   width: 10vw;
 }
 
-img.desktopIcon {
+img.desktopAccountIcon {
   position: relative;
   margin: 2%;
   width: 25.5%;
-  float: left;
+  float: right;
   z-index: 1;
 }
 
-img.desktopIcon:hover {
+img.desktopAccountIcon:hover {
   cursor: pointer;
 }
 
@@ -132,7 +135,7 @@ img.desktopSettings {
   margin: 9%;
   width: 12%;
   float: left;
-  left: -4.5vw;
+  left: -0.5vw;
   opacity: 0;
   transition: left .3s ease-in-out, opacity .5s ease-in-out;
 }
@@ -141,8 +144,12 @@ img.desktopSettings:hover {
   cursor: pointer;
 }
 
+img.desktopSettings:active {
+  background-color: white;
+}
+
 div.desktopMenu:hover img.desktopSettings {
-  left: -0.5vw;
+  left: 4.5vw;
   opacity: 1;
 }
 
@@ -162,6 +169,11 @@ img.img {
 
 @media (min-width:1025px){
 
+  img.Logo {
+    width: 2.5vw;
+    height: auto;
+  }
+
   div.mobileMenu {
     display: none;
   }
@@ -174,6 +186,11 @@ img.img {
 
 @media (max-width:1025px){
 
+  img.Logo {
+    height: 3.5vh;
+    width: auto;
+  }
+
   div.mobileMenu {
     display: inherit;
   }
@@ -182,4 +199,99 @@ img.img {
     display: none;
   }
 
+}
+
+
+/*Panels*/
+div.settingsPanel {
+  position: absolute;
+  width: 94vw;
+  margin: 3vw;
+  z-index: 5;
+  background-color: rgb(26, 26, 26);
+  border-radius: 10px;
+  color: rgb(192, 192, 192);
+  text-align: center;
+  bottom: 5%;
+  overflow-x: hidden;
+  max-height: 80vh;
+}
+
+div.accountPanel {
+  position: absolute;
+  width: 94vw;
+  margin: 3vw;
+  z-index: 5;
+  background-color: rgb(26, 26, 26);
+  border-radius: 10px;
+  color: rgb(192, 192, 192);
+  text-align: center;
+  bottom: -110%;
+  overflow-x: hidden;
+  max-height: 80vh;
+}
+
+p.settingsHeader {
+  font-size: 6vw;
+}
+
+div.divider {
+  margin: 5% 10% 5% 10%;
+  width: 80%;
+  height: 1px;
+  background-color: rgb(53, 53, 53);
+  border-radius: 45px;
+}
+
+div.accountObject {
+  margin: 10%;
+  width: 90%;
+  display: flex;
+  text-align: left;
+  vertical-align: baseline;
+}
+
+img.accountObjectPP {
+  width: 13%;
+  height: auto;
+}
+
+a.accountObjectName {
+  position: absolute;
+  margin-top: 3%;
+  margin-left: 15%;
+  font-size: 4vw;
+}
+
+img.accountObjectGear {
+  position: absolute;
+  width: 5%;
+  height: auto;
+  padding: 3%;
+  left: 80%;
+}
+
+p.myprofile {
+  font-size: 3vw;
+}
+
+div.settingObject {
+  margin: 10%;
+  width: 90%;
+  display: flex;
+  text-align: left;
+  vertical-align: baseline;
+}
+
+p.settingName {
+  font-size: 4vw;
+}
+
+input.checkbox {
+  position: absolute;
+  margin: 5%;
+  width: 4vw;
+  height: 4vw;
+  right: 7%;
+  color: transparent;
 }

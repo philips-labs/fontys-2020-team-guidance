@@ -6,9 +6,8 @@ class MobileMenu extends Component {
     render() {
         return (
             <div className="mobileMenu">
-                <img alt="" className="PFImage" src={require('./Images/logo.png')}/>
-                <img alt="" id="settingsButton" className="SettingsImage" src={require('./Images/gear.png')}/>
-                <img alt="" id="accountButton" src={require('./Images/pf.png')}/>
+                <img alt="" id="accountButton" className="MobileAccountImage" src={require('./Images/pf.png')}/>
+                <img alt="" id="settingsButton" src={require('./Images/gear.png')}/>
             </div>
         );
     }

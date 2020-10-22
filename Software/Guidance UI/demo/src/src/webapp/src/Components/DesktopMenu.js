@@ -6,7 +6,7 @@ class DesktopMenu extends Component {
     render() {
         return (
             <div className="desktopMenu">
-                <img alt="" className="desktopIcon" src={require('./Images/pf.png')}/>
+                <img alt="" className="desktopAccountIcon" src={require('./Images/pf.png')}/>
                 <img alt="" className="desktopSettings" src={require('./Images/gear.png')}/>
             </div>
         );

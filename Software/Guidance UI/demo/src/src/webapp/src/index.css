@@ -80,7 +80,7 @@ img.Logo {
 }
 
 /*Menus*/
-div.mobileMenu {
+div.Menu {
   position: absolute;
   margin: 3vw;
   bottom: 0;
@@ -96,61 +96,17 @@ div.mobileMenu {
   z-index: 1;
 }
 
-div.mobileMenu img.MobileAccountImage {
+div.Menu img.AccountImage {
   position: absolute;
   left: 2%;
-  color: white;
   font-size: 5vw;
 }
 
-div.mobileMenu img {
+div.Menu img {
   position: absolute;
   height: 70%;
   right: 2%;
   top: 15%;
-}
-
-div.desktopMenu {
-  position: absolute;
-  right: 0;
-  top: 0vh;
-  height: 5vh;
-  width: 10vw;
-}
-
-img.desktopAccountIcon {
-  position: relative;
-  margin: 2%;
-  width: 25.5%;
-  float: right;
-  z-index: 1;
-}
-
-img.desktopAccountIcon:hover {
-  cursor: pointer;
-}
-
-img.desktopSettings {
-  position: relative;
-  margin: 9%;
-  width: 12%;
-  float: left;
-  left: -0.5vw;
-  opacity: 0;
-  transition: left .3s ease-in-out, opacity .5s ease-in-out;
-}
-
-img.desktopSettings:hover {
-  cursor: pointer;
-}
-
-img.desktopSettings:active {
-  background-color: white;
-}
-
-div.desktopMenu:hover img.desktopSettings {
-  left: 4.5vw;
-  opacity: 1;
 }
 
 div.floorplan-container {
@@ -174,12 +130,42 @@ img.img {
     height: auto;
   }
 
-  div.mobileMenu {
-    display: none;
+  div.Menu {
+    background-color: transparent;
+    position: absolute;
+    left: 90vw;
+    bottom: 95vh;
+    height: 5vh;
+    width: 10vw;
+    justify-content: normal;
+    transform: none;
+    margin: 0;
+    border-radius: 0;
+   }
+
+  div.Menu img.AccountImage {
+    position: absolute;
+    left: 71%;
+    width: 25%;
+    height: auto;
   }
 
-  div.desktopMenu {
-    display: inherit;
+  div.Menu img.AccountImage:hover {
+    cursor: pointer;
+  }
+
+  div.Menu img.SettingsImage {
+    position: absolute;
+    left: 50%;
+    color: white;
+    font-size: 5vw;
+    width: 10%;
+    height: auto;
+    margin: 7%;
+  }
+
+  div.Menu img.SettingsImage:hover {
+    cursor: pointer;
   }
 
 }
@@ -191,12 +177,8 @@ img.img {
     width: auto;
   }
 
-  div.mobileMenu {
+  div.Menu {
     display: inherit;
-  }
-
-  div.desktopMenu {
-    display: none;
   }
 
 }
@@ -206,29 +188,31 @@ img.img {
 div.settingsPanel {
   position: absolute;
   width: 94vw;
-  margin: 3vw;
   z-index: 5;
-  background-color: rgb(26, 26, 26);
+  background-color: rgb(40, 40, 40);
   border-radius: 10px;
-  color: rgb(192, 192, 192);
+  color: rgb(205, 205, 205);
   text-align: center;
-  bottom: 5%;
+  bottom: 8%;
+  left: 3%;
   overflow-x: hidden;
   max-height: 80vh;
+  display: none;
 }
 
 div.accountPanel {
   position: absolute;
   width: 94vw;
-  margin: 3vw;
   z-index: 5;
-  background-color: rgb(26, 26, 26);
+  background-color: rgb(40, 40, 40);
   border-radius: 10px;
-  color: rgb(192, 192, 192);
+  color: rgb(205, 205, 205);
   text-align: center;
-  bottom: -110%;
+  bottom: 8%;
+  left: 3%;
   overflow-x: hidden;
   max-height: 80vh;
+  display: none;
 }
 
 p.settingsHeader {
@@ -289,9 +273,40 @@ p.settingName {
 
 input.checkbox {
   position: absolute;
-  margin: 5%;
+  margin: 6%;
   width: 4vw;
   height: 4vw;
   right: 7%;
   color: transparent;
+}
+
+@media (min-width:1025px){
+
+  div.settingsPanel {
+    width: 20vw;
+    top: 8%;
+    left: 79.5%;
+    max-height: 26vh;
+  }
+
+  p.settingsHeader {
+    font-size: 1.5vw;
+  }
+
+  p.settingName {
+    font-size: 1vw;
+  }
+
+  input.checkbox {
+    width: 1vw;
+    height: 1vw;
+  }
+
+  a.accountObjectName {
+    position: absolute;
+    margin-top: 1.5%;
+    margin-left: 15%;
+    font-size: 1vw;
+  }
+
 }

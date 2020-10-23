@@ -1,17 +1,20 @@
 import React from 'react';
 import './App.css';
 import MobileMenu from "./Components/MobileMenu";
-import DesktopMenu from "./Components/DesktopMenu";
 import Logo from "./Components/Logo";
 import SettingsPanel from "./Components/SettingsPanel";
+import AccountPanel from "./Components/AccountPanel";
+import Floorplan from "./Components/Floorplan";
 
 function App() {
+
   return (
     <div className="App">
         <Logo/>
         <MobileMenu/>
-        <DesktopMenu/>
         <SettingsPanel/>
+        <AccountPanel/>
+        <Floorplan/>
     </div>
   );
 }

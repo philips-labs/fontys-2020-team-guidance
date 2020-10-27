@@ -77,6 +77,7 @@ img.Logo {
   margin: 10px;
   width: 2.5vw;
   transform: translate(-50%, 0);
+  z-index: 10;
 }
 
 /*Menus*/
@@ -111,7 +112,6 @@ div.Menu img {
 
 img.img {
   position: absolute;
-  top: 40vw;
   width: 500px;
   height: auto;
   left: 10%;
@@ -255,7 +255,7 @@ p.myprofile {
 }
 
 div.settingObject {
-  margin: 10%;
+  margin: -1% 10%;
   width: 90%;
   display: flex;
   text-align: left;
@@ -266,13 +266,29 @@ p.settingName {
   font-size: 4vw;
 }
 
+input.ssidInput {
+  position: absolute;
+  margin: 5.5%;
+  width: 35vw;
+  height: 2vh;
+  right: 7%;
+  background-color: rgb(205, 205, 205);
+  border: 1px solid rgb(205, 205, 205);
+  color: black;
+  border-radius: 10px;
+  text-align: center;
+}
+
 input.checkbox {
   position: absolute;
   margin: 6%;
   width: 4vw;
   height: 4vw;
   right: 7%;
-  color: transparent;
+}
+
+input:focus, textarea:focus, select:focus{
+  outline: none;
 }
 
 @media (min-width:1025px){
@@ -290,6 +306,10 @@ input.checkbox {
 
   p.settingName {
     font-size: 1vw;
+  }
+
+  input.ssidInput {
+    width: 7vw;
   }
 
   input.checkbox {

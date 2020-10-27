@@ -94,6 +94,7 @@ class Floorplan extends Component {
                  onTouchMove={this._dragging}
                  onTouchEnd={this._dragEnd}
                  onWheel={this._scroll}
+                 onClick={this.onload}
             />
         );
     }

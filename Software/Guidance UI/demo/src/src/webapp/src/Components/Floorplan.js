@@ -40,14 +40,13 @@ class Floorplan extends Component {
     }
 
     _dragging(e) {
-        if(this.state.dragging && e.screenX > 0) {
+        if(this.state.dragging && e.screenX !== 0) {
             let left;
             let top;
 
             if(e.screenX) {
                 left = e.screenX - this.state.diffX;
                 top = e.screenY - this.state.diffY;
-                console.log(e.screenX);
             }
             else if(e.touches[0]) {
                 left = e.touches[0].clientX - this.state.diffX;

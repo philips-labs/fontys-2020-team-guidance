@@ -30,8 +30,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "react-simple-maps": "^2.1.2"
   }
 }

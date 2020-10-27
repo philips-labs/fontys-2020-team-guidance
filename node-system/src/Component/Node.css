@@ -1,0 +1,6 @@
+.nodeImg {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    width: 4vw;
+    height: auto;
+}

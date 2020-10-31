@@ -2,10 +2,13 @@ package com.example.beaconscanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final static String TAG = MainActivity.class.getSimpleName();
 
     public static final int REQUEST_ENABLE_BT = 1;
+    private static final int PERMISSION_REQUEST_COARSE_LOCATION = 456;
 
     private HashMap<String, BLE_Device> mBTDeviceHashMap;
     private ArrayList<BLE_Device> mBTDeviceArrayList;
@@ -28,19 +32,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_Scan;
 
     private BroadcastReceiver_BTState mBTStateUpdateReceiver;
+    private Scanner_BLE mBLEScanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Check om te controlleren of BLE is supported op het apparaat.
+        //Check om te controleren of BLE is supported op het apparaat.
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Utils.toast(getApplicationContext(), "BLE not supported");
             finish();
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
+        }
 
         mBTStateUpdateReceiver = new BroadcastReceiver_BTState(getApplicationContext());
+        mBLEScanner = new Scanner_BLE(this, 15000, -75);
+
         mBTDeviceHashMap = new HashMap<>();
         mBTDeviceArrayList = new ArrayList<>();
 
@@ -70,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
+        stopScan();
     }
 
     @Override
@@ -112,9 +123,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_scan:
                 Utils.toast(getApplicationContext(), "Scan Button Pressed");
 
+                if (!mBLEScanner.isScanning()) {
+                    startScan();
+                }
+                else {
+                    stopScan();
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    public void addDevice(BluetoothDevice device, int new_rssi) {
+        String address = device.getAddress();
+
+        if (!mBTDeviceHashMap.containsKey(address)) {
+            BLE_Device ble_device = new BLE_Device(device);
+            ble_device.setRSSI(new_rssi);
+
+            mBTDeviceHashMap.put(address, ble_device);
+            mBTDeviceArrayList.add(ble_device);
+        }
+        else {
+            mBTDeviceHashMap.get(address).setRSSI(new_rssi);
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    public void startScan() {
+        btn_Scan.setText("Scanning...");
+
+        mBTDeviceArrayList.clear();
+        mBTDeviceHashMap.clear();
+
+        adapter.notifyDataSetChanged();
+
+        mBLEScanner.start();
+    }
+
+    public void stopScan() {
+        btn_Scan.setText("Scan Again");
+
+        mBLEScanner.stop();
     }
 }

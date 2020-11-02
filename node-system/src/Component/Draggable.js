@@ -83,7 +83,6 @@ export default class Draggable extends React.Component {
   };
 
   onTrigger = () => {
-    console.log(this.state.id);
     this.props.parentCallback(this.state.id, this.state.translateX, this.state.translateY);
 }
 

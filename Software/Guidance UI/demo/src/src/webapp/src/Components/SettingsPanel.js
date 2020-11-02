@@ -7,7 +7,8 @@ class SettingsPanel extends Component {
 
         this.state = {
             SSID: '',
-            InputSSID: ''
+            InputSSID: '',
+            floorplan: ''
         }
     }
 
@@ -26,22 +27,66 @@ class SettingsPanel extends Component {
             })
 
             alert("Network name updated to: " + this.state.InputSSID);
+            this.getFloorplans(this.state.InputSSID)
         }
     }
 
     componentDidMount() {
+        this.configureSSID()
+    }
+
+    configureSSID() {
         const ssid = prompt("Please enter the network name", "Network Name");
 
         this.setState({
             SSID: ssid,
             InputSSID: ssid
+        });
+
+        this.getFloorplans(ssid);
+    }
+
+
+    getFloorplans(string) {
+        fetch("/books/" + string)
+            .then(res => res.text())
+            .then(imagesrc => {
+                if(imagesrc !== "null") {
+                    document.getElementById("floorplan-container-image").src = imagesrc;
+                }
+                else {
+                    alert("Sorry we couldn't find that SSID can you enter one again?");
+                    this.configureSSID()
+                }
+                console.log(imagesrc);
+            })
+    }
+
+    postFloorplans(String) {
+        fetch("/books", {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify({
+                id: 101,
+                title: String,
+                author: "John Carnell",
+                coverPhotoURL: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png",
+                isbnNumber: 1617293989,
+                price: 2776,
+                language: "English"
+            })
         })
+            .then(data => data.json())
+            .then(res => console.log(res))
     }
 
 
     render() {
         return (
-            <div onLoad={this.askSSID} id="settingsPanel" className="settingsPanel">
+            <div id="settingsPanel" className="settingsPanel">
                 <p className="settingsHeader">Settings</p>
                 <div className="divider"/>
                 <div className="settingObject">

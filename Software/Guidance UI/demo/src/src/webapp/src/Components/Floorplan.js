@@ -85,7 +85,6 @@ class Floorplan extends Component {
                  className="img"
                  id="floorplan-container-image"
                  draggable="false"
-                 src={require('../Components/Images/testa.png')}
                  style={this.state.styles}
                  onMouseDown={this._dragStart}
                  onMouseMove={this._dragging}

@@ -2,18 +2,23 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 export default class Draggable extends React.Component {
-  state = {
-    isDragging: false,
+  constructor(props){
+    super(props);
+    this.state = {
+      id: this.props.id,
+      isDragging: false,
+  
+      originalX: 0,
+      originalY: 0,
+  
+      translateX: 0,
+      translateY: 0,
+  
+      lastTranslateX: 0,
+      lastTranslateY: 0
+    };
+  }
 
-    originalX: 0,
-    originalY: 0,
-
-    translateX: 0,
-    translateY: 0,
-
-    lastTranslateX: 0,
-    lastTranslateY: 0
-  };
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove);
@@ -77,6 +82,11 @@ export default class Draggable extends React.Component {
     );
   };
 
+  onTrigger = () => {
+    console.log(this.state.id);
+    this.props.parentCallback(this.state.id, this.state.translateX, this.state.translateY);
+}
+
   render() {
     const { children } = this.props;
     const { translateX, translateY, isDragging } = this.state;
@@ -84,6 +94,7 @@ export default class Draggable extends React.Component {
     return (
       <Container
         onMouseDown={this.handleMouseDown}
+        onClick={this.onTrigger}
         x={translateX}
         y={translateY}
         isDragging={isDragging}

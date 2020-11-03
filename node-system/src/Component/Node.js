@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Waypoint from './Images/waypoint.png';
+import Start from './Images/startingPoint.png';
+import End from './Images/endPoint.png';
 import './Node.css';
 
 export default class Node extends Component {
@@ -7,7 +9,8 @@ export default class Node extends Component {
         super(prop);
         this.state = {
             connectedNodes: [],
-            nodeData: this.props.data
+            nodeData: this.props.data,
+            nodeType: this.props.type,
         };
     }
 
@@ -35,6 +38,22 @@ export default class Node extends Component {
     }
 
     render() {
+        if (this.state.nodeType === "start")
+        {
+            return (
+                <div>
+                    <img className='nodeImg' src= {Start} alt=''/>
+                </div>
+            )
+        }
+        else if (this.state.nodeType === "end")
+        {
+            return (
+                <div>
+                    <img className='nodeImg' src= {End} alt=''/>
+                </div>
+            )
+        }
         return (
             <div className={this.getStyle()}>
                 <img className='nodeImg' src= {Waypoint} alt=''/>

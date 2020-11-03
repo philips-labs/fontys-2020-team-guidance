@@ -20,6 +20,8 @@
     color: white;
     text-align: center;
     font-size: 2em;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
 
 .nodeMedCircle {
@@ -37,6 +39,8 @@
     color: white;
     text-align: center;
     font-size: 2em;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }
 
 .nodeBigCircle {
@@ -55,4 +59,6 @@
     color: white;
     text-align: center;
     font-size: 2em;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
 }

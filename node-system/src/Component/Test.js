@@ -19,7 +19,7 @@ export default class Test extends Component {
         this.newNode = this.newNode.bind(this);
         this.onSave = this.onSave.bind(this);
     }
-
+    // creating a new node and adding it to the array save
     newNode = (e) => {
             const item = this.state.nodeList;
             const id = this.state.nodeId;
@@ -40,7 +40,7 @@ export default class Test extends Component {
             this.setState({nodeId: id + 1})
     }
 
-
+    // doesnt do what it says it just recieves data from the child component and sets it to the correct node in the array
     onSave = (id, childX, childY, type) => {
         this.setState({x: childX, y: childY})
 
@@ -49,7 +49,7 @@ export default class Test extends Component {
         const y = this.state.y;
         item[id] = {id, x, y, type};
     }
-
+    // check if a start node exists
     checkStart = () => {
         let exists = false;
         for (let i = 0; i < this.state.nodeList.length; i++)
@@ -71,7 +71,7 @@ export default class Test extends Component {
             return null;
         }
     }
-
+    // check if a end node exists
     checkEnd = () => {
         let exists = false;
         for (let i = 0; i < this.state.nodeList.length; i++)
@@ -92,7 +92,7 @@ export default class Test extends Component {
             return null;
         }
     }
-
+    // renders the heatmap and draggable nodes
     render() {
         return(    
             <div className={'App'}>
@@ -105,7 +105,6 @@ export default class Test extends Component {
                     <button onClick={this.newNode}>New Node</button>
                     <this.checkStart/>
                     <this.checkEnd/>
-                    {this.checkEnd}
                     {/*<button onClick={this.onSave}>save</button>*/}
                     {this.state.nodeList.map((item, key) => {
                         return (

@@ -20,12 +20,12 @@ export default class Draggable extends React.Component {
     };
   }
 
-
+  // removing listeners
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
   }
-
+  // handle mouse events
   handleMouseDown = ({ clientX, clientY }) => {
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
@@ -33,7 +33,8 @@ export default class Draggable extends React.Component {
     if (this.props.onDragStart) {
       this.props.onDragStart();
     }
-
+    
+    // setting mouse coordinates
     this.setState({
       originalX: clientX,
       originalY: clientY,
@@ -48,7 +49,7 @@ export default class Draggable extends React.Component {
     if (!isDragging) {
       return;
     }
-
+    // calculating coordinate changes
     this.setState(prevState => ({
       translateX: clientX - prevState.originalX + prevState.lastTranslateX,
       translateY: clientY - prevState.originalY + prevState.lastTranslateY
@@ -65,7 +66,7 @@ export default class Draggable extends React.Component {
   handleMouseUp = () => {
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('mouseup', this.handleMouseUp);
-
+    // setting coordinate changes
     this.setState(
       {
         originalX: 0,
@@ -82,11 +83,11 @@ export default class Draggable extends React.Component {
       }
     );
   };
-
+  // calling the parent to give data
   onTrigger = () => {
     this.props.parentCallback(this.state.id, this.state.translateX, this.state.translateY, this.state.type);
 }
-
+  // rendering the new location
   render() {
     const { children } = this.props;
     const { translateX, translateY, isDragging } = this.state;

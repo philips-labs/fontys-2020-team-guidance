@@ -13,7 +13,7 @@ export default class Node extends Component {
             nodeType: this.props.type,
         };
     }
-
+    //setting the crouwd circles
     getStyle() {
         let connections;
         let data = this.state.nodeData;
@@ -36,7 +36,7 @@ export default class Node extends Component {
         }
         else return ''
     }
-
+    // rendering nodes with heat circles
     render() {
         if (this.state.nodeType === "start")
         {

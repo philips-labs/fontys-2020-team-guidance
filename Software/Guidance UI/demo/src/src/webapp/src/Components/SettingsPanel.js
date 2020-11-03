@@ -58,7 +58,6 @@ class SettingsPanel extends Component {
                     alert("Sorry we couldn't find that SSID can you enter one again?");
                     this.configureSSID()
                 }
-                console.log(imagesrc);
             })
     }
 
@@ -80,7 +79,6 @@ class SettingsPanel extends Component {
             })
         })
             .then(data => data.json())
-            .then(res => console.log(res))
     }
 
 

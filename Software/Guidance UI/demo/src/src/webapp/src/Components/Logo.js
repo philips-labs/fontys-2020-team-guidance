@@ -5,7 +5,7 @@ class Logo extends Component {
 
     render() {
         return (
-            <img alt="" className="Logo" src={require('./Images/logo.png')}/>
+            <img alt="" className="Logo" src={require('./Images/logo.png')}/> //Page logo
         );
     }
 }

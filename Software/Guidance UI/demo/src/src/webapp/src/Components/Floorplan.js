@@ -6,11 +6,11 @@ class Floorplan extends Component {
         super(props);
 
         this.state = {
-            diffX: 0,
-            diffY: 0,
-            dragging: false,
-            styles: {},
-            scroll: 1
+            diffX: 0,           //x of Mouse on image
+            diffY: 0,           //y of Mouse on image
+            dragging: false,    //if mousedown+move
+            styles: {},         //style container for image
+            scroll: 1           //zoom for image 1=100%
         }
 
         this._dragStart = this._dragStart.bind(this);
@@ -24,17 +24,17 @@ class Floorplan extends Component {
         let screenY;
 
         if(e.screenX) {
-            screenX = e.screenX;
-            screenY = e.screenY;
+            screenX = e.screenX; //Mouse x
+            screenY = e.screenY; //Mouse y
         }
         else {
-            screenX = e.touches[0].clientX;
-            screenY = e.touches[0].clientY;
+            screenX = e.touches[0].clientX; //Touch x
+            screenY = e.touches[0].clientY; //Touch y
         }
 
         this.setState({
-            diffX: screenX - e.currentTarget.getBoundingClientRect().left,
-            diffY: screenY - e.currentTarget.getBoundingClientRect().top,
+            diffX: screenX - e.currentTarget.getBoundingClientRect().left, //Mouse\Touch x - Image x
+            diffY: screenY - e.currentTarget.getBoundingClientRect().top, //Mouse\Touch y - Image y
             dragging: true
         })
     }
@@ -45,18 +45,18 @@ class Floorplan extends Component {
             let top;
 
             if(e.screenX) {
-                left = e.screenX - this.state.diffX;
-                top = e.screenY - this.state.diffY;
+                left = e.screenX - this.state.diffX; //New Mouse x - Mouse x on Image
+                top = e.screenY - this.state.diffY; //New Mouse y - Mouse y on Image
             }
             else if(e.touches[0]) {
-                left = e.touches[0].clientX - this.state.diffX;
-                top = e.touches[0].clientY - this.state.diffY;
+                left = e.touches[0].clientX - this.state.diffX; //New Touch x - Touch x on Image
+                top = e.touches[0].clientY - this.state.diffY; //New Touch y - Touch y on Image
             }
 
             this.setState({
                 styles: {
-                    left: left,
-                    top: top
+                    left: left, //Style left
+                    top: top //Style top
                 }
             });
         }
@@ -71,11 +71,11 @@ class Floorplan extends Component {
     _scroll(e) {
         const floorplan = document.getElementById("floorplan-container-image");
 
-        if(e.deltaY === 100 && this.state.scroll < 1.5) {
-            floorplan.style.transform = "scale("+ (this.state.scroll += 0.1) +")";
+        if(e.deltaY > 0 && this.state.scroll < 1.5) {
+            floorplan.style.transform = "scale("+ (this.state.scroll += 0.1) +")"; //Scale up 10%
         }
         else if(this.state.scroll > 0.5) {
-            floorplan.style.transform = "scale("+ (this.state.scroll -= 0.1) +")";
+            floorplan.style.transform = "scale("+ (this.state.scroll -= 0.1) +")"; //Scale down 10%
         }
     }
 

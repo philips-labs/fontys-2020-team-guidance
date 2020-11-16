@@ -38,6 +38,7 @@ public class ListAdapter_BLE_Devices extends ArrayAdapter<BLE_Device> {
         String name = device.getName();
         String address = device.getAddress();
         int rssi = device.getRSSI();
+        double distance = device.getDistance();
 
         TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
         if (name != null && name.length() > 0) {
@@ -57,6 +58,9 @@ public class ListAdapter_BLE_Devices extends ArrayAdapter<BLE_Device> {
         else {
             tv_macaddr.setText("No Address");
         }
+
+        TextView tv_distance = (TextView) convertView.findViewById(R.id.tv_distance);
+        tv_distance.setText("Distance: " + Double.toString(distance) + " m");
 
         return  convertView;
     }

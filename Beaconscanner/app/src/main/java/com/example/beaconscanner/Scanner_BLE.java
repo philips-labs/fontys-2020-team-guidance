@@ -83,7 +83,11 @@ public class Scanner_BLE {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                ma.addDevice(device, new_rssi);
+                                if (device.getName() != null) {
+                                    if (device.getName().contains("iBKS Plus") == true & device.getName().contains("Guidance") == true) {
+                                        ma.addDevice(device, new_rssi);
+                                    }
+                                }
                             }
                         });
                     }

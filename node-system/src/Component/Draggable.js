@@ -7,6 +7,7 @@ export default class Draggable extends React.Component {
     this.state = {
       id: this.props.id,
       type: this.props.type,
+      
       isDragging: false,
   
       originalX: 0,
@@ -16,7 +17,8 @@ export default class Draggable extends React.Component {
       translateY: 0,
   
       lastTranslateX: 0,
-      lastTranslateY: 0
+      lastTranslateY: 0,
+
     };
   }
 
@@ -49,6 +51,7 @@ export default class Draggable extends React.Component {
     if (!isDragging) {
       return;
     }
+    if(clientX < 1421 && clientY < 720 & clientX > 421 && clientY > 121){
     // calculating coordinate changes
     this.setState(prevState => ({
       translateX: clientX - prevState.originalX + prevState.lastTranslateX,
@@ -61,6 +64,59 @@ export default class Draggable extends React.Component {
         });
       }
     });
+    };
+      if (clientX >= 1421) {
+        this.setState(prevState => ({
+          translateX: 1000,
+          translateY: clientY - prevState.originalY + prevState.lastTranslateY
+        }), () => {
+          if (onDrag) {
+            onDrag({
+              translateX: this.state.translateX,
+              translateY: this.state.translateY
+            });
+          }
+      });
+      };
+      if (clientX <= 421) {
+        this.setState(prevState => ({
+          translateX: 0,
+          translateY: clientY - prevState.originalY + prevState.lastTranslateY
+        }), () => {
+          if (onDrag) {
+            onDrag({
+              translateX: this.state.translateX,
+              translateY: this.state.translateY
+            });
+          }
+      });
+      };
+      if (clientY >= 720) {
+        this.setState(prevState => ({
+          translateX: clientX - prevState.originalX + prevState.lastTranslateX,
+          translateY: 579
+        }), () => {
+          if (onDrag) {
+            onDrag({
+              translateX: this.state.translateX,
+              translateY: this.state.translateY
+            });
+          }
+      });
+      };
+      if (clientY <= 121) {
+        this.setState(prevState => ({
+          translateX: clientX - prevState.originalX + prevState.lastTranslateX,
+          translateY: 21
+        }), () => {
+          if (onDrag) {
+            onDrag({
+              translateX: this.state.translateX,
+              translateY: this.state.translateY
+            });
+          }
+      });
+      };
   };
 
   handleMouseUp = () => {
@@ -99,6 +155,7 @@ export default class Draggable extends React.Component {
         x={translateX}
         y={translateY}
         isDragging={isDragging}
+        className = "node"
       >
         {children}
       </Container>

@@ -5,6 +5,8 @@
     height: auto;
 }
 
+
+
 .nodeSmallCircle {
     display: block;
     --main-height: 75px;
@@ -61,4 +63,27 @@
     font-size: 2em;
     -webkit-user-drag: none;
     -webkit-user-select: none;
+}
+
+.draggingBounds {
+    height: 600px;
+    width: 1000px;
+    margin-top: 99px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lockNodes {
+    pointer-events: none
+}
+
+.node {
+    height: 46.42px;
+    width: 46.42px !important;
+    float: left;
+}
+
+.linkMenu {
+    float: left;
+    width: 400px;
 }

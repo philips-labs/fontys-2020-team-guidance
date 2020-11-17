@@ -55,10 +55,7 @@ export default class Node extends Component {
             )
         }
         return (
-            <div className={this.getStyle()}>
                 <img className='nodeImg' src= {Waypoint} alt=''/>
-            </div>
-
         )
     }
 }

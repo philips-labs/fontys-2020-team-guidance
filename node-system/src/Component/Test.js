@@ -15,6 +15,7 @@ export default class Test extends Component {
             nodeData: data,
             x: 0,
             y: 0,
+            nodeToggle: "unlockedNodes"
         }
         this.newNode = this.newNode.bind(this);
         this.onSave = this.onSave.bind(this);
@@ -40,6 +41,16 @@ export default class Test extends Component {
             this.setState({nodeId: id + 1})
     }
 
+    LockNodes = () => {
+        if (this.state.nodeToggle === "unlockedNodes")
+        {
+            this.setState({nodeToggle: "lockNodes"})
+        }
+        else {
+            this.setState({nodeToggle: "unlockedNodes"})
+        }
+    }
+
     // doesnt do what it says it just recieves data from the child component and sets it to the correct node in the array
     onSave = (id, childX, childY, type) => {
         this.setState({x: childX, y: childY})
@@ -54,7 +65,6 @@ export default class Test extends Component {
         let exists = false;
         for (let i = 0; i < this.state.nodeList.length; i++)
         {
-            console.log(this.state.nodeList)
             if (this.state.nodeList[i].type === "start")
             {
                 exists = true;
@@ -91,30 +101,59 @@ export default class Test extends Component {
         else {
             return null;
         }
-    }
+    }              
     // renders the heatmap and draggable nodes
     render() {
-        return(    
-            <div className={'App'}>
+        if (this.state.nodeToggle === "lockNodes") {
+            return(    
+                <div className={'App'}>
+                    <div>
+                        <button onClick={this.newNode}>New Node</button>
+                        <button onClick={this.LockNodes}>Unlock Nodes</button>
+                        <this.checkStart/>
+                        <this.checkEnd/>
+                    </div>
+                        <div className={"linkMenu"}>
+                            <h2>Node Linker</h2>
+                            <input placeholder="ID node"></input>
+                        </div>
+                    <div>
+                        {/*<button onClick={this.onSave}>save</button>*/}
+                        <div className={"draggingBounds "+ this.state.nodeToggle}>
+                            {this.state.nodeList.map((item, key) => {
+                                return (
+                                    <Draggable parentCallback={this.onSave} id={key} type={item.type} key={key}>
+                                        <Node key={key} type={item.type} data={this.state.nodeData} nodeId={key}/>
+                                    </Draggable>
+                                );
+                            })}
+                        </div>
 
-                <div className={'Heatmap'}>
-                    <img src={DemoMap} alt={"demo map"} />
+                    </div>
                 </div>
+            );
 
-                <div>
-                    <button onClick={this.newNode}>New Node</button>
-                    <this.checkStart/>
-                    <this.checkEnd/>
-                    {/*<button onClick={this.onSave}>save</button>*/}
-                    {this.state.nodeList.map((item, key) => {
-                        return (
-                            <Draggable parentCallback={this.onSave} id={key} type={item.type} key={key}>
-                                <Node key={key} type={item.type} data={this.state.nodeData} nodeId={key}/>
-                            </Draggable>
-                        );
-                    })}
+        } else {
+            return(    
+                <div className={'App'}>
+                    <div>
+                        <button onClick={this.newNode}>New Node</button>
+                        <button onClick={this.LockNodes}>Lock Nodes</button>
+                        <this.checkStart/>
+                        <this.checkEnd/>
+                        {/*<button onClick={this.onSave}>save</button>*/}
+                        <div className={"draggingBounds "+ this.state.nodeToggle}>
+                            {this.state.nodeList.map((item, key) => {
+                                return (
+                                    <Draggable parentCallback={this.onSave} id={key} type={item.type} key={key}>
+                                        <Node key={key} type={item.type} data={this.state.nodeData} nodeId={key}/>
+                                    </Draggable>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }

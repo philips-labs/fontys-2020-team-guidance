@@ -1,0 +1,123 @@
+import React from 'react';
+import styled, { css } from 'styled-components';
+
+export default class Draggable extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      id: this.props.id,
+      type: this.props.type,
+      isDragging: false,
+  
+      originalX: 0,
+      originalY: 0,
+  
+      //TO BE SWAPPED BACK TO 0 - Dimitar
+      translateX: this.props.x,
+      translateY: this.props.y,
+  
+      lastTranslateX: 0,
+      lastTranslateY: 0
+    };
+  }
+
+  // removing listeners
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp);
+  }
+  // handle mouse events
+  handleMouseDown = ({ clientX, clientY }) => {
+    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('mouseup', this.handleMouseUp);
+
+    if (this.props.onDragStart) {
+      this.props.onDragStart();
+    }
+    
+    // setting mouse coordinates
+    this.setState({
+      originalX: clientX,
+      originalY: clientY,
+      isDragging: true
+    });
+  };
+
+  handleMouseMove = ({ clientX, clientY }) => {
+    const { isDragging } = this.state;
+    const { onDrag } = this.props;
+
+    if (!isDragging) {
+      return;
+    }
+    // calculating coordinate changes
+    this.setState(prevState => ({
+      translateX: clientX - prevState.originalX + prevState.lastTranslateX,
+      translateY: clientY - prevState.originalY + prevState.lastTranslateY
+    }), () => {
+      if (onDrag) {
+        onDrag({
+          translateX: this.state.translateX,
+          translateY: this.state.translateY
+        });
+      }
+    });
+  };
+
+  handleMouseUp = () => {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mouseup', this.handleMouseUp);
+    // setting coordinate changes
+    this.setState(
+      {
+        originalX: 0,
+        originalY: 0,
+        lastTranslateX: this.state.translateX,
+        lastTranslateY: this.state.translateY,
+
+        isDragging: false
+      },
+      () => {
+        if (this.props.onDragEnd) {
+          this.props.onDragEnd();
+        }
+      }
+    );
+  };
+  // calling the parent to give data
+  onTrigger = () => {
+    this.props.parentCallback(this.state.id, this.state.translateX, this.state.translateY, this.state.type);
+}
+  // rendering the new location
+  render() {
+    const { children } = this.props;
+    const { translateX, translateY, isDragging } = this.state;
+
+    return (
+      <Container
+        onMouseDown={this.handleMouseDown}
+        onClick={this.onTrigger}
+        x={translateX}
+        y={translateY}
+        isDragging={isDragging}
+      >
+        {children}
+      </Container>
+    );
+  }
+}
+
+const Container = styled.div.attrs(({ x, y}) => ({
+  style: {
+    transform: `translate(${x}px, ${y}px)`
+  }
+}))`
+  cursor: grab;
+  width: 4%;
+  position:absolute;
+  ${({ isDragging }) =>
+  isDragging && css`
+    opacity: 0.6;
+    cursor: grabbing;
+  `};
+`;

@@ -1,21 +1,28 @@
 import React from 'react';
 import './App.css';
-import MobileMenu from "./Components/MobileMenu";
-import Logo from "./Components/Logo";
-import SettingsPanel from "./Components/SettingsPanel";
-import AccountPanel from "./Components/AccountPanel";
-import Floorplan from "./Components/Floorplan";
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Link,
+    Redirect
+} from "react-router-dom";
+
+import MainPage from "./Pages/MainPage";
+import NotFound from "./Pages/404";
+import AdminPage from "./Pages/AdminPage";
 
 function App() {
 
   return (
-    <div className="App">
-        <Logo/>
-        <MobileMenu/>
-        <SettingsPanel/>
-        <AccountPanel/>
-        <Floorplan/>
-    </div>
+      <Router>
+          <Switch>
+              <Route exact path={"/"} component={MainPage}/>
+              <Route exact path={"/admin"} component={AdminPage}/>
+              <Route exact path={"/404"} component={NotFound}/>
+              <Redirect to={"/404"}/>
+          </Switch>
+      </Router>
   );
 }
 

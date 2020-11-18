@@ -11,6 +11,8 @@ export default class Test extends Component {
         super(props);
         this.state = {
             nodeList: [],
+            connectList: [],
+            distanceList: [],
             connectNodesPlaceholder: [],
             connectNodesDistance: [],
             nodeId: 0,
@@ -20,6 +22,7 @@ export default class Test extends Component {
         }
         this.newNode = this.newNode.bind(this);
         this.onSave = this.onSave.bind(this);
+        this.nodesLog = this.nodesLog.bind(this);
     }
     // creating a new node and adding it to the array save
     newNode = (e) => {
@@ -51,6 +54,20 @@ export default class Test extends Component {
         const y = this.state.y;
         item[id] = {id, x, y, type};
     }
+
+    //logs the nodes,connections and distance. Would have been better if all of it was stored in nodeList but I
+    //couldn't find a valid way to do it 
+    nodesLog = (nodeId, connectNodesPlaceholder, connectNodesDistance) =>{
+        let itemId = this.state.nodeList.concat(nodeId);
+        let itemConnects = this.state.connectList.concat(connectNodesPlaceholder);
+        let itemDistances = this.state.distanceList.concat(connectNodesDistance);
+        this.setState({
+            nodeList: itemId,
+            connectList: itemConnects,
+            distanceList: itemDistances
+        })
+    }
+
     // check if a start node exists
     checkStart = () => {
         let exists = false;
@@ -88,12 +105,15 @@ export default class Test extends Component {
             }
         }
         if (exists === false) {
-            return (<button onClick={this.newNode} value="end">Add End Point</button>)
+            return (<button onClick={this.newNode} value="e9+nd">Add End Point</button>)
         }
         else {
             return null;
         }
     }
+
+
+
     // renders the heatmap and draggable nodes
     render() {
         return(    
@@ -103,29 +123,29 @@ export default class Test extends Component {
                     <img src={DemoMap} alt={"demo map"} />
                 </div>
 
+                    <button onClick={this.startPathfinding}>Find Path</button>
                 
                     <div>
-                    <Draggable parentCallback={this.onSave} id={0} type={"start"} key={0} x={831} y={-55}>
-                        <Node key={0} type={"start"} data={this.state.nodeData} nodeId={0} connectNodesPlaceholder={[1]} connectNodesDistance={[3]}/>
+                    <Draggable parentCallback={this.onSave} id={0} type={"start"} key={0} x={831} y={-55} connectNodesPlaceholder={[1]} connectNodesDistance={[3]}>
+                        <Node key={0} type={"start"} data={this.state.nodeData} nodeId={0} connectNodesPlaceholder={[1]} connectNodesDistance={[3]} onSpawn={() => this.nodesLog(this.nodeId,this.connectNodesPlaceholder, this.connectNodesDistance)}/>
                     </Draggable>
-                    <Draggable parentCallback={this.onSave} id={1} type={"waypoint"} key={1} x={842} y={-221}>
-                        <Node key={1} type={"waypoint"} data={this.state.nodeData} nodeId={1} connectNodesPlaceholder={[0,2]} connectNodesDistance={[3,5]}/>
+                    <Draggable parentCallback={this.onSave} id={1} type={"waypoint"} key={1} x={842} y={-221} connectNodesPlaceholder={[0,2]} connectNodesDistance={[3,5]}>
+                        <Node key={1} type={"waypoint"} data={this.state.nodeData} nodeId={1} connectNodesPlaceholder={[0,2]} connectNodesDistance={[3,5]} onSpawn={(e) => this.nodesLog(this.nodeId,this.connectNodesPlaceholder, this.connectNodesDistance)}/>
                     </Draggable>
-                    <Draggable parentCallback={this.onSave} id={2} type={"waypoint"} key={2} x={672} y={-283}>
-                        <Node key={2} type={"waypoint"} data={this.state.nodeData} nodeId={2} connectNodesPlaceholder={[1,3,4]} connectNodesDistance={[5, 4, 6]}/>
+                    <Draggable parentCallback={this.onSave} id={2} type={"waypoint"} key={2} x={672} y={-283} connectNodesPlaceholder={[1,3,4]} connectNodesDistance={[5, 4, 6]}>
+                        <Node key={2} type={"waypoint"} data={this.state.nodeData} nodeId={2} connectNodesPlaceholder={[1,3,4]} connectNodesDistance={[5, 4, 6]} onSpawn={() => this.nodesLog(this.nodeId,this.connectNodesPlaceholder, this.connectNodesDistance)}/>
                     </Draggable>
-                    <Draggable parentCallback={this.onSave} id={3} type={"waypoint"} key={3} x={726} y={-418}>
-                        <Node key={3} type={"waypoint"} data={this.state.nodeData} nodeId={3} connectNodesPlaceholder={[2,5]} connectNodesDistance={[4, 3]}/>
+                    <Draggable parentCallback={this.onSave} id={3} type={"waypoint"} key={3} x={726} y={-418} connectNodesPlaceholder={[2,5]} connectNodesDistance={[4, 3]}>
+                        <Node key={3} type={"waypoint"} data={this.state.nodeData} nodeId={3} connectNodesPlaceholder={[2,5]} connectNodesDistance={[4, 3]} onSpawn={() => this.nodesLog(this.nodeId,this.connectNodesPlaceholder, this.connectNodesDistance)}/>
                     </Draggable>
-                    <Draggable parentCallback={this.onSave} id={4} type={"waypoint"} key={4} x={506} y={-437}>
-                        <Node key={4} type={"waypoint"} data={this.state.nodeData} nodeId={4} connectNodesPlaceholder={[2]} connectNodesDistance={[6]}/>
+                    <Draggable parentCallback={this.onSave} id={4} type={"waypoint"} key={4} x={506} y={-437} connectNodesPlaceholder={[2]} connectNodesDistance={[6]}>
+                        <Node key={4} type={"waypoint"} data={this.state.nodeData} nodeId={4} connectNodesPlaceholder={[2]} connectNodesDistance={[6]} onSpawn={() => this.nodesLog(this.nodeId,this.connectNodesPlaceholder, this.connectNodesDistance)}/>
                     </Draggable>
-                    <Draggable parentCallback={this.onSave} id={5} type={"end"} key={5} x={716} y={-516}>
-                        <Node key={5} type={"end"} data={this.state.nodeData} nodeId={5} connectNodesPlaceholder={[3]} connectNodesDistance={[3]}/>
+                    <Draggable parentCallback={this.onSave} id={5} type={"end"} key={5} x={716} y={-516} connectNodesPlaceholder={[3]} connectNodesDistance={[3]}>
+                        <Node key={5} type={"end"} data={this.state.nodeData} nodeId={5} connectNodesPlaceholder={[3]} connectNodesDistance={[3]} onSpawn={() => this.nodesLog(this.nodeId,this.connectNodesPlaceholder, this.connectNodesDistance)}/>
                     </Draggable>
                     </div>
-
-
+                    {console.log(this.state.nodeList)}
             </div>
             
         );

@@ -77,7 +77,7 @@ public class Scanner_BLE {
             new BluetoothAdapter.LeScanCallback() {
                 @Override
                 public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-                    Log.d("SCAN", "IDK hij komt in die onLeScan");
+                    //Log.d("SCAN", "IDK hij komt in die onLeScan");
                     final int new_rssi = rssi;
                     if (rssi > signalStrength) {
                         mHandler.post(new Runnable() {

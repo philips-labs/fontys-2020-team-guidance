@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -29,10 +31,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<BLE_Device> mBTDeviceArrayList;
     private ListAdapter_BLE_Devices adapter;
 
+    private ArrayList<BLE_Device> filterBleArrayList;
+    private HashMap<String, Integer> filterRSSIHashMap;
+
     private Button btn_Scan;
 
     private BroadcastReceiver_BTState mBTStateUpdateReceiver;
     private Scanner_BLE mBLEScanner;
+
+    boolean PausedOnStartUp = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +56,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mBTStateUpdateReceiver = new BroadcastReceiver_BTState(getApplicationContext());
-        mBLEScanner = new Scanner_BLE(this, 15000, -75);
+        mBLEScanner = new Scanner_BLE(this, 7500, -75);
 
         mBTDeviceHashMap = new HashMap<>();
         mBTDeviceArrayList = new ArrayList<>();
 
-        adapter = new ListAdapter_BLE_Devices(this, R.layout.device_list_item, mBTDeviceArrayList);
+        filterBleArrayList = new ArrayList<>();
+        filterRSSIHashMap = new HashMap<>();
+
+        adapter = new ListAdapter_BLE_Devices(this, R.layout.device_list_item, filterBleArrayList);
 
         ListView listView = new ListView(this);
         listView.setAdapter(adapter);
@@ -80,7 +90,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        stopScan();
+        //For some reason onPause gets called after onCreate
+        if (!PausedOnStartUp) {
+            PausedOnStartUp = true;
+        }
+        else {
+            stopScan();
+        }
     }
 
     @Override
@@ -148,8 +164,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             mBTDeviceHashMap.get(address).setRSSI(new_rssi);
         }
-
+        filter3ClosestDevices();
         adapter.notifyDataSetChanged();
+    }
+
+    private void filter3ClosestDevices () {
+        //Putting the RSSI in a different HashMap with as key the address
+        for (String key: mBTDeviceHashMap.keySet()) {
+            filterRSSIHashMap.put(key, mBTDeviceHashMap.get(key).getRSSI());
+        }
+
+        //Log.d("FILTER", filterRSSIHashMap.toString());
+
+        //Check if there are even 3 devices in range
+        int count = 3;
+        if (filterRSSIHashMap.size() == 1) {
+            count = 1;
+        }
+        else if (filterRSSIHashMap.size() == 2) {
+            count = 2;
+        }
+
+        //Clear list
+        filterBleArrayList.clear();
+
+        //Get 3 lowest RSSI's
+        for (int i = 0; i < count; i++) {
+            String key = getMinKey(filterRSSIHashMap, filterRSSIHashMap.keySet());
+            filterBleArrayList.add(mBTDeviceHashMap.get(key));
+            filterRSSIHashMap.remove(key);
+        }
+        //Log.d("HASHMAP", filterRSSIHashMap.toString());
+        //Log.d("ARRAYLIST", filterBleArrayList.toString());
+
+        filterRSSIHashMap.clear();
+    }
+
+    private String getMinKey(HashMap<String, Integer> map, Set<String> keys) {
+        String minKey = null;
+        int minValue = Integer.MAX_VALUE;
+        for(String key : keys) {
+            int value = map.get(key);
+            if(value < minValue) {
+                minValue = value;
+                minKey = key;
+            }
+        }
+        return minKey;
+    }
+
+    public void clearList() {
+        filterBleArrayList.clear();
     }
 
     public void startScan() {
@@ -157,6 +222,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mBTDeviceArrayList.clear();
         mBTDeviceHashMap.clear();
+
+        filterRSSIHashMap.clear();
+        filterBleArrayList.clear();
 
         adapter.notifyDataSetChanged();
 

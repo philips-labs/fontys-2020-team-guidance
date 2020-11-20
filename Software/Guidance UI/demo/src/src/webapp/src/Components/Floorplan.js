@@ -71,10 +71,10 @@ class Floorplan extends Component {
     _scroll(e) {
         const floorplan = document.getElementById("floorplan-container-image");
 
-        if(e.deltaY > 0 && this.state.scroll < 1.5) {
+        if(e.deltaY > 0 && this.state.scroll < 4.5) { //Max scale 450%
             floorplan.style.transform = "scale("+ (this.state.scroll += 0.1) +")"; //Scale up 10%
         }
-        else if(this.state.scroll > 0.5) {
+        else if(this.state.scroll > 0.5) { //Min scale 50%
             floorplan.style.transform = "scale("+ (this.state.scroll -= 0.1) +")"; //Scale down 10%
         }
     }

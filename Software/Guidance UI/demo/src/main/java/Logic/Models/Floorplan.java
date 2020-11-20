@@ -1,13 +1,9 @@
 package Logic.Models;
 
-public class FloorplanModel {
+public class Floorplan {
     private String SSID;
     private String Link;
-
-    public FloorplanModel(String SSID, String link) {
-        this.SSID = SSID;
-        Link = link;
-    }
+    private String Name;
 
     public String getSSID() {
         return SSID;
@@ -23,5 +19,13 @@ public class FloorplanModel {
 
     public void setLink(String link) {
         Link = link;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }

@@ -4,7 +4,8 @@ body {
   font-weight: 300;
   background-color: rgb(26, 26, 26);
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -357,16 +358,17 @@ input:focus, textarea:focus, select:focus{
     color: #aeaeae;
     transform: translate(-50%, 0);
     font-size: 2vw;
-    top: 52%;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+    left: 50vw;
+    top: 30vh;
   }
 
   div.AdminMenu {
-    position: absolute;
+    position: relative;
     left: 0;
-    top: 15%;
+    top: 15vh;
     width: 100vw;
     text-align: left;
   }
@@ -374,13 +376,30 @@ input:focus, textarea:focus, select:focus{
   h.PageCategory {
     position: relative;
     color: #c8c8c8;
-    transform: translate(-50%, 0);
     font-size: 2vw;
     top: 17%;
-    left: 3%;
+    left: -1.7vw;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+    float: left;
+    text-align: left;
+  }
+
+  h.PageCategoryButton {
+    position: relative;
+    color: #c8c8c8;
+    transform: translate(-50%, 0);
+    font-size: 2vw;
+    top: 17%;
+    margin-right: 1vw;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+  }
+
+  h.PageCategoryButton:hover {
+    cursor: pointer;
   }
 
   div.Divider {
@@ -399,17 +418,16 @@ input:focus, textarea:focus, select:focus{
     position: relative;
     top: 8vh;
     overflow-x: scroll;
-    scroll-direction: horizontal;
+    overflow-y: hidden;
   }
 
   div.FloorplanObject {
-    width: auto;
-    text-align: center;
+    height: auto;
+    border: 1px solid transparent;
   }
 
   div.FloorplanObject:hover {
-    cursor: pointer;
-    background-color: rgb(41, 41, 41);
+    border: 1px solid rgb(55, 55, 55);
   }
 
   img.FloorplanListImage {
@@ -419,13 +437,48 @@ input:focus, textarea:focus, select:focus{
     margin-left: 2vw;
     margin-right: 2vw;
     margin-bottom: 2vh;
+    left: 0;
+  }
+
+  div.CategoryTitle {
+    display: flex;
+    position: relative;
+    left: 4.5vw;
+  }
+
+  h.FloorplanDeleteButton {
+    position: relative;
+    font-size: 2vw;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    color: red;
+    visibility: hidden;
+    margin: 0;
+    z-index: 1;
+  }
+
+  h.FloorplanDeleteButton:hover {
+    cursor: pointer;
   }
 
   h.FloorplanTitle {
     color: #aeaeae;
-    position: relative;
-    left: -50%;
     font-size: 1.2vw;
+    margin: 0;
+    position: relative;
+  }
+
+  input.FileInput {
+    display: none;
+  }
+
+  h.green {
+    color: green;
+  }
+
+  h.red {
+    color: red;
   }
 
 }

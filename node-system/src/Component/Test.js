@@ -3,6 +3,7 @@ import Node from './Node.js';
 import Draggable from './Draggable.js';
 import DemoMap from './Images/background.png';
 import data from "../Media/media.json";
+import DijkstraPath, {startPathfinding} from './Dijkstra_Old.js';
 import './Node.css';
 import '../App.css';
 
@@ -11,6 +12,7 @@ export default class Test extends Component {
         super(props);
         this.state = {
             nodeList: [],
+            nodeListId: [],
             connectList: [],
             distanceList: [],
             connectNodesPlaceholder: [],
@@ -20,9 +22,9 @@ export default class Test extends Component {
             x: 0,
             y: 0,
         }
-        this.newNode = this.newNode.bind(this);
-        this.onSave = this.onSave.bind(this);
+        Object = new DijkstraPath;
         this.nodesLog = this.nodesLog.bind(this);
+
     }
     // creating a new node and adding it to the array save
     newNode = (e) => {
@@ -58,11 +60,11 @@ export default class Test extends Component {
     //logs the nodes,connections and distance. Would have been better if all of it was stored in nodeList but I
     //couldn't find a valid way to do it 
     nodesLog = (nodeId, connectNodesPlaceholder, connectNodesDistance) =>{
-        let itemId = this.state.nodeList.concat(nodeId);
+        let itemId = this.state.nodeListId.concat(nodeId);
         let itemConnects = this.state.connectList.concat(connectNodesPlaceholder);
         let itemDistances = this.state.distanceList.concat(connectNodesDistance);
         this.setState({
-            nodeList: itemId,
+            nodeListId: itemId,
             connectList: itemConnects,
             distanceList: itemDistances
         })
@@ -123,7 +125,6 @@ export default class Test extends Component {
                     <img src={DemoMap} alt={"demo map"} />
                 </div>
 
-                    <button onClick={this.startPathfinding}>Find Path</button>
                 
                     <div>
                     <Draggable parentCallback={this.onSave} id={0} type={"start"} key={0} x={831} y={-55} connectNodesPlaceholder={[1]} connectNodesDistance={[3]}>
@@ -146,6 +147,12 @@ export default class Test extends Component {
                     </Draggable>
                     </div>
                     {console.log(this.state.nodeList)}
+
+                <div>
+                    {/* <DijkstraPath setClick={click => this.dijkstra = click}/>
+                    <button onClick={()=>this.propsPath.dijsktraRef}>Find Path</button> */}
+                    <button onClick={()=>this.state.Object.startPathfinding}>Find Path</button>
+                </div>
             </div>
             
         );

@@ -12,13 +12,13 @@ export default function DijkstraPath(){
 
         //to implement incoming data, this for now is hardcoded
         this.state={
-            problem: {
-                start: {adj_id: [A], distance: [3]},
-                A: {adj_id:[B], distance: [5]},
-                B: {adj_id: [C, D], distance: [6, 4]},
-                C: {adj_id: [finish], distance: [3]},
-                D: {adj_id: [], distance: []},
-                finish: {adj_id: [], distance: []}
+            problem: [
+                {0: {adj_id: [1], distance: [3]}},
+                {1: {adj_id:[2], distance: [5]}},
+                {2: {adj_id: [3, 4], distance: [6, 4]}},
+                {3: {adj_id: [5], distance: [3]}},
+                {4: {adj_id: [], distance: []}},
+                {5: {adj_id: [], distance: []}}
         
                 //example:
                 // start: {A: 5, B: 2},
@@ -27,39 +27,43 @@ export default function DijkstraPath(){
                 // C: {D: 6, finish: 3},
                 // D: {finish: 1},
                 // finish: {}
-            },
+            ],
 
-            maximised_nodes: {
-                start: {adj_id: [A], distance: [Number.MAX_VALUE]},
-                A: {adj_id:[B], distance: [Number.MAX_VALUE]},
-                B: {adj_id: [C, D], distance: [Number.MAX_VALUE, Number.MAX_VALUE]},
-                C: {adj_id: [finish], distance: [Number.MAX_VALUE]},
-                D: {adj_id: [], distance: []},
-                finish: {adj_id: [], distance: []}
-            },
+            maximised_nodes: [
+                {0: {adj_id: [1], distance: [Number.MAX_VALUE]}},
+                {1: {adj_id:[2], distance: [Number.MAX_VALUE]}},
+                {2: {adj_id: [3, 4], distance: [Number.MAX_VALUE, Number.MAX_VALUE]}},
+                {3: {adj_id: [5], distance: [Number.MAX_VALUE]}},
+                {4: {adj_id: [], distance: []}},
+                {5: {adj_id: [], distance: []}}
+            ],
 
-            settled_nodes_id: [],
-            unsettled_nodes_id: []
+            settled_nodes: [],
+            unsettled_nodes: []
         }
 
     const dijkstra = () =>{
         this.setState({
-            unsettled_nodes_id: [this.state.problem.start]
+            unsettled_nodes: [this.state.problem.start]
         });
-
-        while(this.state.unsettled_nodes_id.length != 0)
-        {
-
-        }
     }
 
     const getLowestNode = () =>{
-        let LowestDistancedNode = []
+        let lowestDistanceNode = [];
+        let lowestDistance = Number.MAX_VALUE;
+        
+        for(const node of this.state.unsettled_nodes)
+        {
+            if(node.distance < lowestDistance)
+            {
+                lowestDistance = node.distance;
+                lowestDistanceNode = node;
+            }
+        }
+        return lowestDistanceNode;
     }
 
-    // render(){
-    //     return(
-    //         <div></div>
-    //     );
-    // }   
+    const calculateMinimumDistance = () =>{
+        
+    }
 }

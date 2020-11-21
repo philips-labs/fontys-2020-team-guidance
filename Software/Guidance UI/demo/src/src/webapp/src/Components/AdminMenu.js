@@ -47,6 +47,21 @@ class AdminMenu extends Component {
         document.getElementById("file-input").click();
     }
 
+    fileInputOnchange = (e) => {
+        const reader = new FileReader();
+
+        const file = e.target.files[0];
+        reader.readAsDataURL(file);
+
+        let result;
+
+        reader.onload = function () {
+                result = reader.result;
+        }
+
+        fetch()
+    }
+
     openSelect = (e) => {
         if(this.state.deleting) {
             e.target.style.color = 'red';
@@ -106,7 +121,7 @@ class AdminMenu extends Component {
                         }
                     </div>
 
-                    <input className={"FileInput"} id="file-input" type="file" name="name" accept="image/*" />
+                    <input onChange={this.fileInputOnchange} className={"FileInput"} id="file-input" type="file" name="name" accept="image/*" />
                 </div>
             );
         }

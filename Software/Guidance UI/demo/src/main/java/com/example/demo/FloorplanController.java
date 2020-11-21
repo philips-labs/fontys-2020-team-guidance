@@ -2,16 +2,13 @@ package com.example.demo;
 
 import Logic.Collection.AdminKeyCollection;
 import Logic.Collection.FloorplanCollection;
+import Logic.Models.AdminKey;
 import Logic.Models.Floorplan;
-import com.fasterxml.jackson.databind.JsonNode;
-import netscape.javascript.JSObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("books")
@@ -41,8 +38,35 @@ public class FloorplanController {
     }
 
     @DeleteMapping("/deleteFloorplan/{floorplanname}")
-    public ResponseEntity<Collection<Floorplan>> DeleteFloorplans(@PathVariable String floorplanname) {
+    public ResponseEntity<Collection<Floorplan>> DeleteFloorplan(@PathVariable String floorplanname) {
         return new ResponseEntity<>(floorplans.DeleteFloorplans(floorplanname), HttpStatus.OK);
+    }
+
+    @GetMapping("/checkSuperAdmin/{key}")
+    public ResponseEntity<Collection<AdminKey>> CheckSuperAdmin(@PathVariable String key) {
+        return new ResponseEntity<>(adminKeys.CheckAdmin(key), HttpStatus.OK);
+    }
+
+    @PutMapping("/editKey/{key}")
+    public ResponseEntity<Collection<AdminKey>> EditAdminKey(@PathVariable String key, @RequestBody String newValue) {
+        return new ResponseEntity<>(adminKeys.EditAdminKey(key, newValue), HttpStatus.OK);
+    }
+
+    @PutMapping("/editSSID/{key}")
+    public ResponseEntity<Collection<AdminKey>> EditSSID(@PathVariable String key, @RequestBody String newValue) {
+        return new ResponseEntity<>(adminKeys.EditSSID(key, newValue), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteKey/{key}")
+    public ResponseEntity<Collection<AdminKey>> DeleteAdminKey(@PathVariable String key) {
+        return new ResponseEntity<>(adminKeys.DeleteAdminKey(key), HttpStatus.OK);
+    }
+
+    @PostMapping("/addAdminKey")
+    public ResponseEntity<Collection<AdminKey>> AddAdminKey(@RequestBody AdminKey adminKey) {
+        System.out.println(adminKey.getKey());
+        System.out.println(adminKey.getSSID());
+        return new ResponseEntity<>(adminKeys.AddAdminKey(adminKey), HttpStatus.OK);
     }
 
 }

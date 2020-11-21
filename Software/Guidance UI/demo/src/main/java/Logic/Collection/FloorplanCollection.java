@@ -39,6 +39,24 @@ public class FloorplanCollection {
         floorplan5.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
         floorplan5.setName("F4");
         Floorplans.add(floorplan5);
+
+        Floorplan floorplan6 = new Floorplan();
+        floorplan6.setSSID("FontysWPA");
+        floorplan6.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
+        floorplan6.setName("F5");
+        Floorplans.add(floorplan6);
+
+        Floorplan floorplan7 = new Floorplan();
+        floorplan7.setSSID("FontysWPA");
+        floorplan7.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
+        floorplan7.setName("F6");
+        Floorplans.add(floorplan7);
+
+        Floorplan floorplan8 = new Floorplan();
+        floorplan8.setSSID("FontysWPA");
+        floorplan8.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
+        floorplan8.setName("F7");
+        Floorplans.add(floorplan8);
     }
 
     public Collection<Floorplan> GetFloorplansBySSID(String ssid) {

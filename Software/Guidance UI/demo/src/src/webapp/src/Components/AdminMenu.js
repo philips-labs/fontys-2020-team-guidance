@@ -8,6 +8,7 @@ class AdminMenu extends Component {
         super(props);
 
         this.state = {
+            superAdmin: false,
             logIn: false,
             floorplans: {},
             deleting: false,
@@ -22,22 +23,24 @@ class AdminMenu extends Component {
     enterKey() {
         const key = prompt("Please enter your admin key", "Admin key");
 
-        fetch("/books/checkKey/" + key)
-            .then(data => data.text())
-            .then(res => {
-                if(res === "404") {
-                    document.getElementById("LoginText").innerHTML = "Wrong password try again";
-                    this.enterKey();
-                }
-                else {
-                    this.setState({SSID: res});
-                    fetch("/books/getFloorplansBySSID/" + res)
-                        .then(floorplans => floorplans.json())
-                        .then(res => {
-                            this.setState({floorplans: res, logIn: true})
-                        })
-                }
-            })
+        if(key && key.length > 0) {
+            fetch("/books/checkKey/" + key)
+                .then(data => data.text())
+                .then(res => {
+                    if(res === "404") {
+                        document.getElementById("LoginText").innerHTML = "Wrong password try again";
+                        this.enterKey();
+                    }
+                    else {
+                        this.setState({SSID: res});
+                        fetch("/books/getFloorplansBySSID/" + res)
+                            .then(floorplans => floorplans.json())
+                            .then(res => {
+                                this.setState({floorplans: res, logIn: true})
+                            })
+                    }
+                })
+        }
     }
 
     openFileDialog = () => {
@@ -67,15 +70,18 @@ class AdminMenu extends Component {
 
     deleteFloorplanObjects = (e) => {
         if(window.confirm("Are you sure you want to delete " + e.target.id + "?")) {
-
-        }
         fetch("/books/deleteFloorplan/" + e.target.id, {
             method: 'delete'
         })
             .then(floorplans => floorplans.json())
             .then(res => {
-                this.setState({floorplans: res,})
+                this.setState({floorplans: res})
             })
+
+        }
+        else {
+            alert("delete canceled");
+        }
     }
 
     render() {
@@ -91,7 +97,7 @@ class AdminMenu extends Component {
                     <div className={"FloorplanList"}>
                         {
                             this.state.floorplans.map((item, key) => {
-                                return  <div className={"FloorplanObject"}>
+                                return  <div key={key} className={"FloorplanObject"}>
                                             <img className={"FloorplanListImage"} src={item.link}/>
                                             <h className={"FloorplanTitle"}>{item.name}</h>
                                             <h name={"SelectButton"} onClick={this.deleteFloorplanObjects} id={item.name} className={"FloorplanDeleteButton"}>-</h>

@@ -1,2 +1,4 @@
-package com.guidance.javaserver;public class FloorDAOImpl {
+package com.guidance.javaserver;
+
+public class FloorDAOImpl {
 }

@@ -21,33 +21,37 @@ public class tcpServer {
 
         try {
             socket = new ServerSocket(port);
-            System.out.println("Server waiting for client on port " + socket.getLocalPort());
+            System.out.println("Server waiting for client on port " + socket.getLocalPort()+"\n");
 
             //looping...
             while(true){
                 Socket sckt = socket.accept();
+                System.out.println(sckt.isClosed());
                 System.out.println("New connection accepted "
                         + sckt.getInetAddress()
                         + ":"
                         +sckt.getPort());
                 input = new BufferedReader(new InputStreamReader(sckt.getInputStream()));
-
+                System.out.println("Keep-Alive: "+ sckt.getKeepAlive());
+                System.out.println(sckt.isClosed());
                 //print received data
                 try {
+                    System.out.println(sckt.isClosed());
                     while(true){
                         String msg = input.readLine();
                         if (msg==null) break;
                         System.out.println(msg);
                         if (msg.equals("PING|")){
+                            System.out.println("Flag for alive is set to: " +sckt.getKeepAlive());
                             output = new PrintWriter(sckt.getOutputStream(),true);
-
                             //get user input and transmit it to server
-                            pckgSent = "OK";
+                            pckgSent = "OK"; // here for returning ?
                             //stop if input line is "."
-                            output.println(pckgSent);
+                            output.println("Data sent: "+ pckgSent);
                             sckt.close();
                         }
                     }
+                    System.out.println(sckt.isClosed());
                 }
                 catch (IOException e){
                     System.out.println(e);

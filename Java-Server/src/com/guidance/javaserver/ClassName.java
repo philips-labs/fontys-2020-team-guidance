@@ -3,9 +3,9 @@ package com.guidance.javaserver;
 
 import java.util.HashMap;
 
-public class ClassName{
+public class ClassName {
     public static void main(String[] args) {
-        //System.out.println("kur");
+        //System.out.println("hye there");
         //query will be coming from the object class files in order to have custom 'sentences' for them
 
         String queryIns = "insert into user (Name, Age, Gender, Email) value ('@0', @1, '@2', '@3')";
@@ -22,9 +22,9 @@ public class ClassName{
         System.out.println(DAL.CreateUpdateDelete_Object(1, queryUp, statsUp));
         HashMap<String, String[]> temp = DAL.Read_Object(queryRead, statsRead);
         //check the below for nullPointerException first
-        for (String key: temp.keySet()){
+        for (String key : temp.keySet()) {
             System.out.print("id: " + key + " -> ");
-            for (String value: temp.get(key)){
+            for (String value : temp.get(key)) {
                 System.out.print("/" + value);
             }
             System.out.println();

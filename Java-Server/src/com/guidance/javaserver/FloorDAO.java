@@ -1,2 +1,4 @@
-package com.guidance.javaserver;public interface FloorDAO {
+package com.guidance.javaserver;
+
+public interface FloorDAO {
 }

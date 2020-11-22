@@ -3,13 +3,13 @@ import Node from './Node.js';
 import Draggable from './Draggable.js';
 import DemoMap from './Images/background.png';
 import data from "../Media/media.json";
-import DijkstraPath from "./Dijkstra.js";
+import DijkstraPath, {calculateMinimumDistance} from "./Dijkstra.js";
 import './Node.css';
 import '../App.css';
 
 export default class Test extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             nodeList: [],
             connectList: [],
@@ -19,7 +19,7 @@ export default class Test extends Component {
             nodeId: 0,
             nodeData: data,
             x: 0,
-            y: 0,
+            y: 0
         }
         this.newNode = this.newNode.bind(this);
         this.onSave = this.onSave.bind(this);
@@ -46,16 +46,6 @@ export default class Test extends Component {
             this.setState({nodeId: id + 1})
     }
 
-    // doesnt do what it says it just recieves data from the child component and sets it to the correct node in the array
-    onSave = (id, childX, childY, type) => {
-        this.setState({x: childX, y: childY})
-
-        const item = this.state.nodeList;
-        const x = this.state.x;
-        const y = this.state.y;
-        item[id] = {id, x, y, type};
-    }
-
     //logs the nodes,connections and distance. Would have been better if all of it was stored in nodeList but I
     //couldn't find a valid way to do it 
     nodesLog = (nodeId, connectNodesPlaceholder, connectNodesDistance) =>{
@@ -69,6 +59,19 @@ export default class Test extends Component {
         })
     }
 
+    CallMinimumDistanceDijkstra = () =>{
+        new DijkstraPath().calculateMinimumDistance();
+    }
+
+    // doesnt do what it says it just recieves data from the child component and sets it to the correct node in the array
+    onSave = (id, childX, childY, type) => {
+        this.setState({x: childX, y: childY})
+
+        const item = this.state.nodeList;
+        const x = this.state.x;
+        const y = this.state.y;
+        item[id] = {id, x, y, type};
+    }
     // check if a start node exists
     checkStart = () => {
         let exists = false;
@@ -106,15 +109,12 @@ export default class Test extends Component {
             }
         }
         if (exists === false) {
-            return (<button onClick={this.newNode} value="e9+nd">Add End Point</button>)
+            return (<button onClick={this.newNode} value="end">Add End Point</button>)
         }
         else {
             return null;
         }
     }
-
-
-
     // renders the heatmap and draggable nodes
     render() {
         return(    
@@ -124,7 +124,6 @@ export default class Test extends Component {
                     <img src={DemoMap} alt={"demo map"} />
                 </div>
 
-                    <button onClick={this.startPathfinding}>Find Path</button>
                 
                     <div>
                     <Draggable parentCallback={this.onSave} id={0} type={"start"} key={0} x={831} y={-55} connectNodesPlaceholder={[1]} connectNodesDistance={[3]}>
@@ -146,7 +145,11 @@ export default class Test extends Component {
                         <Node key={5} type={"end"} data={this.state.nodeData} nodeId={5} connectNodesPlaceholder={[3]} connectNodesDistance={[3]} onSpawn={() => this.nodesLog(this.nodeId,this.connectNodesPlaceholder, this.connectNodesDistance)}/>
                     </Draggable>
                     </div>
-                    {console.log(this.state.nodeList)}
+
+                    <div>
+                        <button onClick={() => this.CallMinimumDistanceDijkstra()}>Find Path</button>
+                    </div>
+
             </div>
             
         );

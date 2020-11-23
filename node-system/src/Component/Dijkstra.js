@@ -14,63 +14,127 @@ export default class DijkstraPath extends Component{
     super(path_props);
         this.state = {
             //Object array explanation: 
-            //<current node id>: {adj_id:[<list of adjacent nodes' IDs>], distance[<distance to said adj nodes' IDs>]}
+            //<current node id>: {adj_id:[<list of adjacent nodes' IDs>], distance:[<distance to said adj nodes' IDs>], distance_src: <distance to source>}
+
+            //HOW TO TAKE DATA FROM PROBLEM STATE:
+            //calling problem[0].distance[0] for instance directly does not work. You have to give a parameter the value of problem[0]
+            //then call that parameter with .distance_adj[0]
+            //EXAMPLE: let sourceDistance = this.state.problem[0]
+                    // console.log(sourceDistance[0].adj_id[0])
                 problem: [
-                    {0: {adj_id: [1], distance: [3]}},
-                    {1: {adj_id:[2], distance: [5]}},
-                    {2: {adj_id: [3, 4], distance: [6, 4]}},
-                    {3: {adj_id: [5], distance: [3]}},
-                    {4: {adj_id: [], distance: []}},
-                    {5: {adj_id: [], distance: []}}
+                    {0: {adj_id: [1], distance_adj: [3] , distance_src:0, type: "start", shortest_path: []}},
+                    {1: {adj_id:[0, 2], distance_adj: [3,5] , distance_src:Number.MAX_VALUE, type: "intermediary", shortest_path: []}},
+                    {2: {adj_id: [1, 3, 4], distance_adj: [5, 6, 4] , distance_src:Number.MAX_VALUE, type: "intermediary", shortest_path: []}},
+                    {3: {adj_id: [5], distance_adj: [3] , distance_src:Number.MAX_VALUE, type: "intermediary", shortest_path: []}},
+                    {4: {adj_id: [2], distance_adj: [4] , distance_src:Number.MAX_VALUE, type: "intermediary", shortest_path: []}},
+                    {5: {adj_id: [3], distance_adj: [3] , distance_src:Number.MAX_VALUE, type: "end", shortest_path: []}}
                 ],
 
-                maximised_nodes: [
-                    {0: {adj_id: [1], distance: [Number.MAX_VALUE]}},
-                    {1: {adj_id:[2], distance: [Number.MAX_VALUE]}},
-                    {2: {adj_id: [3, 4], distance: [Number.MAX_VALUE, Number.MAX_VALUE]}},
-                    {3: {adj_id: [5], distance: [Number.MAX_VALUE]}},
-                    {4: {adj_id: [], distance: []}},
-                    {5: {adj_id: [], distance: []}}
-                ],
-                //should this array be defined more? i.e. add adj_id and distance to it
+                // solution: [
+                //     {0: {adj_id: [1], distance_adj: [3] , distance_src:0, type: "start"}},
+                //     {1: {adj_id:[0,2], distance_adj: [3,5] , distance_src:Number.MAX_VALUE, type: "normal"}},
+                //     {2: {adj_id: [1, 3, 4], distance_adj: [5, 6, 4] , distance_src:Number.MAX_VALUE, type: "normal"}},
+                //     {3: {adj_id: [5], distance_adj: [3] , distance_src:Number.MAX_VALUE, type: "normal"}},
+                //     {4: {adj_id: [2], distance_adj: [4] , distance_src:Number.MAX_VALUE, type: "normal"}},
+                //     {5: {adj_id: [3], distance_adj: [3] , distance_src:Number.MAX_VALUE, type: "end"}}
+                // ],
+
+                //arrays to keep the unsettled and settled nodes in check
+                //unsettled - has not had their value checked
+                //settled - has had their value checked and counted in the final path function
                 settled_nodes: [],
-                unsettled_nodes: []
+                unsettled_nodes: [],
+                solution: []
         }
+        this.dijkstra = this.dijkstra.bind(this);
+        this.getLowestDistanceNode = this.getLowestDistanceNode.bind(this);
+        this.calculateMinimumDistance = this.calculateMinimumDistance.bind(this);
     }
 
+    componentDidMount() { console.log("Mounted!"); }
+
+    //NOTE: DO NOT USE SETSTATE IN LOOPS
     dijkstra = function(){
-        this.setState({
-            unsettled_nodes: [this.problem[0]]
-        });
-        for(let node of this.state.unsettled_nodes)
+        let unsettled_replacement = this.state.unsettled_nodes
+        unsettled_replacement.push(this.state.problem[0])
+        this.setState(({unsettled_nodes}) => ({
+            unsettled_nodes: unsettled_replacement
+        }))
+        console.log(this.state.unsettled_nodes)
+        while(this.state.unsettled_nodes.length !== 0)
         {
-            
+            //gets lowest cost node in the unresolved nodes
+            let currentNode = this.getLowestDistanceNode()
+            console.log(currentNode)
+
+            //replace unsettled array in state while removing the current node
+            let replacementArray = this.state.unsettled_nodes
+            let index = replacementArray.indexOf(currentNode);
+            replacementArray.splice(index, 1)
+            this.setState(({unsettled_nodes}) => ({
+                unsettled_nodes: replacementArray
+            }))
+
+            let currentNode_adj_distance = currentNode[0].distance_adj
+            for(let i=0;i<currentNode[0].distance_adj.length;i++)
+            {
+                let adjacent_distance = currentNode[0].distance_adj[i]
+                let adjacent_id = currentNode[0].adj_id[i]
+                let source_distance = currentNode[0].distance_src
+                let adj_node = {adj_id: adjacent_id, distance_adj: adjacent_distance , distance_src: source_distance, type: "intermediary", shortest_path: []}
+                if(!this.state.settled_nodes.includes(adj_node))
+                {
+                    console.log(adj_node)
+                    this.calculateMinimumDistance(adj_node)
+                    let replacementArray1 = this.state.unsettled_nodes
+                    replacementArray1.push(...adj_node)
+                }
+            }
         }
     }
 
     
-    calculateMinimumDistance = function(){
-        let sourceDistance = this.state.problem[0]
-        sourceDistance((element)=>{
-            return element.distance;
-        });
-        console.log(sourceDistance);
+    calculateMinimumDistance = function(eval_node){
+        let source = this.state.problem[0]
+        console.log(this.state.problem[0])
+        let sourceDistance = source[0].distance_src
+        console.log(sourceDistance)
+        if(sourceDistance + eval_node.distance_adj[0] < eval_node.distance_src)
+        {
+            eval_node.distance_src = sourceDistance+ eval_node.distance_adj[0]
+        }
+        let shortestPath = this.state.problem[0].shortest_path
+        shortestPath.push(this.state.problem[0])
+        eval_node.shortest_path = shortestPath;
+
+        let replacementArray = this.state.problem
+        let index = replacementArray.indexOf(eval_node);
+        replacementArray.splice(index, 1, eval_node)
+        this.setState(({problem}) => ({
+            problem: replacementArray
+        }))
     }
 
     //finds the node at the lowest value of the unsettled nodes
-    getLowestNode = () =>{
-        let lowestDistanceNode = [];
-        let lowestDistance = Number.MAX_VALUE;
+    getLowestDistanceNode = () =>{
+        let lowestDistanceNode = []
+        let lowestDistance = Number.MAX_VALUE
         
-        for(let node of this.state.unsettled_nodes)
+        for(let i=0;i< this.state.unsettled_nodes.length; i++)
         {
-            if(node.distance < lowestDistance)
-            {
-                lowestDistance = node.distance;
-                lowestDistanceNode = node;
+            let node = this.state.unsettled_nodes[i]
+            let node_adj = node[0].distance_adj
+            console.log(node_adj)
+
+            for(let j = 0; j< node_adj.length; j++){
+                if(node_adj[j] < lowestDistance)
+                {
+                    lowestDistance = node.distance_src
+                    lowestDistanceNode = node
+                }
             }
         }
-        return lowestDistanceNode;
+        return lowestDistanceNode
     }
 
 }

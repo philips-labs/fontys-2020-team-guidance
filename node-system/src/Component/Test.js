@@ -3,7 +3,7 @@ import Node from './Node.js';
 import Draggable from './Draggable.js';
 import DemoMap from './Images/background.png';
 import data from "../Media/media.json";
-import DijkstraPath, {calculateMinimumDistance} from "./Dijkstra.js";
+import DijkstraPath, {calculateMinimumDistance, dijkstra} from "./Dijkstra.js";
 import './Node.css';
 import '../App.css';
 
@@ -60,7 +60,7 @@ export default class Test extends Component {
     }
 
     CallMinimumDistanceDijkstra = () =>{
-        new DijkstraPath().calculateMinimumDistance();
+        console.log(new DijkstraPath().dijkstra())
     }
 
     // doesnt do what it says it just recieves data from the child component and sets it to the correct node in the array

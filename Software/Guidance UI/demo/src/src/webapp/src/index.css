@@ -479,9 +479,17 @@ input:focus, textarea:focus, select:focus{
   }
 
   div.newKeyContainer {
-    width: 100%;
+    width: 51.3vw;
     text-align: center;
     margin-bottom: 5vh;
+    position: relative;
+    left: 25vw;
+  }
+
+  a.NewAdminText {
+    color: #c1c1c1;
+    font-size: 1vw;
+    display: block;
   }
 
   input.SuperAdminAddInput {
@@ -498,6 +506,11 @@ input:focus, textarea:focus, select:focus{
     position: relative;
     font-size: 2vw;
     margin-left: 1vw;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
   }
 
   a.SuperadminAddBtn:hover {
@@ -513,15 +526,17 @@ input:focus, textarea:focus, select:focus{
     color: #c1c1c1;
   }
 
-  th {
-    font-weight: bold;
-    font-size: 1.2vw;
-  }
-
   td, th {
     border: 1px solid #343434;
     text-align: center;
     padding: 8px;
+    font-size: 1vw;
+    width: 50%;
+  }
+
+  th {
+    font-weight: bold;
+    font-size: 1.1vw;
   }
 
   tr:nth-child(even) {
@@ -533,6 +548,11 @@ input:focus, textarea:focus, select:focus{
     border: none;
     background-color: rgb(26, 26, 26);
     font-size: 1.2vw;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
   }
 
   td.red:hover {
@@ -543,6 +563,11 @@ input:focus, textarea:focus, select:focus{
   img.editIcon {
     filter: invert(70%);
     height: 1vw;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
   }
 
   img.editIcon:hover {

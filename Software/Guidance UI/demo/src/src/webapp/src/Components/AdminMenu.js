@@ -53,13 +53,38 @@ class AdminMenu extends Component {
         const file = e.target.files[0];
         reader.readAsDataURL(file);
 
-        let result;
+        reader.onload = this.onLoad(reader);
+    }
 
-        reader.onload = function () {
-                result = reader.result;
+    onLoad(reader) {
+        return (a) => {
+            let result = reader.result;
+            const ssid = this.state.SSID;
+            const name = prompt("Please enter the name of the image", "Name");
+
+
+            console.log(result);
+
+            if(name && name.length > 0) {
+                fetch("/books/createFloorplan", {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json, text/plain',
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify({
+                        ssid: ssid,
+                        name: name,
+                        image: result
+                    })
+
+                })
+                    .then(floorplans => floorplans.json())
+                    .then(res => {
+                        this.setState({floorplans: res})
+                    })
+            }
         }
-
-        fetch()
     }
 
     openSelect = (e) => {
@@ -113,7 +138,7 @@ class AdminMenu extends Component {
                         {
                             this.state.floorplans.map((item, key) => {
                                 return  <div key={key} className={"FloorplanObject"}>
-                                            <img className={"FloorplanListImage"} src={item.link}/>
+                                            <img className={"FloorplanListImage"} src={item.image}/>
                                             <h className={"FloorplanTitle"}>{item.name}</h>
                                             <h name={"SelectButton"} onClick={this.deleteFloorplanObjects} id={item.name} className={"FloorplanDeleteButton"}>-</h>
                                         </div>

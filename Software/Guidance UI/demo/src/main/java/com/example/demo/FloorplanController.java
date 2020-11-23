@@ -19,7 +19,7 @@ public class FloorplanController {
 
     @GetMapping("{ssid}")
     public ResponseEntity<String> GetFloorplanBySSID(@PathVariable String ssid) {
-        return new ResponseEntity<>(floorplans.GetFloorplanBySSID(ssid).getLink(), HttpStatus.OK);
+        return new ResponseEntity<>(floorplans.GetFloorplanBySSID(ssid).getImage(), HttpStatus.OK);
     }
 
     @GetMapping("/checkKey/{key}")
@@ -32,14 +32,14 @@ public class FloorplanController {
         return new ResponseEntity<>(floorplans.GetFloorplansBySSID(ssid), HttpStatus.OK);
     }
 
-    @PostMapping("/addFloorplan")
+    @PostMapping("/createFloorplan")
     public ResponseEntity<Collection<Floorplan>> AddFloorplan(@RequestBody Floorplan floorplan) {
         return new ResponseEntity<>(floorplans.AddFloorplan(floorplan), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteFloorplan/{floorplanname}")
     public ResponseEntity<Collection<Floorplan>> DeleteFloorplan(@PathVariable String floorplanname) {
-        return new ResponseEntity<>(floorplans.DeleteFloorplans(floorplanname), HttpStatus.OK);
+        return new ResponseEntity<>(floorplans.DeleteFloorplan(floorplanname), HttpStatus.OK);
     }
 
     @GetMapping("/checkSuperAdmin/{key}")
@@ -64,8 +64,6 @@ public class FloorplanController {
 
     @PostMapping("/addAdminKey")
     public ResponseEntity<Collection<AdminKey>> AddAdminKey(@RequestBody AdminKey adminKey) {
-        System.out.println(adminKey.getKey());
-        System.out.println(adminKey.getSSID());
         return new ResponseEntity<>(adminKeys.AddAdminKey(adminKey), HttpStatus.OK);
     }
 

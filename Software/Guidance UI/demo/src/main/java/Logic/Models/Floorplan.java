@@ -2,7 +2,7 @@ package Logic.Models;
 
 public class Floorplan {
     private String SSID;
-    private String Link;
+    private String Image;
     private String Name;
 
     public String getSSID() {
@@ -13,12 +13,12 @@ public class Floorplan {
         this.SSID = SSID;
     }
 
-    public String getLink() {
-        return Link;
+    public String getImage() {
+        return Image;
     }
 
-    public void setLink(String link) {
-        Link = link;
+    public void setImage(String image) {
+        Image = image;
     }
 
     public String getName() {

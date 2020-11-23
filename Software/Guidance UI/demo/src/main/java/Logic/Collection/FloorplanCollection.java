@@ -1,65 +1,19 @@
 package Logic.Collection;
 
+import Logic.Models.AdminKey;
 import Logic.Models.Floorplan;
+import Persistence.FloorplanData;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class FloorplanCollection {
+    FloorplanData FloorplanData = new FloorplanData();
     private ArrayList<Floorplan> Floorplans = new ArrayList<>();
 
-    {
-        Floorplan floorplan = new Floorplan();
-        floorplan.setSSID("FontysWPA");
-        floorplan.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
-        floorplan.setName("F1");
-        Floorplans.add(floorplan);
-
-        Floorplan floorplan2 = new Floorplan();
-        floorplan2.setSSID("test");
-        floorplan2.setLink("https://www.pngkit.com/png/full/358-3587140_floorplan-floor-plan.png");
-        floorplan2.setName("F1");
-        Floorplans.add(floorplan2);
-
-        Floorplan floorplan3 = new Floorplan();
-        floorplan3.setSSID("FontysWPA");
-        floorplan3.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
-        floorplan3.setName("F2");
-        Floorplans.add(floorplan3);
-
-        Floorplan floorplan4 = new Floorplan();
-        floorplan4.setSSID("FontysWPA");
-        floorplan4.setLink("https://www.pngkit.com/png/full/358-3587140_floorplan-floor-plan.png");
-        floorplan4.setName("F3");
-        Floorplans.add(floorplan4);
-
-        Floorplan floorplan5 = new Floorplan();
-        floorplan5.setSSID("FontysWPA");
-        floorplan5.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
-        floorplan5.setName("F4");
-        Floorplans.add(floorplan5);
-
-        Floorplan floorplan6 = new Floorplan();
-        floorplan6.setSSID("FontysWPA");
-        floorplan6.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
-        floorplan6.setName("F5");
-        Floorplans.add(floorplan6);
-
-        Floorplan floorplan7 = new Floorplan();
-        floorplan7.setSSID("FontysWPA");
-        floorplan7.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
-        floorplan7.setName("F6");
-        Floorplans.add(floorplan7);
-
-        Floorplan floorplan8 = new Floorplan();
-        floorplan8.setSSID("FontysWPA");
-        floorplan8.setLink("https://www.vistabluesingerisland.com/wp-content/themes/vistablue/images/floor/b.png");
-        floorplan8.setName("F7");
-        Floorplans.add(floorplan8);
-    }
-
     public Collection<Floorplan> GetFloorplansBySSID(String ssid) {
+        Floorplans =  FloorplanData.GetAllFloorplans();
+
         if(Floorplans != null) {
             ArrayList<Floorplan> floorplans = new ArrayList<>();
 
@@ -76,24 +30,43 @@ public class FloorplanCollection {
     }
 
     public Floorplan GetFloorplanBySSID(String ssid) {
+        Floorplans =  FloorplanData.GetAllFloorplans();
+
         if(Floorplans != null) {
             for(Floorplan floorplan : Floorplans) {
+                System.out.println(floorplan.getSSID());
                 if(floorplan.getSSID().equals(ssid)) {
                     return floorplan;
                 }
             }
         }
 
-        throw new NullPointerException();
+        return null;
     }
 
     public Collection<Floorplan> AddFloorplan(Floorplan floorplan) {
-        Floorplans.add(floorplan);
-        return Floorplans;
+        if(!FloorplanNameExists(floorplan)) {
+            Floorplans.add(floorplan);
+            FloorplanData.CreateFloorplan(floorplan);
+        }
+
+        return GetFloorplansBySSID(floorplan.getSSID());
     }
 
-    public Collection<Floorplan> DeleteFloorplans(String name) {
+    public Boolean FloorplanNameExists(Floorplan floorplan) {
+        for(Floorplan floorPlan : Floorplans) {
+            if(floorPlan.getName().equals(floorplan.getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Collection<Floorplan> DeleteFloorplan(String name) {
         String ssid = "";
+        
+        FloorplanData.DeleteFloorplan(name);
 
         for(int i = 0; i < Floorplans.stream().count(); i++) {
             if(Floorplans.get(i).getName().equals(name)) {

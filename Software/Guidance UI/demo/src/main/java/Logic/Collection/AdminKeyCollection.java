@@ -1,32 +1,20 @@
 package Logic.Collection;
 
 import Logic.Models.AdminKey;
-import Logic.Models.SuperAdminKey;
+import Logic.Models.Floorplan;
+import Persistence.AdminKeyData;
+import Persistence.FloorplanData;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class AdminKeyCollection {
+    AdminKeyData AdminKeyData = new AdminKeyData();
     private ArrayList<AdminKey> AdminKeys = new ArrayList<>();
-    private ArrayList<SuperAdminKey> SuperAdminKeys = new ArrayList<>();
-
-    {
-        AdminKey adminkey = new AdminKey();
-        adminkey.setSSID("FontysWPA");
-        adminkey.setKey("abcde1234");
-        AdminKeys.add(adminkey);
-
-        AdminKey adminkey2 = new AdminKey();
-        adminkey2.setSSID("FontysWelkom");
-        adminkey2.setKey("abcde4321");
-        AdminKeys.add(adminkey2);
-
-        SuperAdminKey superadminkey = new SuperAdminKey();
-        superadminkey.setKey("abcde1234");
-        SuperAdminKeys.add(superadminkey);
-    }
 
     public String GetAdminSSIDByKey(String key) {
+        AdminKeys = AdminKeyData.GetAllAdminKeys();
+
         for(AdminKey adminkey : AdminKeys) {
             if(adminkey.getKey().equals(key)) {
                 return adminkey.getSSID();
@@ -37,19 +25,20 @@ public class AdminKeyCollection {
     }
 
     public Collection<AdminKey> CheckAdmin(String superAdminKey) {
-        for(SuperAdminKey superadmin : SuperAdminKeys) {
-            if(superadmin.getKey().equals(superAdminKey)) {
-                return AdminKeys;
-            }
+        if(AdminKeyData.CheckSuperadmin(superAdminKey)) {
+            AdminKeys = AdminKeyData.GetAllAdminKeys();
+            return AdminKeys;
         }
-
-        throw new NullPointerException();
+        else throw new NullPointerException();
     }
 
     public Collection<AdminKey> EditAdminKey(String AdminKey, String newKey) {
         for(AdminKey adminKey : AdminKeys) {
             if(adminKey.getKey().equals(AdminKey)) {
-                adminKey.setKey(newKey.substring(10,  newKey.length()-2));
+                String oldKey = adminKey.getKey();
+                newKey = newKey.substring(10,  newKey.length()-2);
+                adminKey.setKey(newKey);
+                AdminKeyData.UpdateAdminKey(adminKey, oldKey);
             }
         }
 
@@ -59,16 +48,20 @@ public class AdminKeyCollection {
     public Collection<AdminKey> EditSSID(String AdminKey, String newSSID) {
         for(AdminKey adminKey : AdminKeys) {
             if(adminKey.getKey().equals(AdminKey)) {
-                adminKey.setSSID(newSSID.substring(10,  newSSID.length()-2));
+                String oldKey = adminKey.getKey();
+                newSSID = newSSID.substring(10,  newSSID.length()-2);
+                adminKey.setSSID(newSSID);
+                AdminKeyData.UpdateAdminKey(adminKey, oldKey);
             }
         }
 
         return AdminKeys;
     }
 
-    public Collection<AdminKey> DeleteAdminKey(String AdminKey) {
+    public Collection<AdminKey> DeleteAdminKey(String adminKey) {
+        AdminKeyData.DeleteAdminKey(adminKey);
         for(int i = 0; i < AdminKeys.size(); i++) {
-            if(AdminKeys.get(i).getKey().equals(AdminKey)) {
+            if(AdminKeys.get(i).getKey().equals(adminKey)) {
                 AdminKeys.remove(i);
             }
         }
@@ -77,8 +70,21 @@ public class AdminKeyCollection {
     }
 
     public Collection<AdminKey> AddAdminKey(AdminKey adminKey) {
-        AdminKeys.add(adminKey);
+        if(!AdminKeyExists(adminKey)) {
+            AdminKeys.add(adminKey);
+            AdminKeyData.CreateAdminkey(adminKey);
+        }
 
         return AdminKeys;
+    }
+
+    public Boolean AdminKeyExists(AdminKey adminkey) {
+        for(AdminKey adminKey : AdminKeys) {
+            if(adminKey.getKey().equals(adminkey.getKey())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

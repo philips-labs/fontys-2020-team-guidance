@@ -136,6 +136,7 @@ class SuperAdminMenu extends Component {
             return (
                 <div className={"AdminMenu"}>
                     <div className={"newKeyContainer"}>
+                        <a className={"NewAdminText"}>Create Adminkey: </a>
                         <input id={"AdminKey"} className={"SuperAdminAddInput"} placeholder={"Admin Key"}/>
                         <input id={"SSID"} className={"SuperAdminAddInput"} placeholder={"SSID"}/>
                         <a onClick={this.addKey} className={"SuperadminAddBtn"}>+</a>

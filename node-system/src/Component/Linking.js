@@ -8,6 +8,7 @@ export default class Linking extends Component {
             nodeList: this.props.nodeList,
             count: 0,
             selectedNode: "",
+            distance: 0,
         };
     }
 
@@ -58,11 +59,11 @@ export default class Linking extends Component {
         const newArr1 = this.state.nodeList;
         newArr1[this.state.selectedNode].nodeConnections = test;
         test.forEach(element => {
-            newArr1[element].nodeConnections = this.state.selectedNode;
+            newArr1[element].nodeConnections = [this.state.selectedNode];
         })
         this.setState({nodeList: newArr1})
         } catch {
-            
+
         }
         console.log(this.state.nodeList);
     }

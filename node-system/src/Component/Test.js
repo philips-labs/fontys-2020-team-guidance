@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import LineTo from 'react-lineto';
 import Node from './Node.js';
 import Draggable from './Draggable.js';
+import Linking from './Linking.js';
 import DemoMap from './Images/background.png';
 import data from "../Media/media.json";
 import './Node.css';
@@ -17,8 +19,6 @@ export default class Test extends Component {
             y: 0,
             nodeToggle: "unlockedNodes"
         }
-        this.newNode = this.newNode.bind(this);
-        this.onSave = this.onSave.bind(this);
     }
     // creating a new node and adding it to the array save
     newNode = (e) => {
@@ -59,6 +59,7 @@ export default class Test extends Component {
         const x = this.state.x;
         const y = this.state.y;
         item[id] = {id, x, y, type};
+        console.log(this.state.nodeList)
     }
     // check if a start node exists
     checkStart = () => {
@@ -113,22 +114,19 @@ export default class Test extends Component {
                         <this.checkStart/>
                         <this.checkEnd/>
                     </div>
-                        <div className={"linkMenu"}>
-                            <h2>Node Linker</h2>
-                            <input placeholder="ID node"></input>
-                        </div>
+                        <Linking nodeList={this.state.nodeList}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
                         <div className={"draggingBounds "+ this.state.nodeToggle}>
                             {this.state.nodeList.map((item, key) => {
                                 return (
-                                    <Draggable parentCallback={this.onSave} id={key} type={item.type} key={key}>
-                                        <Node key={key} type={item.type} data={this.state.nodeData} nodeId={key}/>
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSave} id={key} type={item.type} key={key}>
+                                        <Node className={key}key={key} type={item.type} data={this.state.nodeData} nodeId={key}/>
                                     </Draggable>
                                 );
                             })}
                         </div>
-
+                        <LineTo from="A" to="B" />
                     </div>
                 </div>
             );
@@ -145,11 +143,12 @@ export default class Test extends Component {
                         <div className={"draggingBounds "+ this.state.nodeToggle}>
                             {this.state.nodeList.map((item, key) => {
                                 return (
-                                    <Draggable parentCallback={this.onSave} id={key} type={item.type} key={key}>
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSave} id={key} type={item.type} key={key}>
                                         <Node key={key} type={item.type} data={this.state.nodeData} nodeId={key}/>
                                     </Draggable>
                                 );
                             })}
+                            <LineTo from="0" to="1" />
                         </div>
                     </div>
                 </div>

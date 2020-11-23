@@ -9,6 +9,7 @@ export default class Node extends Component {
         super(prop);
         this.state = {
             connectedNodes: [],
+            nodeId: this.props.nodeId,
             nodeData: this.props.data,
             nodeType: this.props.type,
         };
@@ -55,7 +56,10 @@ export default class Node extends Component {
             )
         }
         return (
+            <div>
                 <img className='nodeImg' src= {Waypoint} alt=''/>
+                <p>{this.state.nodeId}</p>
+            </div>
         )
     }
 }

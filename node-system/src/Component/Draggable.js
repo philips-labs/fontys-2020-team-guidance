@@ -13,11 +13,11 @@ export default class Draggable extends React.Component {
       originalX: 0,
       originalY: 0,
   
-      translateX: 0,
-      translateY: 0,
+      translateX: this.props.x,
+      translateY: this.props.y,
   
-      lastTranslateX: 0,
-      lastTranslateY: 0,
+      lastTranslateX: this.props.x,
+      lastTranslateY: this.props.y,
 
     };
   }
@@ -94,7 +94,7 @@ export default class Draggable extends React.Component {
       if (clientY >= 720) {
         this.setState(prevState => ({
           translateX: clientX - prevState.originalX + prevState.lastTranslateX,
-          translateY: 579
+          translateY: 600
         }), () => {
           if (onDrag) {
             onDrag({
@@ -107,7 +107,7 @@ export default class Draggable extends React.Component {
       if (clientY <= 121) {
         this.setState(prevState => ({
           translateX: clientX - prevState.originalX + prevState.lastTranslateX,
-          translateY: 21
+          translateY: 0
         }), () => {
           if (onDrag) {
             onDrag({
@@ -140,22 +140,24 @@ export default class Draggable extends React.Component {
     );
   };
   // calling the parent to give data
-  onTrigger = () => {
-    this.props.parentCallback(this.state.id, this.state.translateX, this.state.translateY, this.state.type);
+  onTrigger = (e, transX, transY) => {
+    this.props.parentCallback(this.state.id, transX, transY, this.state.type);
 }
   // rendering the new location
   render() {
     const { children } = this.props;
     const { translateX, translateY, isDragging } = this.state;
 
+    console.log(translateX,translateY)
     return (
       <Container
         onMouseDown={this.handleMouseDown}
-        onClick={this.onTrigger}
+        onClick={(e) => this.onTrigger(e, translateX, translateY)}
+        onMouseUp={(e) => this.onTrigger(e, translateX, translateY)}
         x={translateX}
         y={translateY}
         isDragging={isDragging}
-        className = "node"
+        className = {"node " +  this.state.id}
       >
         {children}
       </Container>

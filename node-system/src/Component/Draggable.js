@@ -141,7 +141,9 @@ export default class Draggable extends React.Component {
   };
   // calling the parent to give data
   onTrigger = (e, transX, transY) => {
-    this.props.parentCallback(this.state.id, transX, transY, this.state.type);
+    try {this.props.parentCallback(this.state.id, transX, transY, this.state.type);}
+    catch {
+    }
 }
   // rendering the new location
   render() {

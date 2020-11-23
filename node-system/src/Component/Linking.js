@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import styled, { css } from 'styled-components';
 
 export default class Linking extends Component {
     constructor(props) {
@@ -50,17 +49,21 @@ export default class Linking extends Component {
 
     saveLinks = () => {
         console.log(this.state.nodeList);
-            var test = []
-            this.state.inputs.forEach(element => {
-                var value = element.value;
-                test.push(value);
-            })
+        var test = []
+        try {
+        this.state.inputs.forEach(element => {
+            var value = element.value;
+            test.push(value);
+        })
         const newArr1 = this.state.nodeList;
         newArr1[this.state.selectedNode].nodeConnections = test;
         test.forEach(element => {
             newArr1[element].nodeConnections = this.state.selectedNode;
         })
         this.setState({nodeList: newArr1})
+        } catch {
+            
+        }
         console.log(this.state.nodeList);
     }
 }

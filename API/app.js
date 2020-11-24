@@ -11,11 +11,12 @@ var getFloorplanRouter = require('./routes/getFloorplan'); /*Added*/
 
 var app = express();
 
-app.use(cors({origin: 'http://localhost:3001'})); /*Added*/
-app.use(cors({origin: 'http://localhost:16000'})); /*Added*/
-
-
-
+//API running on port '3000' by default
+app.use(cors({origin: 'http://localhost:3001'})); /*Added ---react*/
+app.use(cors({origin: 'http://localhost:16000'})); /*Added ---java GET server*/
+app.use(cors({origin: 'http://localhost:16001'})); /*Added ---java POST server*/
+app.use(cors({origin: 'http://localhost:16002'})); /*Added ---java PUT server*/
+app.use(cors({origin: 'http://localhost:16003'})); /*Added ---java DELETE server*/
 
 
 /* react-app config */

@@ -1,8 +1,9 @@
 package com.guidance.javaserver;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.HashMap;
-import java.util.Properties;
 
 
 public class DAL {
@@ -17,7 +18,7 @@ public class DAL {
 
     private static Connection EstablishDBConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection dbConnection = DriverManager.getConnection(
                     "jdbc:mysql://" + credentials.get("Server_Name")
                             + ":" + credentials.get("Port")
@@ -56,28 +57,73 @@ public class DAL {
         }
     }
 
-    public static HashMap<String, String[]> Read_Object(String query, String[] args) {
+    public static HashMap<Integer, Object[]> Read_Object(String query, String[] args) {
         Connection conn = EstablishDBConnection();
 
         try {
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select id, Name, Age, Gender, Email from user");
-
-            HashMap<String, String[]> tempHashMap = new HashMap<String, String[]>();
+            if (args != null) {
+                for (int i = 0; i < args.length; i++) {
+                    query = query.replace("@" + i, args[i]);
+                }
+            }
+            ResultSet rs = stmt.executeQuery(query);
+            HashMap<Integer, Object[]> tempHashMap = new HashMap<>();
+            int i = 0;
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnCount = rsmd.getColumnCount();
+            int countRow = 0;
 
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("Name");
-                int age = rs.getInt("Age");
-                String gender = rs.getString("Gender");
-                String email = rs.getString("Email");
-                tempHashMap.put(String.valueOf(id), new String[]{name, email, String.valueOf(age), gender});
-                //System.out.println(id + "," + name + "," + email + "," + age + "," + gender);
-
+                countRow++;
+                Object[] values = new Object[columnCount];
+                int counter= i;
+                for (int j = 1; j<=columnCount; j++){
+                    values[j-1] = rs.getObject(j);
+                }
+                tempHashMap.put(counter, values);
+                i++;
             }
-            //System.out.println(tempHashMap.size());
+            System.out.println(tempHashMap.size());
             return tempHashMap;
         } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static HashMap<Integer, Object[]> GetImageCollection(){
+        Connection conn = EstablishDBConnection();
+
+        try {
+            Statement stmt = conn.createStatement();
+
+            HashMap<Integer, Object[]> imgCollection = new HashMap<>();
+
+            String queryAllFloors = "SELECT id, title, ssid, floorplan FROM floor";
+            ResultSet rs = stmt.executeQuery(queryAllFloors);
+            while(rs.next()) {
+                int id = rs.getInt("id");
+
+                String title = rs.getString("title");
+
+                String ssid = rs.getString("ssid");
+
+                Blob imageBlob = rs.getBlob("floorplan");
+                InputStream binaryStream = imageBlob.getBinaryStream(1, imageBlob.length());
+                byte[] imageBytes = new byte[binaryStream.available()];
+                binaryStream.read(imageBytes);
+
+                imgCollection.put(id, new Object[]{title, ssid, /*imageBytes*/imageBlob});
+            }
+            conn.close();
+            return imgCollection;
+            }
+        catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return null;
         }

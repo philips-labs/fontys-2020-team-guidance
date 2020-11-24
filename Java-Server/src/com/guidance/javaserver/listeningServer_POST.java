@@ -39,7 +39,7 @@ public class listeningServer_POST {
                         String msg = input.readLine();
                         if (msg == null) break;
                         System.out.println(msg);
-                        if (msg.contains("GET")) {
+                        if (msg.contains("POST")) {
                             System.out.println(msg.substring(
                                     msg.indexOf("=") + 1, msg.indexOf("H") - 1));
                         }

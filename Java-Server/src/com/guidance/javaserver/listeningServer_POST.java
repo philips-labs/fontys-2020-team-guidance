@@ -31,26 +31,18 @@ public class listeningServer_POST {
                         + ":"
                         + clientSocket.getPort());
                 input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                System.out.println("Keep-Alive: " + clientSocket.getKeepAlive());
                 //print received data
                 try {
-                    //"\\^GET \\/users\\?ID\\=[1-9]{1,7}[\\s\\t\\n\\r]+HTTP\\/1\\.1$"
-                    while (true) {
-                        String msg = input.readLine();
-                        if (msg == null) break;
-                        System.out.println(msg);
-                        if (msg.contains("POST")) {
-                            System.out.println(msg.substring(
-                                    msg.indexOf("=") + 1, msg.indexOf("H") - 1));
-                        }
-                        output = new PrintWriter(clientSocket.getOutputStream(), true);
-                        //get user input and transmit it to server
-                        pckgSent = "OK"; // here for returning ?
-                        //stop if input line is "."
-                        output.println("Data sent: " + pckgSent);
-                        clientSocket.close();
-
+                    String headerLine = null;
+                    while((headerLine = input.readLine()).length() != 0){
+                        System.out.println("H:"+headerLine);
                     }
+                    StringBuilder payload = new StringBuilder();
+                    while(input.ready()){
+                        payload.append((char) input.read());
+                    }
+                    System.out.println("Payload: "+ payload);
+                    clientSocket.close();
                 } catch (IOException e) {
                     System.out.println(e);
                 }

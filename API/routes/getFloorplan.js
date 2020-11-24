@@ -27,9 +27,8 @@ async function get(){
 }
 async function post(){
     let res = await axios.post('http://localhost:16001', {
-         //httpAgent
          Name: 'Fred',
-         Age: '23'
+         Age: '23',
         })
         .then(function (response) {
             console.log(response);

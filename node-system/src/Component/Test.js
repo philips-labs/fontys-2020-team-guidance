@@ -29,7 +29,7 @@ export default class Test extends Component {
             const id = this.state.nodeId;
             const x = 0;
             const y = 0;
-            let type = "intermediary";
+            let type = "intermediaryNode";
             if (e.target.value === "start")
             {
                 type = e.target.value;

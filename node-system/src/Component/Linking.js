@@ -4,25 +4,35 @@ export default class Linking extends Component {
     constructor(props) {
         super(props)
         this.state = { 
-            inputs: [],
+            input: "",
             nodeList: this.props.nodeList,
             count: 0,
             selectedNode: "",
             distance: 0,
+            startingNode: "",
+            result: [],
+            endingNode: "",
         };
     }
 
     render() {
         return (
             <div className={"linkMenu"}>
+                <div>
                 <h2>Node Linker</h2>
                 <input placeholder="ID node" onChange={this.handleSelector}></input>
-
-                <div id="dynamicInput">
-                       {this.state.inputs.map((item) => <input key={item.id} id={item.id} placeholder={"Connected Node"} onChange={this.handleOnChange}/>)}
-                </div>
-                <p onClick={() => this.appendInput()}>+</p>
+                <input type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/>
+                <label>Destination Node</label>
+                <input placeholder={"Connected Node"} onChange={this.handleOnChange}/>
                 <button onClick={this.saveLinks}>Save</button>
+                </div>
+                <div>
+                    <p>Path Finder</p>
+                    <input placeholder={"starting node"} onChange={this.handleStart}></input>
+                    <input placeholder={"ending node"} onChange={this.handleEnd}></input>
+                    <p>{this.state.result}</p>
+                    <button onClick={this.calculatePath}>Find Path</button>
+                </div>
             </div>
         );
     }
@@ -37,15 +47,29 @@ export default class Linking extends Component {
         result.push({id, value});
         this.setState({input: result});
     }
+
+    handleStart = (e) => {
+        this.setState({startingNode: e.target.value});
+    }
+
+    handleEnd = (e) => {
+        this.setState({endingNode: e.target.value});
+    }
+
+    handleCheck = (e) => {
+        var list = this.state.nodeList;
+        if (e.target.checked === true)
+        {
+            list[this.state.selectedNode].type = "destinationNode";
+        }
+    }
     
     handleSelector = (e) => {
         this.setState({selectedNode: e.target.value});
     }
 
     handleOnChange = (e) => {
-        var list = this.state.inputs;
-        list[e.target.id].value = e.target.value;
-        console.log(list);
+        this.setState({input: e.target.value});
     }
 
     saveLinks = () => {
@@ -60,17 +84,10 @@ export default class Linking extends Component {
         const selNode = this.state.selectedNode;
 
         try {
-        this.state.inputs.forEach(element => {
-            var value = element.value;
+            var value = this.state.input;
             var distance = this.calculateDistance(selNode, value)
             newArr1[selNode].nodeConnections.push({value, distance});
-        })
-
-        this.state.inputs.forEach(element => {
-            var value = element.value;
-            var distance = this.calculateDistance(selNode, value)
             newArr1[value].nodeConnections.push({selNode, distance});
-        })
 
         this.setState({nodeList: newArr1})
 
@@ -92,5 +109,27 @@ export default class Linking extends Component {
         }
         var distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
         return distance;
+    }
+
+    calculatePath = () => {
+        var start = this.state.startingNode;
+        //var end = this.state.endingNode;
+        var paths = this.state.nodeList;
+        var closestNode;
+        var currentPath = [];
+
+        console.log(paths[start].nodeConnections);
+        paths[start].nodeConnections.forEach(node => {
+            if (closestNode === undefined) {
+                closestNode = node.value;
+                console.log("help");
+            }
+            else if (node < closestNode) {
+                closestNode = node.value;
+            }
+        })
+
+        currentPath.push(closestNode);
+        console.log(closestNode);
     }
 }

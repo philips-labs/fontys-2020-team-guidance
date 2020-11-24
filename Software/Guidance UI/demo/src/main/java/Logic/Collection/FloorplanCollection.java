@@ -11,6 +11,7 @@ public class FloorplanCollection {
     FloorplanData FloorplanData = new FloorplanData();
     private ArrayList<Floorplan> Floorplans = new ArrayList<>();
 
+    //Get a list of floorplans sorted on SSID
     public Collection<Floorplan> GetFloorplansBySSID(String ssid) {
         Floorplans =  FloorplanData.GetAllFloorplans();
 
@@ -29,6 +30,7 @@ public class FloorplanCollection {
         return null;
     }
 
+    //get the first floorplan in the list of all floorplans sorted on ssid
     public Floorplan GetFloorplanBySSID(String ssid) {
         Floorplans =  FloorplanData.GetAllFloorplans();
 
@@ -44,6 +46,7 @@ public class FloorplanCollection {
         return null;
     }
 
+    //Add a floorplan if its name isn't already present
     public Collection<Floorplan> AddFloorplan(Floorplan floorplan) {
         if(!FloorplanNameExists(floorplan)) {
             Floorplans.add(floorplan);
@@ -53,6 +56,7 @@ public class FloorplanCollection {
         return GetFloorplansBySSID(floorplan.getSSID());
     }
 
+    //Check if floorplan name already exists
     public Boolean FloorplanNameExists(Floorplan floorplan) {
         for(Floorplan floorPlan : Floorplans) {
             if(floorPlan.getName().equals(floorplan.getName())) {
@@ -63,6 +67,7 @@ public class FloorplanCollection {
         return false;
     }
 
+    //Delete floorplan
     public Collection<Floorplan> DeleteFloorplan(String name) {
         String ssid = "";
         

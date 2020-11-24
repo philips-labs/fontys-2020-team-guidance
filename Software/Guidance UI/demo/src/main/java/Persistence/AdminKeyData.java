@@ -10,6 +10,7 @@ public class AdminKeyData {
     static Connection connection = null;
     static String url = "jdbc:mysql://localhost:3306/guidance";
 
+    //Open and return a database connection to use
     public static Connection OpenConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         Properties p = new Properties();
@@ -19,6 +20,7 @@ public class AdminKeyData {
         return connection;
     }
 
+    //Get all admin keys
     public ArrayList<AdminKey> GetAllAdminKeys() {
         ArrayList<AdminKey> adminKeys = new ArrayList<>();
 
@@ -47,6 +49,7 @@ public class AdminKeyData {
         return adminKeys;
     }
 
+    //Check if the super-admin key exists
     public Boolean CheckSuperadmin(String key) {
         try {
             connection = OpenConnection();
@@ -70,6 +73,7 @@ public class AdminKeyData {
         return false;
     }
 
+    //Create a admin key
     public void CreateAdminkey(AdminKey adminKey) {
         try {
             connection = OpenConnection();
@@ -86,6 +90,7 @@ public class AdminKeyData {
         }
     }
 
+    //Update a admin key
     public void UpdateAdminKey(AdminKey adminKey, String oldAdminKey) {
         try {
             connection = OpenConnection();
@@ -104,6 +109,7 @@ public class AdminKeyData {
         }
     }
 
+    //Delete a admin key found on admin key
     public void DeleteAdminKey(String key) {
         try {
             connection = OpenConnection();

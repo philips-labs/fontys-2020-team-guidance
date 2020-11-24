@@ -10,7 +10,6 @@ public class AdminKeyCollection {
     AdminKeyData AdminKeyData = new AdminKeyData();
     private ArrayList<AdminKey> AdminKeys = new ArrayList<>();
 
-    //Create new Admin key
     public String GetAdminSSIDByKey(String key) {
         AdminKeys = AdminKeyData.GetAllAdminKeys();
 
@@ -32,7 +31,6 @@ public class AdminKeyCollection {
         else throw new NullPointerException();
     }
 
-    //Edit admin key
     public Collection<AdminKey> EditAdminKey(String AdminKey, String newKey) {
         for(AdminKey adminKey : AdminKeys) {
             if(adminKey.getKey().equals(AdminKey)) {
@@ -60,7 +58,6 @@ public class AdminKeyCollection {
         return AdminKeys;
     }
 
-    //Delete admin key
     public Collection<AdminKey> DeleteAdminKey(String adminKey) {
         AdminKeyData.DeleteAdminKey(adminKey);
         for(int i = 0; i < AdminKeys.size(); i++) {

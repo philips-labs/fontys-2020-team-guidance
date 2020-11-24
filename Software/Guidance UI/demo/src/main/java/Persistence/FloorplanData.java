@@ -19,7 +19,6 @@ public class FloorplanData {
         return connection;
     }
 
-    //Get all floorplans
     public ArrayList<Floorplan> GetAllFloorplans() {
         ArrayList<Floorplan> Floorplans = new ArrayList<>();
 
@@ -47,7 +46,6 @@ public class FloorplanData {
         return Floorplans;
     }
 
-    //Create a floorplan
     public void CreateFloorplan(Floorplan floorplan) {
         try {
             connection = OpenConnection();
@@ -64,7 +62,6 @@ public class FloorplanData {
         }
     }
 
-    //Update a floorplan
     public void UpdateFloorplan(Floorplan floorplan) {
         try {
             connection = OpenConnection();
@@ -79,7 +76,6 @@ public class FloorplanData {
         }
     }
 
-    //Delete a floorplan on name
     public void DeleteFloorplan(String name) {
         try {
             connection = OpenConnection();

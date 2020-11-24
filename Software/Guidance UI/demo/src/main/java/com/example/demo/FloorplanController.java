@@ -29,19 +29,16 @@ public class FloorplanController {
         return new ResponseEntity<>(adminKeys.GetAdminSSIDByKey(key), HttpStatus.OK);
     }
 
-    //Get a floor plan list sorted by SSID
     @GetMapping("/getFloorplansBySSID/{ssid}")
     public ResponseEntity<Collection<Floorplan>> GetFloorplansBySSID(@PathVariable String ssid) {
         return new ResponseEntity<>(floorplans.GetFloorplansBySSID(ssid), HttpStatus.OK);
     }
 
-    //Create a floorplan
     @PostMapping("/createFloorplan")
     public ResponseEntity<Collection<Floorplan>> AddFloorplan(@RequestBody Floorplan floorplan) {
         return new ResponseEntity<>(floorplans.AddFloorplan(floorplan), HttpStatus.OK);
     }
 
-    //Delete a floorplan
     @DeleteMapping("/deleteFloorplan/{floorplanname}")
     public ResponseEntity<Collection<Floorplan>> DeleteFloorplan(@PathVariable String floorplanname) {
         return new ResponseEntity<>(floorplans.DeleteFloorplan(floorplanname), HttpStatus.OK);
@@ -53,7 +50,6 @@ public class FloorplanController {
         return new ResponseEntity<>(adminKeys.CheckAdmin(key), HttpStatus.OK);
     }
 
-    //Edit admin key
     @PutMapping("/editKey/{key}")
     public ResponseEntity<Collection<AdminKey>> EditAdminKey(@PathVariable String key, @RequestBody String newValue) {
         return new ResponseEntity<>(adminKeys.EditAdminKey(key, newValue), HttpStatus.OK);
@@ -65,13 +61,11 @@ public class FloorplanController {
         return new ResponseEntity<>(adminKeys.EditSSID(key, newValue), HttpStatus.OK);
     }
 
-    //Delete admin key
     @DeleteMapping("/deleteKey/{key}")
     public ResponseEntity<Collection<AdminKey>> DeleteAdminKey(@PathVariable String key) {
         return new ResponseEntity<>(adminKeys.DeleteAdminKey(key), HttpStatus.OK);
     }
 
-    //Create new Admin key
     @PostMapping("/addAdminKey")
     public ResponseEntity<Collection<AdminKey>> AddAdminKey(@RequestBody AdminKey adminKey) {
         return new ResponseEntity<>(adminKeys.AddAdminKey(adminKey), HttpStatus.OK);

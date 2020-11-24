@@ -20,7 +20,6 @@ public class AdminKeyData {
         return connection;
     }
 
-    //Get all admin keys
     public ArrayList<AdminKey> GetAllAdminKeys() {
         ArrayList<AdminKey> adminKeys = new ArrayList<>();
 
@@ -73,7 +72,6 @@ public class AdminKeyData {
         return false;
     }
 
-    //Create a admin key
     public void CreateAdminkey(AdminKey adminKey) {
         try {
             connection = OpenConnection();
@@ -90,7 +88,6 @@ public class AdminKeyData {
         }
     }
 
-    //Update a admin key
     public void UpdateAdminKey(AdminKey adminKey, String oldAdminKey) {
         try {
             connection = OpenConnection();
@@ -109,7 +106,6 @@ public class AdminKeyData {
         }
     }
 
-    //Delete a admin key found on admin key
     public void DeleteAdminKey(String key) {
         try {
             connection = OpenConnection();

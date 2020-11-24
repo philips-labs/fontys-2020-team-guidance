@@ -162,7 +162,7 @@ export default class Test extends Component {
                                 );
                             })}
                         </div>
-                        <LineTo from="A" to="B" />
+                        <LineTo from="0" to="1" />
                     </div>
                 </div>
             );

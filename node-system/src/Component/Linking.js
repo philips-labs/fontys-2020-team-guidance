@@ -49,22 +49,48 @@ export default class Linking extends Component {
     }
 
     saveLinks = () => {
-        console.log(this.state.nodeList);
-        var test = []
+        const newArr1 = this.state.nodeList;
+        newArr1.forEach (element => {
+            if (element.nodeConnections === undefined)
+            {
+                element.nodeConnections = [];
+            }
+        })
+
+        const selNode = this.state.selectedNode;
+
         try {
         this.state.inputs.forEach(element => {
             var value = element.value;
-            test.push(value);
+            var distance = this.calculateDistance(selNode, value)
+            newArr1[selNode].nodeConnections.push({value, distance});
         })
-        const newArr1 = this.state.nodeList;
-        newArr1[this.state.selectedNode].nodeConnections = test;
-        test.forEach(element => {
-            newArr1[element].nodeConnections = [this.state.selectedNode];
-        })
-        this.setState({nodeList: newArr1})
-        } catch {
 
-        }
+        this.state.inputs.forEach(element => {
+            var value = element.value;
+            var distance = this.calculateDistance(selNode, value)
+            newArr1[value].nodeConnections.push({selNode, distance});
+        })
+
+        this.setState({nodeList: newArr1})
+
+        } catch {}
         console.log(this.state.nodeList);
+    }
+
+    calculateDistance = (nodeOne, nodeTwo) => {
+        var node1 = this.state.nodeList[nodeOne];
+        var node2 = this.state.nodeList[nodeTwo];
+        var xDiff = node1.x - node2.x;
+        var yDiff = node1.y - node2.y;
+
+        if (xDiff < 0) {
+            xDiff = xDiff * -1;
+        }
+        if (yDiff < 0) {
+            yDiff = yDiff * -1;
+        }
+        var distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+        return distance;
     }
 }

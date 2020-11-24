@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         mBTStateUpdateReceiver = new BroadcastReceiver_BTState(getApplicationContext());
-        mBLEScanner = new Scanner_BLE(this, 7500, -75);
+        mBLEScanner = new Scanner_BLE(this, 15000, -75);
 
         mBTDeviceHashMap = new HashMap<>();
         mBTDeviceArrayList = new ArrayList<>();
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Log.d("FILTER", filterRSSIHashMap.toString());
 
         //Check if there are even 3 devices in range
-        int count = 3;
+        int count = 2;
         if (filterRSSIHashMap.size() == 1) {
             count = 1;
         }
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Get 3 lowest RSSI's
         for (int i = 0; i < count; i++) {
-            String key = getMinKey(filterRSSIHashMap, filterRSSIHashMap.keySet());
+            String key = getMaxKey(filterRSSIHashMap, filterRSSIHashMap.keySet());
             filterBleArrayList.add(mBTDeviceHashMap.get(key));
             filterRSSIHashMap.remove(key);
         }
@@ -200,17 +200,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         filterRSSIHashMap.clear();
     }
 
-    private String getMinKey(HashMap<String, Integer> map, Set<String> keys) {
-        String minKey = null;
-        int minValue = Integer.MAX_VALUE;
+    private String getMaxKey(HashMap<String, Integer> map, Set<String> keys) {
+        String maxKey = null;
+        int maxValue = Integer.MIN_VALUE;
         for(String key : keys) {
             int value = map.get(key);
-            if(value < minValue) {
-                minValue = value;
-                minKey = key;
+            if(value > maxValue) {
+                maxValue = value;
+                maxKey = key;
             }
         }
-        return minKey;
+        return maxKey;
     }
 
     public void clearList() {

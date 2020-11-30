@@ -32,6 +32,7 @@ public class FloorplanData {
                 floorplan.setSSID(rs.getString("ssid"));
                 floorplan.setName(rs.getString("name"));
                 floorplan.setImage(rs.getString("image"));
+                floorplan.setWidth(rs.getDouble("width"));
                 Floorplans.add(floorplan);
             }
 
@@ -51,7 +52,7 @@ public class FloorplanData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            int status = stmt.executeUpdate("INSERT INTO `guidance`.`floorplans` (`image`,`ssid`,`name`) VALUES ('"+ floorplan.getImage()  +"', '"+ floorplan.getSSID() +"', '"+ floorplan.getName() + "');");
+            int status = stmt.executeUpdate("INSERT INTO `guidance`.`floorplans` (`image`,`ssid`,`name`, `width`) VALUES ('"+ floorplan.getImage()  +"', '"+ floorplan.getSSID() +"', '"+ floorplan.getName() + "', '"+ floorplan.getWidth() + "');");
 
             System.out.println("DB update status: " + status);
             stmt.close();

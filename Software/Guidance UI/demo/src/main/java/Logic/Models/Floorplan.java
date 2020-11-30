@@ -4,6 +4,7 @@ public class Floorplan {
     private String SSID;
     private String Image;
     private String Name;
+    private Double Width;
 
     public String getSSID() {
         return SSID;
@@ -27,5 +28,13 @@ public class Floorplan {
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public Double getWidth() {
+        return Width;
+    }
+
+    public void setWidth(Double width) {
+        Width = width;
     }
 }

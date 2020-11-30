@@ -12,7 +12,8 @@ class AdminMenu extends Component {
             logIn: false,
             floorplans: {},
             deleting: false,
-            SSID: ''
+            SSID: '',
+            currentFile: null
         }
     }
 
@@ -61,28 +62,35 @@ class AdminMenu extends Component {
             let result = reader.result;
             const ssid = this.state.SSID;
             const name = prompt("Please enter the name of the image", "Name");
+            const width = parseInt(prompt("Please enter the width of the floorplan in real life in metres", "Only give a number"));
 
 
             console.log(result);
 
-            if(name && name.length > 0) {
-                fetch("/books/createFloorplan", {
-                    method: 'post',
-                    headers: {
-                        'Accept': 'application/json, text/plain',
-                        'Content-Type': 'application/json;charset=UTF-8'
-                    },
-                    body: JSON.stringify({
-                        ssid: ssid,
-                        name: name,
-                        image: result
-                    })
+            if(Number.isInteger(width)) {
+                if(name && name.length > 0) {
+                    fetch("/books/createFloorplan", {
+                        method: 'post',
+                        headers: {
+                            'Accept': 'application/json, text/plain',
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        },
+                        body: JSON.stringify({
+                            ssid: ssid,
+                            name: name,
+                            image: result,
+                            width: width
+                        })
 
-                })
-                    .then(floorplans => floorplans.json())
-                    .then(res => {
-                        this.setState({floorplans: res})
                     })
+                        .then(floorplans => floorplans.json())
+                        .then(res => {
+                            this.setState({floorplans: res})
+                        })
+                }
+            }
+            else {
+                alert("Please only fill in the number of the real width in metres");
             }
         }
     }

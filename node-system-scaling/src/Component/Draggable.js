@@ -16,8 +16,8 @@ export default class Draggable extends React.Component {
       translateX: this.props.x,
       translateY: this.props.y,
   
-      lastTranslateX: 0,
-      lastTranslateY: 0,
+      lastTranslateX: this.props.x,
+      lastTranslateY: this.props.y,
 
     };
   }

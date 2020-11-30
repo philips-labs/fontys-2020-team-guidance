@@ -68,34 +68,41 @@ export default class DijkstraPath extends Component{
         {
             //gets lowest cost node in the unresolved nodes
             let currentNode = this.getLowestDistanceNode()
+            
             console.log(currentNode)
 
             //replace unsettled array in state while removing the current node
             let replacementArray = this.state.unsettled_nodes
             let index = replacementArray.indexOf(currentNode);
             replacementArray.splice(index, 1)
+            console.log(this.state.unsettled_nodes)
             this.setState(({unsettled_nodes}) => ({
                 unsettled_nodes: replacementArray
             }))
+            console.log(this.state.unsettled_nodes)
 
             //go through all connected nodes of the current node in a loop
-            let currentNode_adj_distance = currentNode[0].distance_adj
-            for(let i=0;i<currentNode[0].distance_adj.length;i++)
+            let currentNode_adj_distance = new Array(currentNode[0].distance_adj)
+            for(let i=0;i<currentNode_adj_distance.length;i++)
             {
                 //creates an Object from the given node with data of just 1 node, then sends it to the calculateMinimumDistance method
-                let adjacent_distance = currentNode[0].distance_adj[i]
-                let adjacent_id = currentNode[0].adj_id[i]
-                let source_distance = currentNode[0].distance_src
-                let adj_node = {adj_id: adjacent_id, distance_adj: adjacent_distance , distance_src: source_distance, type: "intermediary", shortest_path: []}
+                let test_object = new Object(currentNode)
+                // let adjacent_distance = currentNode[0].distance_adj[i]
+                // let adjacent_id = currentNode[0].adj_id[i]
+                // let source_distance = currentNode[0].distance_src
+                // let adj_node = {adj_id: adjacent_id, distance_adj: adjacent_distance , distance_src: source_distance, type: "intermediary", shortest_path: []}
+                let adj_node = test_object //check - either an array now or later
+                console.log(adj_node)
+
 
                 //calculateMinumumDistance adds the given node to settled nodes if it's not in there yet
                 if(!this.state.settled_nodes.includes(adj_node))
                 {
                     this.calculateMinimumDistance(adj_node)
-                    let replacementArray1 = this.state.unsettled_nodes
+                    let replacementArray1 = this.state.settled_nodes
                     replacementArray1.push(adj_node)
-                    this.setState(({unsettled_nodes}) => ({
-                        unsettled_nodes: replacementArray1
+                    this.setState(({settled_nodes}) => ({
+                        settled_nodes: replacementArray1
                     }))
                     console.log(adj_node)
                 }
@@ -106,13 +113,13 @@ export default class DijkstraPath extends Component{
     //calculates the distance a node for evaluation to the source/start
     calculateMinimumDistance = function(eval_node){
         //source = start node, used to compare distance from it to the eval_node
-        let source = this.state.problem[0]
+        let source = this.state.problem[0] //perhaps access node before the current eval_node? 
         console.log(this.state.problem[0])
         let sourceDistance = source[0].distance_src
         console.log(sourceDistance)
 
         //compares distance of source (current node's predecessor) to the given distance to the end, by default at int_max
-        if(sourceDistance + eval_node.distance_adj[0] < eval_node.distance_src)
+        if(sourceDistance + eval_node[0].distance_adj[0] < eval_node.distance_src)
         {
             eval_node.distance_src = sourceDistance+ eval_node.distance_adj[0]
         }
@@ -141,12 +148,16 @@ export default class DijkstraPath extends Component{
             let node = this.state.unsettled_nodes[i]
             console.log(node)
             // console.log(this.state.unsettled_nodes.indexOf(node)) - checking for nodes in the array
-            let node_adj = node[0]
+            let node_test = Object.values(node)
+            console.log(node_test[0].distance_src) //keep in mind - src or adj
+            // let distances = new Array(node_test[0].distance_adj)
+            // console.log(distances)
+            let node_adj = new Array(node_test[0].distance_src)
             console.log(node_adj)
-                if(node_adj.distance_adj < lowestDistance)
+                if(node_adj < lowestDistance)
                 {
-                    lowestDistance = node.distance_src
-                    lowestDistanceNode = node
+                    lowestDistance = node_test.distance_src
+                    lowestDistanceNode = node_test
                     console.log(lowestDistanceNode)
                 }
         }

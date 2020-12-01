@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Waypoint from './Images/waypoint.png';
 import Start from './Images/startingPoint.png';
 import End from './Images/endPoint.png';
+import Stair from './Images/stairs.png'
 import './Node.css';
 
 export default class Node extends Component {
@@ -52,6 +53,14 @@ export default class Node extends Component {
             return (
                 <div>
                     <img className='nodeImg' src= {End} alt=''/>
+                </div>
+            )
+        }
+        else if (this.state.nodeType === "stairs")
+        {
+            return (
+                <div>
+                    <img className='nodeImg' src= {Stair} alt=''/>
                 </div>
             )
         }

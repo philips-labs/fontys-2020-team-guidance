@@ -26,13 +26,13 @@ export default class Linking extends Component {
                 <input placeholder={"Connected Node"} onChange={this.handleOnChange}/>
                 <button onClick={this.saveLinks}>Save</button>
                 </div>
-                <div>
+                {/* <div>
                     <p>Path Finder</p>
                     <input placeholder={"starting node"} onChange={this.handleStart}></input>
                     <input placeholder={"ending node"} onChange={this.handleEnd}></input>
                     <p>{this.state.result}</p>
                     <button onClick={this.calculatePath}>Find Path</button>
-                </div>
+                </div> */}
             </div>
         );
     }
@@ -110,26 +110,30 @@ export default class Linking extends Component {
         var distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
         return distance;
     }
-
+/*
     calculatePath = () => {
         var start = this.state.startingNode;
         //var end = this.state.endingNode;
-        var paths = this.state.nodeList;
-        var closestNode;
+        const paths = this.state.nodeList;
+        var lastIntersection;
         var currentPath = [];
+        var br = false;
 
         console.log(paths[start].nodeConnections);
-        paths[start].nodeConnections.forEach(node => {
-            if (closestNode === undefined) {
-                closestNode = node.value;
-                console.log("help");
-            }
-            else if (node < closestNode) {
-                closestNode = node.value;
-            }
-        })
 
-        currentPath.push(closestNode);
-        console.log(closestNode);
-    }
+
+        while (br === false) {
+            paths[start].nodeConnections.forEach(node => {
+                if (paths[node.value].nodeConnections ===! undefined) {
+                    for (let i = 0; i < paths[i].nodeConnections.length; i++) {
+                        if(paths[i].nodeConnections ===! undefined) {
+                            lastIntersection.push();
+
+
+                        }
+                    }
+                }
+            })
+        }
+    }*/
 }

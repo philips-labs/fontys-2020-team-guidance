@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import LineTo from 'react-lineto';
+import styled, { css } from 'styled-components';
 import Node from './Node.js';
 import IBeacon from './IBeacon';
 import Draggable from './Draggable.js';
@@ -20,7 +21,8 @@ export default class Test extends Component {
             nodeData: data,
             x: 0,
             y: 0,
-            nodeToggle: "unlockedNodes"
+            nodeToggle: "unlockedNodes",
+            floorPlan: DemoMap,
         }
     }
     // creating a new node and adding it to the array save
@@ -38,21 +40,24 @@ export default class Test extends Component {
             {
                 type = e.target.value;
             }
+            else if (e.target.value === "stairs")
+            {
+                type = e.target.value;
+            }
 
             item.push({id, x, y, type});
             this.setState({nodeList: item});
             this.setState({nodeId: id + 1})
     }
 
-        // creating a new node and adding it to the array save
-        newIBeacon = (e) => {
+        // creating a new iBeacon and adding it to the iBeacon list
+        newIBeacon = () => {
             const item = this.state.iBeaconList;
             const id = this.state.iBeaconId;
             const x = 0;
             const y = 0;
             const type = "iBeacon";
 
-            console.log(this.state.iBeaconId);
             item.push({id, x, y, type});
             this.setState({iBeaconList: item});
             this.setState({iBeaconId: id + 1});
@@ -76,7 +81,6 @@ export default class Test extends Component {
         const x = this.state.x;
         const y = this.state.y;
         item[id] = {id, x, y, type};
-        console.log(this.state.nodeList)
     }
 
     onSaveBeacon = (id, childX, childY, type) => {
@@ -86,7 +90,6 @@ export default class Test extends Component {
         const x = this.state.x;
         const y = this.state.y;
         item[id] = {id, x, y, type};
-        console.log(this.state.iBeaconList)
     }
 
     // check if a start node exists
@@ -138,6 +141,7 @@ export default class Test extends Component {
                 <div className={'App'}>
                     <div>
                         <button onClick={this.newNode}>New Node</button>
+                        <button onClick={this.newNode} value="stairs">Add Stairs</button>
                         <button onClick={this.newIBeacon}>New IBeacon</button>
                         <button onClick={this.LockNodes}>Unlock Nodes</button>
                         <this.checkStart/>
@@ -146,7 +150,7 @@ export default class Test extends Component {
                         <Linking nodeList={this.state.nodeList}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
-                        <div className={"draggingBounds "+ this.state.nodeToggle}>
+                        <div className={"draggingBounds "+ this.state.nodeToggle} style={{backgroundImage:  `url(${DemoMap})`, backgroundRepeat: "no-repeat", backgroundPosition: "center"}}>
                             {this.state.nodeList.map((item, key) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={key} type={item.type} key={key}>
@@ -162,7 +166,6 @@ export default class Test extends Component {
                                 );
                             })}
                         </div>
-                        <LineTo from="0" to="1" />
                     </div>
                 </div>
             );
@@ -172,17 +175,19 @@ export default class Test extends Component {
                 <div className={'App'}>
                     <div>
                         <button onClick={this.newNode}>New Node</button>
+                        <button onClick={this.newNode} value="stairs">Add Stairs</button>
                         <button onClick={this.newIBeacon}>New IBeacon</button>
                         <button onClick={this.LockNodes}>Lock Nodes</button>
                         <this.checkStart/>
                         <this.checkEnd/>
                         {/*<button onClick={this.onSave}>save</button>*/}
-                        <div className={"draggingBounds "+ this.state.nodeToggle}>
+                        <div className={"draggingBounds "+ this.state.nodeToggle} style={{backgroundImage:  `url(${DemoMap})`, backgroundRepeat: "no-repeat", backgroundPosition: "center"}}>
                             {this.state.nodeList.map((item, key) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={key} type={item.type} key={key}>
                                         <Node className={key}key={key} type={item.type} data={this.state.nodeData} nodeId={key}/>
                                     </Draggable>
+
                                 );
                             })}
                             {this.state.iBeaconList.map((item, key) => {
@@ -192,8 +197,7 @@ export default class Test extends Component {
                                     </Draggable>
                                 );
                             })}
-                            <LineTo from="0" to="1" />
-                        </div>
+                            </div>
                     </div>
                 </div>
             );

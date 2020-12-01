@@ -26,11 +26,17 @@ export default class Test extends Component {
             yScale: 0,
             imgHeight: 0,
             imgWidth: 0,
-            pxToMeterRatio: 0
+            pxToMeterRatio: 0,
+            meterCalc: 0,
+            pxCalc: 0
         }
         this.changeXScale = this.changeXScale.bind(this);
         this.changeYScale = this.changeYScale.bind(this);
         this.changeFPScale = this.changeFPScale.bind(this);
+        this.handleMeterCalcChange = this.handleMeterCalcChange.bind(this);
+        this.handlePxCalcChange = this.handlePxCalcChange.bind(this);
+        this.executeCalcFromPxToMeter = this.executeCalcFromPxToMeter.bind(this);
+        this.executeCalcFromMeterToPx = this.executeCalcFromMeterToPx.bind(this);
         this.imgRef = React.createRef()
     }
     // creating a new node and adding it to the array save
@@ -157,6 +163,19 @@ export default class Test extends Component {
 
     changeFPScale(){
         console.log("set X meters: " + this.state.xScale);
+
+        const imgWidth = this.state.imgWidth;
+        const meterWidth = this.state.xScale;
+
+        const solution = meterWidth / imgWidth;
+
+        this.setState({ratio: solution})
+
+        console.log(solution)
+    }
+
+    changeFPScaleWithHeight(){
+        console.log("set X meters: " + this.state.xScale);
         console.log("set Y meters: " + this.state.yScale);
 
         const imgHeight = this.state.imgHeight;
@@ -166,6 +185,8 @@ export default class Test extends Component {
 
         const ratio = (meterHeight*meterWidth) / (imgHeight*imgWidth);
         const solution = Math.sqrt(ratio);
+
+        this.setState({ratio: solution})
 
         console.log("solution: " + solution);
         
@@ -177,6 +198,35 @@ export default class Test extends Component {
         const height = this.imgRef.current.clientHeight;
         const width = this.imgRef.current.clientWidth;
         this.setState({imgHeight: height, imgWidth: width})
+    }
+
+    //pixel/meter calculator
+    handleMeterCalcChange(e){
+        this.setState({meterCalc: e.target.value})
+        console.log(this.state.meterCalc)
+    }
+
+    handlePxCalcChange(e){
+        this.setState({pxCalc: e.target.value})
+        console.log(this.state.pxCalc)
+    }
+
+    executeCalcFromPxToMeter(){
+        const meter = this.state.meterCalc;
+        const px = this.state.pxCalc;
+
+        const solution = px / this.state.ratio;
+
+        console.log("Meter to px: "+ solution);
+    }
+
+    executeCalcFromMeterToPx(){
+        const meter = this.state.meterCalc;
+        const px = this.state.pxCalc;
+
+        const solution = meter * this.state.ratio;
+
+        console.log("Px to meter: "+ solution);
     }
 
     // renders the heatmap and draggable nodes
@@ -241,14 +291,24 @@ export default class Test extends Component {
                         <br/>
                         <label for="dimensionx">Blueprint X Length (Meters):</label>
                         <input type="text" name="dimensionsx" value={this.state.xScale} onChange={this.changeXScale}/> <br/>
-                        <label for="dimensionsy">Blueprint Y Length (Meters):</label>
-                        <input type="text" name="dimensionsy" value={this.state.yScale} onChange={this.changeYScale}/> <br/>
+                        {/* <label for="dimensionsy">Blueprint Y Length (Meters):</label>
+                        <input type="text" name="dimensionsy" value={this.state.yScale} onChange={this.changeYScale}/> <br/> */}
 
                         <button onClick={this.changeFPScale}>Set Floorplan Dimensions</button><br/>
 
                         <div className={'Heatmap'}>
                             <img ref={this.imgRef} src={DemoMap} alt={"demo map"} onLoad={this.handleImageLoad}/>
                             {/* should made something to toggle maps on and off - for now it's DemoMap and DemoMap1 */}
+                        </div>
+
+                        <div>
+                            <p>Pixel to Meter calculator (Use after setting )</p><br/>
+                            <label for="metercalc">Meters</label>
+                            <input type="text" name="metercalc" value={this.state.meterCalc} onChange={this.handleMeterCalcChange}></input> <br/>
+                            <label for="pxcalc">Pixels</label>
+                            <input type="text" name="pxcalc" value={this.state.pxCalc} onChange={this.handlePxCalcChange}></input> <br/>
+                            <button onClick={this.executeCalcFromPxToMeter}>Calculate Pixel To Meter</button>
+                            <button onClick={this.executeCalcFromMeterToPx}>Calculate Meter To Pixel</button>
                         </div>
 
                         {/*<button onClick={this.onSave}>save</button>*/}

@@ -107,7 +107,26 @@ export default class Linking extends Component {
         if (yDiff < 0) {
             yDiff = yDiff * -1;
         }
-        var distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+
+        var distance;
+
+        if(node1.x === node2.x)
+        {
+            if(node1.y>node2.y) { 
+                distance= node1.y - node2.y; 
+            }
+            else distance = node2.y - node1.y;
+        }
+
+        if(node1.y === node2.y)
+        {
+            if(node1.x>node2.x) { 
+                distance= node1.x - node2.x; 
+            }
+            else distance = node2.x - node1.x;
+        }
+
+        distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
         return distance;
     }
 

@@ -18,7 +18,7 @@ public class FloorplanController {
     AdminKeyCollection adminKeys = new AdminKeyCollection();
 
     //Get first floorplan of list sorted by SSID
-    @GetMapping("{ssid}")
+    @GetMapping("/getFloorplanBySSID/{ssid}")
     public ResponseEntity<String> GetFloorplanBySSID(@PathVariable String ssid) {
         return new ResponseEntity<>(floorplans.GetFloorplanBySSID(ssid).getImage(), HttpStatus.OK);
     }
@@ -27,6 +27,11 @@ public class FloorplanController {
     @GetMapping("/checkKey/{key}")
     public ResponseEntity<String> CheckAdminKey(@PathVariable String key) {
         return new ResponseEntity<>(adminKeys.GetAdminSSIDByKey(key), HttpStatus.OK);
+    }
+
+    @GetMapping("/getFloorplan/{ssid}/{name}")
+    public ResponseEntity<Floorplan> GetFloorplanBySSIDAndName(@PathVariable String name, @PathVariable String ssid) {
+        return new ResponseEntity<>(floorplans.GetFloorplanByNameAndSSID(name, ssid), HttpStatus.OK);
     }
 
     @GetMapping("/getFloorplansBySSID/{ssid}")

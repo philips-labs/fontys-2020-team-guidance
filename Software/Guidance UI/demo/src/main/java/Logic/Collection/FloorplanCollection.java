@@ -33,7 +33,6 @@ public class FloorplanCollection {
 
         if(Floorplans != null) {
             for(Floorplan floorplan : Floorplans) {
-                System.out.println(floorplan.getSSID());
                 if(floorplan.getSSID().equals(ssid)) {
                     return floorplan;
                 }
@@ -67,7 +66,7 @@ public class FloorplanCollection {
         
         FloorplanData.DeleteFloorplan(name);
 
-        for(int i = 0; i < Floorplans.stream().count(); i++) {
+        for(int i = 0; i < Floorplans.size(); i++) {
             if(Floorplans.get(i).getName().equals(name)) {
                 ssid = Floorplans.get(i).getSSID();
                 Floorplans.remove(i);
@@ -75,5 +74,15 @@ public class FloorplanCollection {
         }
 
         return GetFloorplansBySSID(ssid);
+    }
+
+    public Floorplan GetFloorplanByNameAndSSID(String name, String ssid) {
+        for(Floorplan floorplan : Floorplans) {
+            if(floorplan.getName().equals(name) && floorplan.getSSID().equals(ssid)) {
+                return floorplan;
+            }
+        }
+
+        return new Floorplan();
     }
 }

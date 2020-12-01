@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import 'C:/Users/Gebruiker/Desktop/Engineering/demo/src/src/webapp/src/App.css';
 import Logo from "./Logo";
+import {Redirect} from "react-router";
+import {Link} from "react-router-dom";
 
 class AdminMenu extends Component {
 
@@ -132,6 +134,10 @@ class AdminMenu extends Component {
         }
     }
 
+    editFloorplan = () => {
+        return <Redirect to={"/404"}/>
+    }
+
     render() {
         if(this.state.logIn) {
             return (
@@ -146,8 +152,9 @@ class AdminMenu extends Component {
                         {
                             this.state.floorplans.map((item, key) => {
                                 return  <div key={key} className={"FloorplanObject"}>
-                                            <img className={"FloorplanListImage"} src={item.image}/>
+                                            <img className={"FloorplanListImage"} src={item.image}/><br/>
                                             <h className={"FloorplanTitle"}>{item.name}</h>
+                                            <h className={"FloorplanTitle"}><Link className="log-button btn btn-secondary" to={`/editfloorplan/${item.ssid}/${item.name}`}><img onClick={this.editFloorplan} id={item.width} className={"editIcon"} src={"https://img.pngio.com/free-high-quality-edit-icon-3589-free-icons-and-png-backgrounds-edit-icon-png-1024_1024.png"}/></Link></h>
                                             <h name={"SelectButton"} onClick={this.deleteFloorplanObjects} id={item.name} className={"FloorplanDeleteButton"}>-</h>
                                         </div>
                             })

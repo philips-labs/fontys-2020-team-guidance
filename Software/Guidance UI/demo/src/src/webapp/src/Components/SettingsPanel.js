@@ -48,7 +48,7 @@ class SettingsPanel extends Component {
 
 
     getFloorplans(string) {
-        fetch("/books/" + string)
+        fetch("/books/getFloorplanBySSID/" + string)
             .then(res => res.text())
             .then(imagesrc => {
                 if(imagesrc !== "null") {

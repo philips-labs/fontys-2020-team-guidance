@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import 'C:/Users/Gebruiker/Desktop/Engineering/demo/src/src/webapp/src/App.css';
-import Logo from "./Logo";
 import {Redirect} from "react-router";
 import {Link} from "react-router-dom";
 

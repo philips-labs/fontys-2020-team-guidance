@@ -156,20 +156,21 @@ export default class Test extends Component {
     }
 
     changeFPScale(){
-        console.log(this.state.xScale);
-        console.log(this.state.yScale);
+        console.log("set X meters: " + this.state.xScale);
+        console.log("set Y meters: " + this.state.yScale);
 
         const imgHeight = this.state.imgHeight;
         const imgWidth = this.state.imgWidth;
         const meterHeight = this.state.yScale;
         const meterWidth = this.state.xScale;
 
-        const solution = (imgHeight*imgWidth) / (meterHeight*meterWidth);
+        const ratio = (meterHeight*meterWidth) / (imgHeight*imgWidth);
+        const solution = Math.sqrt(ratio);
 
-        console.log(solution);
+        console.log("solution: " + solution);
         
-        console.log(this.state.imgHeight);
-        console.log(this.state.imgWidth);
+        console.log("image height: " + this.state.imgHeight);
+        console.log("image width: " + this.state.imgWidth);
     }
 
     handleImageLoad = () =>{

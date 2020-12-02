@@ -21,14 +21,24 @@ class FloorplanEditPage extends Component {
             y: 0,
             nodeToggle: "unlockedNodes",
         }
+        this.imgRef = React.createRef();
     }
 
     componentDidMount() {
         fetch("/books/getFloorplan/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => this.setState({image: data.image}))
+
+        /*fetch("/books/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
+            .then(res => res.json())
+            .then(data => this.setState({nodeList: data.nodeList}))*/
     }
 
+    handleImageLoad = () =>{
+        const height = this.imgRef.current.clientHeight;
+        const width = this.imgRef.current.clientWidth;
+        this.setState({imgHeight: height, imgWidth: width})
+    }
 
     // creating a new node and adding it to the array save
     newNode = (e) => {
@@ -142,29 +152,25 @@ class FloorplanEditPage extends Component {
 
     // renders the heatmap and draggable nodes
     render() {
+        console.log(this.state.image.height);
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'App'}>
-                    <div className={'FloorplanEdit'}>
-                        <button onClick={this.newNode}>New Node</button>
-                        <button onClick={this.newNode} value="stairs">Add Stairs</button>
-                        <button onClick={this.newIBeacon}>New IBeacon</button>
-                        <button onClick={this.LockNodes}>Unlock Nodes</button>
-                        <this.checkStart/>
-                        <this.checkEnd/>
-                    </div>
                     <Linking nodeList={this.state.nodeList}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
                         <div className={"draggingBounds " + this.state.nodeToggle} style={{
                             backgroundImage: `url(${this.state.image})`,
                             backgroundRepeat: "no-repeat",
-                            backgroundPosition: "center"
+                            backgroundPosition: "center",
+                            height: `${this.state.imgHeight}px`,
+                            width: `${this.state.imgWidth}px`,
                         }}>
-                            {this.state.nodeList.map((item, key) => {
+                            {
+                                this.state.nodeList.map((item, key) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={key}
-                                               type={item.type} key={key}>
+                                               type={item.type} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <Node className={key} key={key} type={item.type} data={this.state.nodeData}
                                               nodeId={key}/>
                                     </Draggable>
@@ -173,13 +179,14 @@ class FloorplanEditPage extends Component {
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key}
-                                               key={key}>
+                                               key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
                                 );
                             })}
                         </div>
                     </div>
+                    <img ref={this.imgRef} src= {this.state.image} alt='gfg' onLoad={this.handleImageLoad} style={{visibility: "hidden"}}/>
                 </div>
             );
 
@@ -193,16 +200,20 @@ class FloorplanEditPage extends Component {
                         <button onClick={this.LockNodes}>Lock Nodes</button>
                         <this.checkStart/>
                         <this.checkEnd/>
+                    </div>
+                    <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
-                        <div className={"draggingBounds " + this.state.nodeToggle} style={{
-                            backgroundImage: `url(${this.state.image})`,
+                        <div className={"draggingBounds "+ this.state.nodeToggle} style={{
+                            backgroundImage:  `url(${this.state.image})`,
                             backgroundRepeat: "no-repeat",
-                            backgroundPosition: "center"
+                            backgroundPosition: "center",
+                            height: `${this.state.imgHeight}px`,
+                            width: `${this.state.imgWidth}px`,
                         }}>
                             {this.state.nodeList.map((item, key) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={key}
-                                               type={item.type} key={key}>
+                                               type={item.type} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <Node className={key} key={key} type={item.type} data={this.state.nodeData}
                                               nodeId={key}/>
                                     </Draggable>
@@ -212,13 +223,14 @@ class FloorplanEditPage extends Component {
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key}
-                                               key={key}>
+                                               key={key} boundx={this.state.imgWidth} boundy={this.state.image.height}>
                                         <IBeacon/>
                                     </Draggable>
                                 );
                             })}
                         </div>
                     </div>
+                    <img ref={this.imgRef} src= {this.state.image} alt='gfg' onLoad={this.handleImageLoad} style={{visibility: "hidden"}}/>
                 </div>
             );
         }

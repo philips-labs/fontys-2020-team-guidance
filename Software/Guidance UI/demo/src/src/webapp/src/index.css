@@ -642,11 +642,9 @@ input:focus, textarea:focus, select:focus{
   }
 
   .draggingBounds {
-    height: 600px;
-    width: auto;
     margin-top: 99px;
-    margin-left: 421px;
-    margin-right: 421px;
+    margin-left: auto;
+    margin-right: auto;
     background-size: auto 100%;
   }
 
@@ -661,6 +659,11 @@ input:focus, textarea:focus, select:focus{
   }
 
   .linkMenu {
+    float: left;
+    width: 400px;
+  }
+
+  .FloorplanEdit{
     float: left;
     width: 400px;
   }

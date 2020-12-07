@@ -63,13 +63,13 @@ public class Scanner_BLE {
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
 
                     ma.stopScan();
-                    Log.d("SCAN", "Scan is gestart");
+                    Log.d("SCAN", "Scan is started");
                 }
             }, scanPeriod);
 
             mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback);
-            Log.d("SCAN", "Scan is gestart");
+            Log.d("SCAN", "Scan is started");
         }
     }
 
@@ -83,7 +83,7 @@ public class Scanner_BLE {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (device.getName() != null) {
+                                if (device.getName() != null) { // iBKS Plus 1 Guidance <- Name with 1,2 or 3
                                     if (device.getName().contains("iBKS Plus") == true & device.getName().contains("Guidance") == true) {
                                         ma.addDevice(device, new_rssi);
                                     }

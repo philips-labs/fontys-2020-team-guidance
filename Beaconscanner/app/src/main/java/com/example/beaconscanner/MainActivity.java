@@ -115,9 +115,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Controleren of we op de goeie request reageren
+        //Check if we react on the correct request
         if (requestCode == REQUEST_ENABLE_BT) {
-            // Zeker weten dat de aanvraag succesvol was
+            //Knowing for sure that the request was successful
             if (resultCode == RESULT_OK) {
                 // Utils.toast(getApplicationContext(), "Thank you for turning on Bluetooth");
             } else if (resultCode == RESULT_CANCELED) {
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // Voor later
+        // For later, prob not needed
     }
 
     @Override
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
+    //THIS IS THE DATA YOU WILL NEEEEEED!!!!
     public void addDevice(BluetoothDevice device, int new_rssi) {
         String address = device.getAddress();
 
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Log.d("FILTER", filterRSSIHashMap.toString());
 
         //Check if there are even 3 devices in range
-        int count = 2;
+        int count = 3;
         if (filterRSSIHashMap.size() == 1) {
             count = 1;
         }

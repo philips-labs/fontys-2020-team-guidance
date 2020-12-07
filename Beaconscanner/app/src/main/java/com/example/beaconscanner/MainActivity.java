@@ -201,8 +201,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String key = getMaxKey(filterRSSIHashMap, filterRSSIHashMap.keySet());
             filterBleArrayList.add(mBTDeviceHashMap.get(key));
             filterRSSIHashMap.remove(key);
-            UpdateDeviceLocationStatistics();
         }
+        if (UpdateDeviceLocationStatistics()) System.out.println("Successful operation");
+        else System.out.println("Failed operation");
 
         //Log.d("HASHMAP", filterRSSIHashMap.toString());
         //Log.d("ARRAYLIST", filterBleArrayList.toString());

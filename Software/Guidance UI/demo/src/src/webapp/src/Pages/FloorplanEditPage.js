@@ -4,6 +4,8 @@ import Draggable from "../Components/Draggable";
 import Node from "../Components/Node";
 import IBeacon from "../Components/IBeacon";
 import Linking from "../Components/Linking";
+import Waypoint from '../Components/Images/waypoint.png';
+import {Link} from "react-router-dom";
 
 class FloorplanEditPage extends Component {
     constructor(props) {
@@ -29,10 +31,11 @@ class FloorplanEditPage extends Component {
             .then(res => res.json())
             .then(data => this.setState({image: data.image}))
 
-        /*fetch("/books/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
+        fetch("/books/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
-            .then(data => this.setState({nodeList: data.nodeList}))*/
+            .then(data => this.setState({nodeList: data}))
     }
+
 
     handleImageLoad = () =>{
         const height = this.imgRef.current.clientHeight;
@@ -156,7 +159,7 @@ class FloorplanEditPage extends Component {
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'App'}>
-                    <Linking nodeList={this.state.nodeList}/>
+                    <Linking nodeList={this.state.nodeList} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
                         <div className={"draggingBounds " + this.state.nodeToggle} style={{
@@ -194,12 +197,13 @@ class FloorplanEditPage extends Component {
             return (
                 <div className={'App'}>
                     <div className={'FloorplanEdit'}>
-                        <button onClick={this.newNode}>New Node</button>
-                        <button onClick={this.newNode} value="stairs">Add Stairs</button>
-                        <button onClick={this.newIBeacon}>New IBeacon</button>
-                        <button onClick={this.LockNodes}>Lock Nodes</button>
-                        <this.checkStart/>
-                        <this.checkEnd/>
+                        <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
+                        <button onClick={this.newNode}>Add Node</button><br/>
+                        <button onClick={this.newNode} value="stairs">Add Stairs</button><br/>
+                        <button onClick={this.newIBeacon}>Add IBeacon</button><br/>
+                        <this.checkStart/><br/>
+                        <this.checkEnd/><br/>
+                        <button onClick={this.LockNodes}>Lock Nodes</button><br/>
                     </div>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
@@ -223,7 +227,7 @@ class FloorplanEditPage extends Component {
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key}
-                                               key={key} boundx={this.state.imgWidth} boundy={this.state.image.height}>
+                                               key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
                                 );

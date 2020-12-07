@@ -4,14 +4,16 @@ export default class Linking extends Component {
     constructor(props) {
         super(props)
         this.state = { 
-            input: "",
+            input: 0,
             nodeList: this.props.nodeList,
             count: 0,
-            selectedNode: "",
+            selectedNode: 0,
             distance: 0,
             startingNode: "",
             result: [],
             endingNode: "",
+            ssid: this.props.ssid,
+            floorplanid: this.props.floorplanid
         };
     }
 
@@ -24,7 +26,8 @@ export default class Linking extends Component {
                 <input type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/>
                 <label>Destination Node</label>
                 <input placeholder={"Connected Node"} onChange={this.handleOnChange}/>
-                <button onClick={this.saveLinks}>Save</button>
+                <button onClick={this.saveLinks}>Save Link</button>
+                <button onClick={this.saveNodes}>Save Nodes</button>
                 </div>
                 {/* <div>
                     <p>Path Finder</p>
@@ -35,6 +38,27 @@ export default class Linking extends Component {
                 </div> */}
             </div>
         );
+    }
+
+    saveNodes = () => {
+        this.state.nodeList.forEach(item =>  {
+            fetch("/books/saveNode", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    id: item.id,
+                    x: item.x,
+                    y: item.y,
+                    type: item.type,
+                    connectednodes: item.nodeConnections.toString(),
+                    ssid: this.state.ssid,
+                    floorplanid: this.state.floorplanid
+                })
+            })
+        })
     }
 
     appendInput() {
@@ -65,11 +89,11 @@ export default class Linking extends Component {
     }
     
     handleSelector = (e) => {
-        this.setState({selectedNode: e.target.value});
+        this.setState({selectedNode: parseInt(e.target.value)});
     }
 
     handleOnChange = (e) => {
-        this.setState({input: e.target.value});
+        this.setState({input: parseInt(e.target.value)});
     }
 
     saveLinks = () => {
@@ -85,9 +109,8 @@ export default class Linking extends Component {
 
         try {
             var value = this.state.input;
-            var distance = this.calculateDistance(selNode, value)
-            newArr1[selNode].nodeConnections.push({value, distance});
-            newArr1[value].nodeConnections.push({selNode, distance});
+            newArr1[selNode].nodeConnections.push(value);
+            newArr1[value].nodeConnections.push(selNode);
 
         this.setState({nodeList: newArr1})
 
@@ -107,8 +130,7 @@ export default class Linking extends Component {
         if (yDiff < 0) {
             yDiff = yDiff * -1;
         }
-        var distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-        return distance;
+        return Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
     }
 /*
     calculatePath = () => {

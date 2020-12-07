@@ -14,7 +14,7 @@ export default class Node extends Component {
             nodeType: this.props.type,
         };
     }
-    //setting the crouwd circles
+    //setting the crowd circles
     getStyle() {
         let connections;
         let data = this.state.nodeData;

@@ -2,12 +2,15 @@ package com.example.demo;
 
 import Logic.Collection.AdminKeyCollection;
 import Logic.Collection.FloorplanCollection;
+import Logic.Collection.NodeCollection;
 import Logic.Models.AdminKey;
 import Logic.Models.Floorplan;
+import Logic.Models.Node;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController
@@ -16,6 +19,7 @@ public class FloorplanController {
 
     FloorplanCollection floorplans = new FloorplanCollection();
     AdminKeyCollection adminKeys = new AdminKeyCollection();
+    NodeCollection nodes = new NodeCollection();
 
     //Get first floorplan of list sorted by SSID
     @GetMapping("/getFloorplanBySSID/{ssid}")
@@ -74,6 +78,17 @@ public class FloorplanController {
     @PostMapping("/addAdminKey")
     public ResponseEntity<Collection<AdminKey>> AddAdminKey(@RequestBody AdminKey adminKey) {
         return new ResponseEntity<>(adminKeys.AddAdminKey(adminKey), HttpStatus.OK);
+    }
+
+    @PostMapping("/saveNode")
+    public ResponseEntity<HttpStatus> GetNodeById(@RequestBody Node node) {
+        nodes.SaveNode(node);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getNodes/{ssid}/{floorplanid}")
+    public ResponseEntity<Collection<Node>> GetNodeById(@PathVariable String ssid, @PathVariable String floorplanid) {
+        return new ResponseEntity<>(nodes.GetNodesBySSIDAndFloorplanId(ssid, floorplanid), HttpStatus.OK);
     }
 
 }

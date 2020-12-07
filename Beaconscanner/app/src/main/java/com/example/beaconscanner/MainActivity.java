@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,9 +21,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+//Imported by Denis
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.awt.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Scanner_BLE mBLEScanner;
 
     boolean PausedOnStartUp = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,13 +141,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
 
             case R.id.btn_scan:
                 Utils.toast(getApplicationContext(), "Scan Button Pressed");
 
                 if (!mBLEScanner.isScanning()) {
+
                     startScan();
                 }
                 else {
@@ -193,7 +201,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String key = getMaxKey(filterRSSIHashMap, filterRSSIHashMap.keySet());
             filterBleArrayList.add(mBTDeviceHashMap.get(key));
             filterRSSIHashMap.remove(key);
+            UpdateDeviceLocationStatistics();
         }
+
         //Log.d("HASHMAP", filterRSSIHashMap.toString());
         //Log.d("ARRAYLIST", filterBleArrayList.toString());
 
@@ -235,5 +245,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_Scan.setText("Scan Again");
 
         mBLEScanner.stop();
+    }
+
+    //this method updates the values in the database table deviceRawLocStats
+    private Boolean UpdateDeviceLocationStatistics(){
+        Integer[][] threeDevices = new Integer[3][2];
+        for (int a = 0; a < filterBleArrayList.size(); a++ ) {
+            threeDevices[a][0] = deviceData.getNodeIDByMAC(filterBleArrayList.get(a).getAddress());
+            threeDevices[a][1] = filterBleArrayList.get(a).getRSSI();
+        }
+        //example deviceID will be 1, but can be changed
+        if (deviceData.UpdateDeviceStats(threeDevices, 1) == null) return true; return false;
     }
 }

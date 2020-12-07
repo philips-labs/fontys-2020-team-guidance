@@ -10,8 +10,8 @@ import android.widget.Toast;
 public class Utils {
 
     public static boolean checkBluetooth(BluetoothAdapter bluetoothAdapter) {
-        //Controleert of bluetooth beschikbaar is op het apparaat en of het aan staat, zo niet?
-        //dan wordt er een aanvraag om bluetooth aan te zetten weergegeven.
+        //Checks if bluetooth is available on the device and if it's turned on or off?
+        //the there will be a request if it can turn on bluetooth
         if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
             return false;
         }

@@ -1,9 +1,10 @@
 package com.example.beaconscanner;
 
-import com.example.beaconscanner.dbConn;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.MessageFormat;
-import java.util.HashMap;
 
 public class deviceData {
     private static Connection conn;

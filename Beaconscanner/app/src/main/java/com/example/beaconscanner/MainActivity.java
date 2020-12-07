@@ -12,9 +12,6 @@ import android.content.pm.PackageManager;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.format.Formatter;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,7 +22,6 @@ import android.widget.ScrollView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-import java.awt.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private final static String TAG = MainActivity.class.getSimpleName();

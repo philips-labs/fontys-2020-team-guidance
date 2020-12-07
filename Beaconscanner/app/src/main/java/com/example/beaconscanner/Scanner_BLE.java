@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
-import java.awt.*;
 
 
 public class Scanner_BLE{

@@ -25,7 +25,6 @@ import android.widget.ScrollView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-import java.awt.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -202,8 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             filterBleArrayList.add(mBTDeviceHashMap.get(key));
             filterRSSIHashMap.remove(key);
         }
-        if (UpdateDeviceLocationStatistics()) System.out.println("Successful operation");
-        else System.out.println("Failed operation");
+        UpdateDeviceLocationStatistics();
 
         //Log.d("HASHMAP", filterRSSIHashMap.toString());
         //Log.d("ARRAYLIST", filterBleArrayList.toString());
@@ -244,18 +242,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void stopScan() {
         btn_Scan.setText("Scan Again");
-
         mBLEScanner.stop();
     }
 
     //this method updates the values in the database table deviceRawLocStats
-    private Boolean UpdateDeviceLocationStatistics(){
+    public Integer[][] UpdateDeviceLocationStatistics(){
         Integer[][] threeDevices = new Integer[3][2];
         for (int a = 0; a < filterBleArrayList.size(); a++ ) {
+            //fixed the update in the database, but need to make it so that it doenst expect mac address, but name
             threeDevices[a][0] = deviceData.getNodeIDByMAC(filterBleArrayList.get(a).getAddress());
             threeDevices[a][1] = filterBleArrayList.get(a).getRSSI();
         }
-        //example deviceID will be 1, but can be changed
-        if (deviceData.UpdateDeviceStats(threeDevices, 1) == null) return true; return false;
+        return threeDevices;
     }
 }

@@ -6,19 +6,19 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
-import java.awt.*;
 
+import java.util.ArrayList;
 
 public class Scanner_BLE{
 
     private MainActivity ma;
-
     private BluetoothAdapter mBluetoothAdapter;
     private boolean mScanning;
     private Handler mHandler;
 
     private long scanPeriod;
     private int signalStrength;
+    Integer[][] threeBeacons;
 
     public Scanner_BLE(MainActivity mainActivity, long scanPeriod, int signalStrength) {
         ma = mainActivity;
@@ -87,6 +87,7 @@ public class Scanner_BLE{
                                 if (device.getName() != null) { // iBKS Plus 1 Guidance <- Name with 1,2 or 3
                                     if (device.getName().contains("iBKS Plus") == true & device.getName().contains("Guidance") == true) {
                                         ma.addDevice(device, new_rssi);
+                                        UpdateBeaconsValues();
                                     }
                                 }
                             }
@@ -94,4 +95,33 @@ public class Scanner_BLE{
                     }
                 }
             };
+    private void UpdateBeaconsValues(){
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                threeBeacons = ma.UpdateDeviceLocationStatistics();
+                if (threeBeacons != null) {
+                    Integer result = deviceData.UpdateDeviceStats(threeBeacons, 1);
+                    if (result != 1) {
+                        System.out.println("Failed operation");
+                    }
+                    else {
+                        System.out.println("Successful operation");
+                    }
+                }
+            }
+        });
+        t.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        t.interrupt();
+    }
 }

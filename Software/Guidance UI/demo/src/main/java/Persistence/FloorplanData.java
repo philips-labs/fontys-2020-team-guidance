@@ -7,14 +7,14 @@ import java.util.*;
 
 public class FloorplanData {
     static Connection connection = null;
-    static String url = "jdbc:mysql://localhost:3306/guidance";
+    static String url = "jdbc:mysql://remotemysql.com:3306/WJnsvdUCVX";
 
     //Open and return a database connection to use
     public static Connection OpenConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         Properties p = new Properties();
-        p.put("user", "root");
-        p.put("password", "Prosoccer12");
+        p.put("user", "WJnsvdUCVX");
+        p.put("password", "WMNo0fKK0Q");
         connection = DriverManager.getConnection(url, p);
         return connection;
     }
@@ -25,7 +25,7 @@ public class FloorplanData {
         try {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM guidance.floorplans");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.floorplans");
 
             while(rs.next()) {
                 Floorplan floorplan = new Floorplan();
@@ -52,7 +52,7 @@ public class FloorplanData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            int status = stmt.executeUpdate("INSERT INTO `guidance`.`floorplans` (`image`,`ssid`,`name`, `width`) VALUES ('"+ floorplan.getImage()  +"', '"+ floorplan.getSSID() +"', '"+ floorplan.getName() + "', '"+ floorplan.getWidth() + "');");
+            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`floorplans` (`image`,`ssid`,`name`, `width`) VALUES ('"+ floorplan.getImage()  +"', '"+ floorplan.getSSID() +"', '"+ floorplan.getName() + "', '"+ floorplan.getWidth() + "');");
 
             System.out.println("DB update status: " + status);
             stmt.close();
@@ -83,7 +83,7 @@ public class FloorplanData {
             Statement stmt = connection.createStatement();
             String status = "";
             status += String.valueOf(stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;"));
-            status += String.valueOf(stmt.executeUpdate("DELETE FROM `guidance`.`floorplans` WHERE name='"+ name +"';"));
+            status += String.valueOf(stmt.executeUpdate("DELETE FROM `WJnsvdUCVX`.`floorplans` WHERE name='"+ name +"';"));
             status += String.valueOf(stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;"));
             System.out.println("DB update status: " + status);
             stmt.close();

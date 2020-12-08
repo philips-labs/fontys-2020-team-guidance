@@ -9,14 +9,14 @@ import java.util.Properties;
 
 public class NodeData {
     static Connection connection = null;
-    static String url = "jdbc:mysql://localhost:3306/guidance";
+    static String url = "jdbc:mysql://remotemysql.com:3306/WJnsvdUCVX";
 
     //Open and return a database connection to use
     public static Connection OpenConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         Properties p = new Properties();
-        p.put("user", "root");
-        p.put("password", "Prosoccer12");
+        p.put("user", "WJnsvdUCVX");
+        p.put("password", "WMNo0fKK0Q");
         connection = DriverManager.getConnection(url, p);
         return connection;
     }
@@ -30,7 +30,7 @@ public class NodeData {
             stmt.executeUpdate("DELETE FROM `guidance`.`nodes` WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"'");
             stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;");
 
-            int status = stmt.executeUpdate("INSERT INTO `guidance`.`nodes` (`id`,`x`,`y`, `type`, `connectedNotes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
+            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
 
             System.out.println("DB update status: " + status);
             stmt.close();
@@ -48,7 +48,7 @@ public class NodeData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM guidance.nodes WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.nodes WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
 
             while(rs.next()) {
                 Node node = new Node();

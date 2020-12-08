@@ -14,7 +14,7 @@ public class dbConn {
 
     public static Connection EstablishConnection(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection dbConnection = DriverManager.getConnection(
                     "jdbc:mysql://" + dbCreds.get("Server_Name")
                             + ":" + dbCreds.get("Port")

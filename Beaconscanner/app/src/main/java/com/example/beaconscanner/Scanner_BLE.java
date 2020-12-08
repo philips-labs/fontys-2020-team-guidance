@@ -18,7 +18,8 @@ public class Scanner_BLE{
 
     private long scanPeriod;
     private int signalStrength;
-    Integer[][] threeBeacons;
+    //Integer[][] threeBeacons;
+    Integer[] simpleBeacons;
 
     public Scanner_BLE(MainActivity mainActivity, long scanPeriod, int signalStrength) {
         ma = mainActivity;
@@ -87,6 +88,8 @@ public class Scanner_BLE{
                                 if (device.getName() != null) { // iBKS Plus 1 Guidance <- Name with 1,2 or 3
                                     if (device.getName().contains("iBKS Plus") == true & device.getName().contains("Guidance") == true) {
                                         ma.addDevice(device, new_rssi);
+                                        if (deviceData.getNodeIDByName(device.getName()) <= 0)
+                                            deviceData.createANode(device.getName());
                                         UpdateBeaconsValues();
                                     }
                                 }
@@ -95,6 +98,9 @@ public class Scanner_BLE{
                     }
                 }
             };
+
+    //creates a thread that is run every time when the filteredArrayList of the 3 nearest beacons update
+    //the thread's "run()" updates the database
     private void UpdateBeaconsValues(){
         Thread t = new Thread(new Runnable() {
             @Override
@@ -104,9 +110,11 @@ public class Scanner_BLE{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                threeBeacons = ma.UpdateDeviceLocationStatistics();
-                if (threeBeacons != null) {
-                    Integer result = deviceData.UpdateDeviceStats(threeBeacons, 1);
+                //threeBeacons = ma.GetDeviceLocationStatistics();
+                simpleBeacons = ma.GetDeviceLocationStatistics();
+                if (/*threeBeacons*/simpleBeacons != null) {
+                    //Integer result = deviceData.UpdateDeviceStats(threeBeacons, 1);
+                    Integer result = deviceData.UpdateBeaconsRSSI(simpleBeacons);
                     if (result != 1) {
                         System.out.println("Failed operation");
                     }

@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             filterBleArrayList.add(mBTDeviceHashMap.get(key));
             filterRSSIHashMap.remove(key);
         }
-        UpdateDeviceLocationStatistics();
+        GetDeviceLocationStatistics();
 
         //Log.d("HASHMAP", filterRSSIHashMap.toString());
         //Log.d("ARRAYLIST", filterBleArrayList.toString());
@@ -243,13 +243,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //this method updates the values in the database table deviceRawLocStats
-    public Integer[][] UpdateDeviceLocationStatistics(){
-        Integer[][] threeDevices = new Integer[3][2];
+    public Integer[]/*[]*/ GetDeviceLocationStatistics(){
+        //Integer[][] threeDevices = new Integer[3][2];
+        Integer[] simpleBeacons = new Integer[3];
         for (int a = 0; a < filterBleArrayList.size(); a++ ) {
             //fixed the update in the database, but need to make it so that it doenst expect mac address, but name
-            threeDevices[a][0] = deviceData.getNodeIDByMAC(filterBleArrayList.get(a).getAddress());
-            threeDevices[a][1] = filterBleArrayList.get(a).getRSSI();
+            //threeDevices[a][0] = deviceData.getNodeIDByMAC(filterBleArrayList.get(a).getAddress());
+            //threeDevices[a][1] = filterBleArrayList.get(a).getRSSI();
+             simpleBeacons[a] = filterBleArrayList.get(a).getRSSI();
         }
-        return threeDevices;
+        //return threeDevices;
+        return simpleBeacons;
     }
 }

@@ -109,7 +109,7 @@ class FloorplanEditPage extends Component {
         const item = this.state.iBeaconList;
         const x = this.state.x;
         const y = this.state.y;
-        item[id] = {id, x, y, type};
+        item[id] = {id, x, y, type, name};
     }
 
     // check if a start node exists
@@ -183,7 +183,7 @@ class FloorplanEditPage extends Component {
                             })}
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key}
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key} type={item.type} name={item.name}
                                                key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
@@ -228,8 +228,8 @@ class FloorplanEditPage extends Component {
                             })}
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key}
-                                               key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key} type={item.type}
+                                               name={item.name} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
                                 );

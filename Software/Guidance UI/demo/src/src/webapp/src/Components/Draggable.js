@@ -7,6 +7,7 @@ export default class Draggable extends React.Component {
     this.state = {
       id: this.props.id,
       type: this.props.type,
+      name: this.props.name,
 
       isDragging: false,
 
@@ -157,7 +158,7 @@ export default class Draggable extends React.Component {
   };
   // calling the parent to give data
   onTrigger = (e, transX, transY) => {
-    try {this.props.parentCallback(this.state.id, transX, transY, this.state.type);}
+    try {this.props.parentCallback(this.state.id, transX, transY, this.state.type, this.state.name);}
     catch {
     }
   }

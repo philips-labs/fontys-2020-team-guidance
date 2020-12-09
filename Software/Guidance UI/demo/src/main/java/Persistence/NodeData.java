@@ -1,5 +1,6 @@
 package Persistence;
 
+import Logic.Models.IBeacon;
 import Logic.Models.Node;
 
 import java.sql.*;
@@ -27,7 +28,7 @@ public class NodeData {
             Statement stmt = connection.createStatement();
 
             stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
-            stmt.executeUpdate("DELETE FROM `guidance`.`nodes` WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"'");
+            stmt.executeUpdate("DELETE FROM `WJnsvdUCVX`.`nodes` WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"'");
             stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;");
 
             int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
@@ -71,5 +72,57 @@ public class NodeData {
         }
 
         return nodes;
+    }
+
+    public void CreateIBeacon(IBeacon ibeacon) {
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
+            stmt.executeUpdate("DELETE FROM `WJnsvdUCVX`.`ibeacons` WHERE ssid='"+ ibeacon.getSSID() +"' AND floorplanId='"+ ibeacon.getFloorplanid() +"'");
+            stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;");
+
+            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`ibeacons` (`id`,`x`,`y`, `type`, `ssid`, `floorplanId`, `name` ) VALUES ('"+ ibeacon.getId()  +"', '"+ ibeacon.getX() +"', '"+ ibeacon.getY() + "', '"+ ibeacon.getType() + "', '"+ ibeacon.getSSID() + "', '"+ ibeacon.getFloorplanid() + "', '"+ ibeacon.getName() + "');");
+
+            System.out.println("DB update status: " + status);
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public Collection<IBeacon> GetIBeacons(String ssid, String floorplanId) {
+        ArrayList<IBeacon> ibeacons = new ArrayList<>();
+
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.ibeacons WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
+
+            while(rs.next()) {
+                IBeacon ibeacon = new IBeacon();
+                ibeacon.setId(rs.getInt("id"));
+                ibeacon.setX(rs.getInt("x"));
+                ibeacon.setY(rs.getInt("y"));
+                ibeacon.setType(rs.getString("type"));
+                ibeacon.setSSID(rs.getString("ssid"));
+                ibeacon.setFloorplanid(rs.getString("floorplanId"));
+                ibeacon.setName(rs.getString("name"));
+                ibeacons.add(ibeacon);
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        return ibeacons;
     }
 }

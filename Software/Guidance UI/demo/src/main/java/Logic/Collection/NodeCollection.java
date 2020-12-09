@@ -1,5 +1,6 @@
 package Logic.Collection;
 
+import Logic.Models.IBeacon;
 import Logic.Models.Node;
 import Persistence.NodeData;
 
@@ -15,5 +16,14 @@ public class NodeCollection {
 
     public void SaveNode(Node node) {
         crud.CreateNode(node);
+    }
+
+
+    public Collection<IBeacon> GetBeaconsBySSIDAndFloorplanId(String ssid, String floorplanId) {
+        return crud.GetIBeacons(ssid, floorplanId);
+    }
+
+    public void SaveIBeacon(IBeacon ibeacon) {
+        crud.CreateIBeacon(ibeacon);
     }
 }

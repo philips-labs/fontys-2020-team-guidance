@@ -29,11 +29,27 @@ class FloorplanEditPage extends Component {
     componentDidMount() {
         fetch("/books/getFloorplan/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
-            .then(data => this.setState({image: data.image}))
+            .then(data => {
+                if(data !== undefined) {
+                    this.setState({image: data.image})
+                }
+            })
 
         fetch("/books/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
-            .then(data => this.setState({nodeList: data}))
+            .then(data => {
+                if(data !== undefined) {
+                    this.setState({nodeList: data})
+                }
+            })
+
+        fetch("/books/getBeacons/" + this.state.ssid + "/" + this.state.floorplanid)
+            .then(res => res.json())
+            .then(data => {
+                if(data !== undefined) {
+                    this.setState({iBeaconList: data})
+                }
+            })
     }
 
 
@@ -103,13 +119,13 @@ class FloorplanEditPage extends Component {
         item[id] = {id, x, y, type};
     }
 
-    onSaveBeacon = (id, childX, childY, type) => {
+    onSaveBeacon = (id, childX, childY, type, name) => {
         this.setState({x: childX, y: childY})
 
         const item = this.state.iBeaconList;
         const x = this.state.x;
         const y = this.state.y;
-        item[id] = {id, x, y, type};
+        item[id] = {id, x, y, type, name};
     }
 
     // check if a start node exists
@@ -183,7 +199,7 @@ class FloorplanEditPage extends Component {
                             })}
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key}
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key} type={item.type} name={item.name}
                                                key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
@@ -228,8 +244,8 @@ class FloorplanEditPage extends Component {
                             })}
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key}
-                                               key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key} type={item.type}
+                                               name={item.name} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
                                 );

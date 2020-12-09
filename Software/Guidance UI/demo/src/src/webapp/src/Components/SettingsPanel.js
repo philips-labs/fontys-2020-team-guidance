@@ -8,7 +8,13 @@ class SettingsPanel extends Component {
         this.state = {
             SSID: '',
             InputSSID: '',
-            floorplan: ''
+            floorplan: '',
+
+            email: '',
+            distance1: '',
+            distance2: '',
+            distance3: '',
+            location: ''
         }
     }
 
@@ -32,7 +38,8 @@ class SettingsPanel extends Component {
     }
 
     componentDidMount() {
-        this.configureSSID()
+        this.configureSSID();
+        this.getUserData("yessin1996@hotmail.com"); // Here needs to come the email of the logged in user
     }
 
     configureSSID() {
@@ -61,28 +68,27 @@ class SettingsPanel extends Component {
             })
     }
 
-    postFloorplans(String) {
-        fetch("/books", {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain',
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify({
-                id: 101,
-                title: String,
-                author: "John Carnell",
-                coverPhotoURL: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png",
-                isbnNumber: 1617293989,
-                price: 2776,
-                language: "English"
-            })
-        })
-            .then(data => data.json())
-    }
+    getUserData = (email) => {
+        fetch("/books/getUserDataByEmail/" + email)
+            .then(res => res.json())
+            .then(data => {
+                if(data != null) {
+                    this.setState({
+                        email: data.email,
+                        distance1: data.distance1,
+                        distance2: data.distance2,
+                        distance3: data.distance3,
+                        location: data.location
+                    });
+                }
+            }).catch((error) => {
+            console.error("Error - " + error)
+            });
+    };
 
 
     render() {
+        const {email, distance1, distance2, distance3, location} = this.state;
         return (
             <div id="settingsPanel" className="settingsPanel">
                 <p className="settingsHeader">Settings</p>

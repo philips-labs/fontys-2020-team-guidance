@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("books")
 public class UserDataController {
 
     UserDataCollection userDataCollection = new UserDataCollection();

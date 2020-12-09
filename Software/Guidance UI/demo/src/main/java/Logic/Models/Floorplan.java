@@ -6,6 +6,8 @@ public class Floorplan {
     private String Name;
     private Double Width;
 
+    private Double Scale;
+
     public String getSSID() {
         return SSID;
     }
@@ -36,5 +38,13 @@ public class Floorplan {
 
     public void setWidth(Double width) {
         Width = width;
+    }
+
+    public Double getScale() {
+        return Scale;
+    }
+
+    public void setScale(Double scale) {
+        Scale = scale;
     }
 }

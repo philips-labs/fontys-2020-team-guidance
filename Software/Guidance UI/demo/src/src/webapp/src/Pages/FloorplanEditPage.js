@@ -40,6 +40,13 @@ class FloorplanEditPage extends Component {
             .then(data => {
                 if(data !== undefined) {
                     this.setState({nodeList: data})
+                    let list = this.state.nodeList;
+                    list.forEach(element => {
+                        element.nodeConnections = element.connectedNodesString.split(',');
+                        console.log(element.nodeConnections)
+                    })
+                    console.log(list.length);
+                    this.setState({nodeList: list, nodeId: list.length+1})
                 }
             })
 
@@ -80,6 +87,7 @@ class FloorplanEditPage extends Component {
         }
 
         item.push({id, x, y, type});
+        console.log(item);
         this.setState({nodeList: item});
         this.setState({nodeId: id + 1})
     }
@@ -116,7 +124,7 @@ class FloorplanEditPage extends Component {
         const item = this.state.nodeList;
         const x = this.state.x;
         const y = this.state.y;
-        item[id] = {id, x, y, type};
+        item[id-1] = {id, x, y, type};
     }
 
     onSaveBeacon = (id, childX, childY, type, name) => {
@@ -125,7 +133,7 @@ class FloorplanEditPage extends Component {
         const item = this.state.iBeaconList;
         const x = this.state.x;
         const y = this.state.y;
-        item[id] = {id, x, y, type, name};
+        item[id-1] = {id, x, y, type, name};
     }
 
     // check if a start node exists
@@ -190,16 +198,16 @@ class FloorplanEditPage extends Component {
                             {
                                 this.state.nodeList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={key}
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={item.id}
                                                type={item.type} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <Node className={key} key={key} type={item.type} data={this.state.nodeData}
-                                              nodeId={key}/>
+                                              nodeId={item.id}/>
                                     </Draggable>
                                 );
                             })}
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key} type={item.type} name={item.name}
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={item.id} type={item.type} name={item.name}
                                                key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
@@ -234,17 +242,17 @@ class FloorplanEditPage extends Component {
                         }}>
                             {this.state.nodeList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={key}
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={item.id}
                                                type={item.type} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <Node className={key} key={key} type={item.type} data={this.state.nodeData}
-                                              nodeId={key}/>
+                                              nodeId={item.id}/>
                                     </Draggable>
 
                                 );
                             })}
                             {this.state.iBeaconList.map((item, key) => {
                                 return (
-                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={key} type={item.type}
+                                    <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={item.id} type={item.type}
                                                name={item.name} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>

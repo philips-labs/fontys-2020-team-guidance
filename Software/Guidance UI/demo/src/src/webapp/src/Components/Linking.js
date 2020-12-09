@@ -20,6 +20,7 @@ export default class Linking extends Component {
     }
 
     render() {
+        console.log(this.state.nodeList)
         return (
             <div className={"linkMenu"}>
                 <div>

@@ -75,10 +75,12 @@ class FloorplanEditPage extends Component {
         const x = 0;
         const y = 0;
         const type = "iBeacon";
+        const name = prompt("Please fill in the iBeacon name: ", "Beacon Name");
 
-        item.push({id, x, y, type});
+        item.push({id, x, y, type, name});
         this.setState({iBeaconList: item});
         this.setState({iBeaconId: id + 1});
+        console.log(this.state.iBeaconList);
     }
 
     LockNodes = () => {
@@ -159,7 +161,7 @@ class FloorplanEditPage extends Component {
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'App'}>
-                    <Linking nodeList={this.state.nodeList} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
+                    <Linking nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
                         <div className={"draggingBounds " + this.state.nodeToggle} style={{

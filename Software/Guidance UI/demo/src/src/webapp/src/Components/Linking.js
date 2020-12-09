@@ -6,6 +6,7 @@ export default class Linking extends Component {
         this.state = { 
             input: 0,
             nodeList: this.props.nodeList,
+            iBeaconList: this.props.iBeaconList,
             count: 0,
             selectedNode: 0,
             distance: 0,

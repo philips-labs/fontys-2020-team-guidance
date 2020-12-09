@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from "react-router-dom";
 
 export default class Linking extends Component {
     constructor(props) {
@@ -22,13 +23,14 @@ export default class Linking extends Component {
         return (
             <div className={"linkMenu"}>
                 <div>
-                <h2>Node Linker</h2>
-                <input placeholder="ID node" onChange={this.handleSelector}></input>
-                <input type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/>
-                <label>Destination Node</label>
-                <input placeholder={"Connected Node"} onChange={this.handleOnChange}/>
-                <button onClick={this.saveLinks}>Save Link</button>
-                <button onClick={this.saveNodes}>Save Nodes</button>
+                    <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
+                    <p className={"NodeSaveTtl"}>Node Linker</p><br/>
+                    <input placeholder="ID node" onChange={this.handleSelector}></input>
+                    <label>Destination Node</label>
+                    <input type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
+                    <input placeholder={"Connected Node"} onChange={this.handleOnChange}/><br/>
+                    <button onClick={this.saveLinks}>Save Link</button><br/><br/>
+                    <button className={"green"} onClick={this.saveNodes}>Save Nodes</button><br/>
                 </div>
                 {/* <div>
                     <p>Path Finder</p>

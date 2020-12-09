@@ -13,6 +13,7 @@ body {
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
 }
 
 code {
@@ -545,13 +546,13 @@ input:focus, textarea:focus, select:focus{
   td.red {
     color: red;
     border: none;
-    background-color: rgb(26, 26, 26);
+    background-color: rgb(29, 29, 31);
     font-size: 1.2vw;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
   }
 
   td.red:hover {
@@ -679,14 +680,14 @@ input:focus, textarea:focus, select:focus{
     background-color: transparent;
     border: 1px solid #4c4c4c;
     padding: .5vw 1vw;
-    color: #b5b5b5;
+    color: #cfcfcf;
     font-size: 1vw;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     width: 10vw;
     height: 4vh;
     margin-bottom: 1vh;
-    border-radius: 20px;
+    border-radius: 45px;
   }
 
   .FloorplanEdit button:hover {
@@ -702,5 +703,74 @@ input:focus, textarea:focus, select:focus{
   img.MenuLogo {
     top: 0;
     transform: translate(-60%, 0);
+  }
+
+  .linkMenu {
+    background-color: rgb(23, 23, 24);
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    padding-top: 7vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10vw;
+    height: 100vh;
+    border-right: 1px solid #414141;
+    text-align: center;
+  }
+
+  .linkMenu input {
+    background-color: transparent;
+    border: 1px solid #4c4c4c;
+    padding: .5vw 1vw;
+    color: #999999;
+    font-size: 1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    width: 8vw;
+    margin-bottom: 1vh;
+    border-radius: 45px;
+  }
+
+  p.NodeSaveTtl {
+    color: white;
+    font-size: 1.5vw;
+    margin-top: -1vh;
+  }
+
+  .linkMenu button {
+    background-color: transparent;
+    border: 1px solid #4c4c4c;
+    padding: .5vw 1vw;
+    color: #cfcfcf;
+    font-size: 1vw;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    width: 10vw;
+    height: 4vh;
+    margin-bottom: 1vh;
+    border-radius: 45px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+  }
+
+  .linkMenu button:hover {
+    border: 1px solid #6d6d6d;
+    cursor: pointer;
+  }
+
+  .linkMenu button:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .linkMenu button.green {
+    border: 1px solid green;
+    transition: border 0.5s;
+  }
+
+  .linkMenu button.green:hover {
+    border: 1px solid lime;
   }
 }

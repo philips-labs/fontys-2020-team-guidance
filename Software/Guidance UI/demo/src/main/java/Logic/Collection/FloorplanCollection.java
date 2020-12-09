@@ -53,7 +53,7 @@ public class FloorplanCollection {
 
     public Boolean FloorplanNameExists(Floorplan floorplan) {
         for(Floorplan floorPlan : Floorplans) {
-            if(floorPlan.getName().equals(floorplan.getName())) {
+            if(floorPlan.getName().equals(floorplan.getName()) && floorPlan.getSSID().equals(floorplan.getSSID())) {
                 return true;
             }
         }

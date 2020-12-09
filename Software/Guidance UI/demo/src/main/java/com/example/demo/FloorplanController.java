@@ -5,6 +5,7 @@ import Logic.Collection.FloorplanCollection;
 import Logic.Collection.NodeCollection;
 import Logic.Models.AdminKey;
 import Logic.Models.Floorplan;
+import Logic.Models.IBeacon;
 import Logic.Models.Node;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,7 +81,7 @@ public class FloorplanController {
     }
 
     @PostMapping("/saveNode")
-    public ResponseEntity<HttpStatus> GetNodeById(@RequestBody Node node) {
+    public ResponseEntity<HttpStatus> CreateNode(@RequestBody Node node) {
         nodes.SaveNode(node);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -88,6 +89,17 @@ public class FloorplanController {
     @GetMapping("/getNodes/{ssid}/{floorplanid}")
     public ResponseEntity<Collection<Node>> GetNodeById(@PathVariable String ssid, @PathVariable String floorplanid) {
         return new ResponseEntity<>(nodes.GetNodesBySSIDAndFloorplanId(ssid, floorplanid), HttpStatus.OK);
+    }
+
+    @PostMapping("/saveBeacon")
+    public ResponseEntity<HttpStatus> CreateNode(@RequestBody IBeacon ibeacon) {
+        nodes.SaveIBeacon(ibeacon);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getBeacons/{ssid}/{floorplanid}")
+    public ResponseEntity<Collection<IBeacon>> CreateBeacon(@PathVariable String ssid, @PathVariable String floorplanid) {
+        return new ResponseEntity<>(nodes.GetBeaconsBySSIDAndFloorplanId(ssid, floorplanid), HttpStatus.OK);
     }
 
 }

@@ -62,6 +62,27 @@ export default class Linking extends Component {
                 })
             })
         })
+
+        alert(this.state.iBeaconList);
+
+        this.state.iBeaconList.forEach(item => {
+            fetch("/books/saveBeacon", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    id: item.id,
+                    x: item.x,
+                    y: item.y,
+                    type: item.type,
+                    ssid: this.state.ssid,
+                    floorplanid: this.state.floorplanid,
+                    name: item.name
+                })
+            })
+        })
     }
 
     appendInput() {

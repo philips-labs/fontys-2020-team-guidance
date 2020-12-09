@@ -59,7 +59,7 @@ class AdminMenu extends Component {
     }
 
     onLoad(reader) {
-        return (a) => {
+        return () => {
             let result = reader.result;
             const ssid = this.state.SSID;
             const name = prompt("Please enter the name of the image", "Name");
@@ -69,36 +69,39 @@ class AdminMenu extends Component {
 
             var image = new Image();
             image.src = reader.result;
-            image.onload = function() {
-                scale = image.width / width;
+            image.onload = this.uploadImage(result, ssid, name, width, image);
+        }
+    }
 
-                if(Number.isInteger(width)) {
-                    if(name && name.length > 0) {
-                        fetch("/books/createFloorplan", {
-                            method: 'post',
-                            headers: {
-                                'Accept': 'application/json, text/plain',
-                                'Content-Type': 'application/json;charset=UTF-8'
-                            },
-                            body: JSON.stringify({
-                                ssid: ssid,
-                                name: name,
-                                image: result,
-                                width: width,
-                                scale: scale
-                            })
-
+    uploadImage(result, ssid, name, width, image) {
+        return () => {
+            let scale = image.width / width;
+            if(Number.isInteger(width)) {
+                if(name && name.length > 0) {
+                    fetch("/books/createFloorplan", {
+                        method: 'post',
+                        headers: {
+                            'Accept': 'application/json, text/plain',
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        },
+                        body: JSON.stringify({
+                            ssid: ssid,
+                            name: name,
+                            image: result,
+                            width: width,
+                            scale: scale
                         })
-                            .then(floorplans => floorplans.json())
-                            .then(res => {
-                                this.setState({floorplans: res})
-                            })
-                    }
+
+                    })
+                        .then(floorplans => floorplans.json())
+                        .then(res => {
+                            this.setState({floorplans: res})
+                        })
                 }
-                else {
-                    alert("Please only fill in the number of the real width in metres");
-                }
-            };
+            }
+            else {
+                alert("Please only fill in the number of the real width in metres");
+            }
         }
     }
 

@@ -11,17 +11,25 @@
     tools:context=".MainActivity">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:fillViewport="true"
-        android:id="@+id/scrollView">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:fillViewport="true"
+            android:id="@+id/scrollView">
     </ScrollView>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Start Scan"
-        android:id="@+id/btn_scan"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="72dp">
+        <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Start Scan"
+                android:id="@+id/btn_scan"/>
+        <Button
+                android:text="Settings"
+                android:layout_width="wrap_content"
+                android:layout_height="72dp" android:id="@+id/btn_Settings"/>
+    </LinearLayout>
 </LinearLayout>

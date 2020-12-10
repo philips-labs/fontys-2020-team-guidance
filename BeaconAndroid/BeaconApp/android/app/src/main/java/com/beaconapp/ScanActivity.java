@@ -34,6 +34,7 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
     private HashMap<String, Integer> filterRSSIHashMap;
 
     private Button btn_Scan;
+    private Button btn_Settings;
 
     private BroadcastReceiver_BTState mBTStateUpdateReceiver;
     private Scanner_BLE mBLEScanner;
@@ -72,7 +73,12 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_Scan = (Button) findViewById(R.id.btn_scan);
         findViewById(R.id.btn_scan).setOnClickListener(this);
+
+        btn_Settings = (Button) findViewById(R.id.btn_Settings);
+        findViewById(R.id.btn_Settings).setOnClickListener(this);
+
     }
+
 
     @Override
     protected void onStart() {
@@ -144,6 +150,9 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                 else {
                     stopScan();
                 }
+                break;
+            case R.id.btn_Settings:
+                openSettingsActivity();
                 break;
             default:
                 break;
@@ -236,13 +245,8 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
         mBLEScanner.stop();
     }
 
-    private void deleteAppData() {
-        try {
-            String packageName = getApplicationContext().getPackageName();
-            Runtime runtime = Runtime.getRuntime();
-            runtime.exec("pm clear "+packageName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void openSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 }

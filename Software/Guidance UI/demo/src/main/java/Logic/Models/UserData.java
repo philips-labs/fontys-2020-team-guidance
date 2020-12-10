@@ -71,11 +71,10 @@ public class UserData {
     }
 
     public String getLocation() {
+        // coordinaten van beacons bemachtigen
+        // creeer 3 arrays met circel coordinaten
+        // locatie achterhalen
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getCoordinates(String beacon1, Double distance1, Double scale, Double distance2, Double distance3) {

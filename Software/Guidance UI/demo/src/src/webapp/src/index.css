@@ -738,6 +738,11 @@ input:focus, textarea:focus, select:focus{
     border-radius: 45px;
   }
 
+  .linkMenu label {
+    color: white;
+    font-size: 1vw;
+  }
+
   p.NodeSaveTtl {
     color: white;
     font-size: 1.5vw;
@@ -778,5 +783,9 @@ input:focus, textarea:focus, select:focus{
 
   .linkMenu button.green:hover {
     border: 1px solid lime;
+  }
+
+  input.CheckBox {
+    padding: 1vw;
   }
 }

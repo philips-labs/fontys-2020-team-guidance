@@ -25,9 +25,9 @@ export default class Linking extends Component {
                 <div>
                     <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
                     <p className={"NodeSaveTtl"}>Node Linker</p><br/>
-                    <input placeholder="ID node" onChange={this.handleSelector}></input>
+                    <input placeholder="ID node" onChange={this.handleSelector}/><br/>
                     <label>Destination Node</label>
-                    <input type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
+                    <input className={"CheckBox"} type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
                     <input placeholder={"Connected Node"} onChange={this.handleOnChange}/><br/>
                     <button onClick={this.saveLinks}>Save Link</button><br/><br/>
                     <button className={"green"} onClick={this.saveNodes}>Save Nodes</button><br/>

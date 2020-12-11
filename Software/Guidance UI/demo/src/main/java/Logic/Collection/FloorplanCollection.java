@@ -85,4 +85,8 @@ public class FloorplanCollection {
 
         return new Floorplan();
     }
+
+    public void updateFloorplanImage(String image, String ssid, String floorplanid) {
+        FloorplanData.UpdateFloorplanImage(image, ssid, floorplanid);
+    }
 }

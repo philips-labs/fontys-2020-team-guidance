@@ -48,6 +48,13 @@ public class FloorplanController {
         return new ResponseEntity<>(floorplans.AddFloorplan(floorplan), HttpStatus.OK);
     }
 
+    @PutMapping("/updateFloorplan/{ssid}/{floorplanID}")
+    public ResponseEntity<HttpStatus> UpdateFloorplan(@RequestBody String image, @PathVariable String ssid, @PathVariable String floorplanID) {
+        floorplans.updateFloorplanImage(image, ssid, floorplanID);
+        System.out.println("yes");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/deleteFloorplan/{floorplanname}")
     public ResponseEntity<Collection<Floorplan>> DeleteFloorplan(@PathVariable String floorplanname) {
         return new ResponseEntity<>(floorplans.DeleteFloorplan(floorplanname), HttpStatus.OK);

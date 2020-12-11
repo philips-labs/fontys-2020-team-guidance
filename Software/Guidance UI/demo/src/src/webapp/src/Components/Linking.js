@@ -20,7 +20,6 @@ export default class Linking extends Component {
     }
 
     render() {
-        console.log(this.state.nodeList)
         return (
             <div className={"linkMenu"}>
                 <div>
@@ -140,7 +139,6 @@ export default class Linking extends Component {
         this.setState({nodeList: newArr1})
 
         } catch {}
-        console.log(this.state.nodeList);
     }
 
     calculateDistance = (nodeOne, nodeTwo) => {

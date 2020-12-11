@@ -43,9 +43,7 @@ class FloorplanEditPage extends Component {
                     let list = this.state.nodeList;
                     list.forEach(element => {
                         element.nodeConnections = element.connectedNodesString.split(',');
-                        console.log(element.nodeConnections)
                     })
-                    console.log(list.length);
                     this.setState({nodeList: list, nodeId: list.length+1})
                 }
             })
@@ -57,6 +55,10 @@ class FloorplanEditPage extends Component {
                     this.setState({iBeaconList: data})
                 }
             })
+
+        if(this.state.image === undefined || this.state.image === null || this.state.nodeList === undefined || this.state.nodeList === null || this.state.iBeaconList === undefined || this.state.iBeaconList === null) {
+            window.location = "localhost:3000/admin";
+        }
     }
 
 
@@ -87,7 +89,6 @@ class FloorplanEditPage extends Component {
         }
 
         item.push({id, x, y, type});
-        console.log(item);
         this.setState({nodeList: item});
         this.setState({nodeId: id + 1})
     }
@@ -104,7 +105,6 @@ class FloorplanEditPage extends Component {
         item.push({id, x, y, type, name});
         this.setState({iBeaconList: item});
         this.setState({iBeaconId: id + 1});
-        console.log(this.state.iBeaconList);
     }
 
     LockNodes = () => {
@@ -179,9 +179,49 @@ class FloorplanEditPage extends Component {
         }
     }
 
+    openFileDialog = () => {
+        document.getElementById("file-input").click();
+    }
+
+    fileInputOnchange = (e) => {
+        const reader = new FileReader();
+
+        const file = e.target.files[0];
+        reader.readAsDataURL(file);
+
+        reader.onload = this.onLoad(reader);
+    }
+
+    onLoad(reader) {
+        return () => {
+            let result = reader.result;
+            this.updateImage(result, this.state.ssid, this.state.floorplanid);
+        }
+    }
+
+    updateImage(result, ssid, name) {
+        if(name && name.length > 0) {
+            alert();
+            fetch("/books/updateFloorplan/" + this.state.ssid + "/" + this.state.floorplanid, {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    image: result
+                })
+
+            })
+                .then(floorplans => floorplans.text())
+                .then(res => {
+                    this.setState({image: res})
+                })
+        }
+    }
+
     // renders the heatmap and draggable nodes
     render() {
-        console.log(this.state.image.height);
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'App'}>
@@ -230,6 +270,7 @@ class FloorplanEditPage extends Component {
                         <this.checkStart/><br/>
                         <this.checkEnd/><br/>
                         <button onClick={this.LockNodes}>Lock Nodes</button><br/>
+                        <button onClick={this.openFileDialog} className={"ImageEditBtn"}>Change image</button>
                     </div>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
@@ -261,6 +302,8 @@ class FloorplanEditPage extends Component {
                         </div>
                     </div>
                     <img ref={this.imgRef} src= {this.state.image} alt='gfg' onLoad={this.handleImageLoad} style={{visibility: "hidden"}}/>
+
+                    <input onChange={this.fileInputOnchange} className={"FileInput"} id="file-input" type="file" name="name" accept="image/*" />
                 </div>
             );
         }

@@ -700,6 +700,12 @@ input:focus, textarea:focus, select:focus{
     box-shadow: none;
   }
 
+  button.ImageEditBtn {
+    position: absolute;
+    bottom: 7vh;
+    left: .5vw;
+  }
+
   img.MenuLogo {
     top: 0;
     transform: translate(-60%, 0);

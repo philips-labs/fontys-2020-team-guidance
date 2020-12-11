@@ -64,11 +64,12 @@ public class FloorplanData {
         }
     }
 
-    public void UpdateFloorplan(Floorplan floorplan) {
+    public void UpdateFloorplanImage(String image, String ssid, String floorplanId) {
         try {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
-            int status = stmt.executeUpdate("");
+            System.out.println(ssid);
+            int status = stmt.executeUpdate("UPDATE `floorplans` SET `image`=["+ image +"] WHERE ssid='"+ ssid +"' AND name='"+ floorplanId +"'");
             System.out.println("DB update status: " + status);
             stmt.close();
             connection.close();

@@ -32,6 +32,9 @@ public class UserDataData {
                 userData.setDistance1(rs.getDouble("distance1"));
                 userData.setDistance2(rs.getDouble("distance2"));
                 userData.setDistance3(rs.getDouble("distance3"));
+                userData.setBeacon1(rs.getString("beacon1"));
+                userData.setBeacon2(rs.getString("beacon2"));
+                userData.setBeacon3(rs.getString("beacon3"));
                 userData.setEmail(rs.getString("email"));
                 userData.setLocation(rs.getString("location"));
                 userDataList.add(userData);

@@ -125,4 +125,28 @@ public class NodeData {
 
         return ibeacons;
     }
+
+    public String GetFloorplanIdBySSIDAndBeaconName(String beaconname, String ssid) {
+        String floorplanName = "";
+
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.ibeacons WHERE ssid='"+ssid+"' AND name='"+beaconname+"'");
+
+            while(rs.next()) {
+                floorplanName = rs.getString("floorplanid");
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        return floorplanName;
+    }
 }

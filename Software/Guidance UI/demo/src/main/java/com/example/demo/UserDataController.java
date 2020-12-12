@@ -21,17 +21,17 @@ public class UserDataController {
 
 
     @GetMapping("/getUserDatasByEmail/{email}")
-    public ResponseEntity<Collection<UserData>> GetUserDatasByEmail(@PathVariable String email) {
+    public ResponseEntity<UserData> GetUserDatasByEmail(@PathVariable String email) {
         return new ResponseEntity<>(userDataCollection.GetUserDatasByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping("/createUserData")
-    public ResponseEntity<Collection<UserData>> AddUserData(@RequestBody UserData userData) {
+    public ResponseEntity<UserData> AddUserData(@RequestBody UserData userData) {
         return new ResponseEntity<>(userDataCollection.AddUserData(userData), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteUserData/{email}")
-    public ResponseEntity<Collection<UserData>> DeleteUserData(@PathVariable String email) {
+    public ResponseEntity<UserData> DeleteUserData(@PathVariable String email) {
         return new ResponseEntity<>(userDataCollection.DeleteUserData(email), HttpStatus.OK);
     }
 

@@ -10,19 +10,15 @@ public class UserDataCollection {
     UserDataData userDataData = new UserDataData();
     private ArrayList<UserData> userDataList = new ArrayList<>();
 
-    public Collection<UserData> GetUserDatasByEmail(String email) {
-        userDataList =  userDataData.GetAllUserData();
+    public UserData GetUserDatasByEmail(String email) {
+        userDataList = userDataData.GetAllUserData();
 
         if(userDataList != null) {
-            ArrayList<UserData> userDataList2 = new ArrayList<>();
-
             for(UserData userData : userDataList) {
                 if(userData.getEmail().equals(email)) {
-                    userDataList2.add(userData);
+                    return userData;
                 }
             }
-
-            return userDataList2;
         }
 
         return null;
@@ -42,7 +38,7 @@ public class UserDataCollection {
         return null;
     }
 
-    public Collection<UserData> AddUserData(UserData userData) {
+    public UserData AddUserData(UserData userData) {
         if(!UserDataEmailExists(userData)) {
             userDataList.add(userData);
             userDataData.CreateUserData(userData);
@@ -61,7 +57,7 @@ public class UserDataCollection {
         return false;
     }
 
-    public Collection<UserData> DeleteUserData(String givenEmail) { // Deze is sws fout! even in de gaten houden
+    public UserData DeleteUserData(String givenEmail) { // Deze is sws fout! even in de gaten houden
         String email = "";
 
         userDataData.DeleteUserData(givenEmail);

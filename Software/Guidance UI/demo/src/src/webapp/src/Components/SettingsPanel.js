@@ -6,15 +6,18 @@ class SettingsPanel extends Component {
         super(props);
 
         this.state = {
-            SSID: '',
+            ssid: '',
             InputSSID: '',
             floorplan: '',
 
             email: '',
-            distance1: '',
-            distance2: '',
-            distance3: '',
-            location: ''
+            distance1: 0,
+            distance2: 0,
+            distance3: 0,
+            location: '',
+            beacon1: '',
+            beacon2: '',
+            beacon3: ''
         }
     }
 
@@ -29,7 +32,7 @@ class SettingsPanel extends Component {
         if(e.keyCode === 13) {
             e.preventDefault()
             this.setState({
-                SSID: this.state.InputSSID
+                ssid: this.state.InputSSID
             })
 
             alert("Network name updated to: " + this.state.InputSSID);
@@ -39,18 +42,18 @@ class SettingsPanel extends Component {
 
     componentDidMount() {
         this.configureSSID();
-        this.getUserData("yessin1996@hotmail.com"); // Here needs to come the email of the logged in user
     }
 
     configureSSID() {
         const ssid = prompt("Please enter the network name", "Network Name");
 
         this.setState({
-            SSID: ssid,
+            ssid: ssid,
             InputSSID: ssid
         });
 
         this.getFloorplans(ssid);
+        this.getUserData("yessin1996@hotmail.com"); // Here needs to come the email of the logged in user
     }
 
 
@@ -58,7 +61,7 @@ class SettingsPanel extends Component {
         fetch("/books/getFloorplanBySSID/" + string)
             .then(res => res.text())
             .then(imagesrc => {
-                if(imagesrc !== "null") {
+                if(imagesrc !== null) {
                     document.getElementById("floorplan-container-image").src = imagesrc;
                 }
                 else {
@@ -78,13 +81,41 @@ class SettingsPanel extends Component {
                         distance1: data.distance1,
                         distance2: data.distance2,
                         distance3: data.distance3,
-                        location: data.location
+                        location: data.location,
+                        beacon1: data.beacon1,
+                        beacon2: data.beacon2,
+                        beacon3: data.beacon3
                     });
+
+                    this.checkClosestBeacon(this.state.distance1, this.state.distance2, this.state.distance3, this.state.beacon1, this.state.beacon2, this.state.beacon3);
                 }
             }).catch((error) => {
             console.error("Error - " + error)
             });
     };
+
+    checkClosestBeacon = (d1, d2, d3, b1, b2, b3) => {
+        alert(d1 + "," + d2 + "," + d3);
+        alert(b1 + "," + b2 + "," + b3);
+        if(d1 < d2 && d1 < d3) {
+            this.getFloorplan(b1);
+        }
+        else if(d2 < d1 && d2 < d3) {
+            this.getFloorplan(b2);
+        }
+        else {
+            this.getFloorplan(b3);
+        }
+    }
+
+    getFloorplan = (closestBeacon) => {
+        alert(closestBeacon + ", " + this.state.ssid);
+        fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
+            .then(res => res.text())
+            .then(imagesrc => {
+                document.getElementById("floorplan-container-image").src = imagesrc;
+            })
+    }
 
 
     render() {

@@ -77,6 +77,10 @@ public class UserData {
         return location;
     }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getCoordinates(String beacon1, Double distance1, Double scale, Double distance2, Double distance3) {
         String location = "";
         List<String> circle1 = new ArrayList<>();

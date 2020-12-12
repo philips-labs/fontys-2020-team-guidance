@@ -109,9 +109,9 @@ public class FloorplanController {
         return new ResponseEntity<>(nodes.GetBeaconsBySSIDAndFloorplanId(ssid, floorplanid), HttpStatus.OK);
     }
 
-    @GetMapping("/getFloorplanByBeaconAndSSID/{beaconName}/{ssid}")
-    public ResponseEntity<String> GetFloorplanByBeaconAndSSID(@PathVariable String beaconName, @PathVariable String ssid) {
-        return new ResponseEntity<>(floorplans.GetFloorplanByNameAndSSID(nodes.GetFloorplanIdByBeaconNameAndSSID(beaconName, ssid), ssid).getImage(), HttpStatus.OK);
+    @GetMapping("/getFloorplanNameByBeaconAndSSID/{beaconName}/{ssid}")
+    public ResponseEntity<String> GetFloorplanNameByBeaconAndSSID(@PathVariable String beaconName, @PathVariable String ssid) {
+        return new ResponseEntity<>(nodes.GetFloorplanIdByBeaconNameAndSSID(beaconName, ssid), HttpStatus.OK);
     }
 
 }

@@ -6,7 +6,7 @@ function SuperAdminPage() {
 
 
     return (
-        <div className="App">
+        <div className="SuperAdminPage">
             <Logo/>
             <SuperAdminMenu/>
         </div>

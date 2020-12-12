@@ -95,8 +95,6 @@ class SettingsPanel extends Component {
     };
 
     checkClosestBeacon = (d1, d2, d3, b1, b2, b3) => {
-        alert(d1 + "," + d2 + "," + d3);
-        alert(b1 + "," + b2 + "," + b3);
         if(d1 < d2 && d1 < d3) {
             this.getFloorplan(b1);
         }
@@ -109,11 +107,15 @@ class SettingsPanel extends Component {
     }
 
     getFloorplan = (closestBeacon) => {
-        alert(closestBeacon + ", " + this.state.ssid);
         fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
             .then(res => res.text())
             .then(imagesrc => {
-                document.getElementById("floorplan-container-image").src = imagesrc;
+                if(imagesrc) {
+                    document.getElementById("floorplan-container-image").src = imagesrc;
+                }
+                else {
+                    this.configureSSID();
+                }
             })
     }
 

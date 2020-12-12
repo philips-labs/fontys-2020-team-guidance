@@ -52,8 +52,9 @@ class FloorplanEditPage extends Component {
             .then(res => res.json())
             .then(data => {
                 if(data !== undefined) {
-                    this.setState({iBeaconList: data})
+                    this.setState({iBeaconList: data, iBeaconId: data.length+1})
                 }
+                console.log(data);
             })
 
         if(this.state.image === undefined || this.state.image === null || this.state.nodeList === undefined || this.state.nodeList === null || this.state.iBeaconList === undefined || this.state.iBeaconList === null) {

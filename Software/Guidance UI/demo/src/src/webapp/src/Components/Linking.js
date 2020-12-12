@@ -45,12 +45,14 @@ export default class Linking extends Component {
 
     saveNodes = () => {
         this.state.nodeList.forEach(item =>  {
+            console.log(item.x)
             fetch("/books/saveNode", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain',
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
+
                 body: JSON.stringify({
                     id: item.id,
                     x: item.x,

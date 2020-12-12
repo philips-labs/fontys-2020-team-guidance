@@ -1,6 +1,6 @@
 import React from 'react';
-import Logo from "../Components/Logo";
-import AdminMenu from "../Components/AdminMenu";
+import Logo from "../Components/Logo/Logo";
+import AdminMenu from "../Components/AdminMenu/AdminMenu";
 
 function AdminPage() {
 

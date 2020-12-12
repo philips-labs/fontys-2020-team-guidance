@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Waypoint from './Images/waypoint.png';
-import Start from './Images/startingPoint.png';
-import End from './Images/endPoint.png';
-import Stair from './Images/stairs.png';
+import Waypoint from '../Images/waypoint.png';
+import Start from '../Images/startingPoint.png';
+import End from '../Images/endPoint.png';
+import Stair from '../Images/stairs.png';
 
 export default class Node extends Component {
     constructor(prop) {

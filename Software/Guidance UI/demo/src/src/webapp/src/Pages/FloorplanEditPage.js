@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './../App.css';
-import Draggable from "../Components/Draggable";
-import Node from "../Components/Node";
-import IBeacon from "../Components/IBeacon";
-import Linking from "../Components/Linking";
+import Draggable from "../Components/Draggable/Draggable";
+import Node from "../Components/Node/Node";
+import IBeacon from "../Components/IBeacon/IBeacon";
+import Linking from "../Components/Linking/Linking";
 import Waypoint from '../Components/Images/waypoint.png';
 import {Link} from "react-router-dom";
 

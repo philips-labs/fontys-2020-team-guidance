@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import IBeacon from './Images/iBeacon.png';
+import IBeacon from '../Images/iBeacon.png';
 
 export default class Node extends Component {
     constructor(prop) {

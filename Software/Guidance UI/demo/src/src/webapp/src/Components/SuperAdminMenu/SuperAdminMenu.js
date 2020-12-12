@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import './../App.css';
-import Logo from "./Logo";
+import '../../App.css';
 
 class SuperAdminMenu extends Component {
 

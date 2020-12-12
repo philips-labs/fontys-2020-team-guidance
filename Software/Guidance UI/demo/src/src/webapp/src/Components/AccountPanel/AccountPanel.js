@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './../App.css';
+import '../../App.css';
 
 class AccountPanel extends Component {
 
@@ -40,7 +40,7 @@ class AccountPanel extends Component {
                     <input onKeyDown={this.handleInputSubmit} onChange={this.handleInputChange} className="ssidInput" value={"Name"} readOnly={true}/>
                 </div>
                 <div className="accountObject">
-                    <img alt="" className="accountObjectPP" src={require('./Images/pf.png')}/>
+                    <img alt="" className="accountObjectPP" src={require('../Images/pf.png')}/>
                     <input className="ssidInput" defaultValue={"Image link"} readOnly={true}/>
                 </div>
             </div>

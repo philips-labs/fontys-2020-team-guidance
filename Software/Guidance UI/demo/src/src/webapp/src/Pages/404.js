@@ -4,7 +4,7 @@ import Logo from "../Components/Logo";
 function NotFoundPage() {
 
     return (
-        <div className="App">
+        <div className="NotFound">
             <Logo/>
             <h className={"PageErrorCode"}>404</h>
             <h className={"PageMessage"}>Page not found</h>

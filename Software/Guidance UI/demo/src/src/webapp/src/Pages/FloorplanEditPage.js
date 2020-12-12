@@ -224,7 +224,7 @@ class FloorplanEditPage extends Component {
     render() {
         if (this.state.nodeToggle === "lockNodes") {
             return (
-                <div className={'App'}>
+                <div className={'FloorplanEditPage'}>
                     <Linking nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}

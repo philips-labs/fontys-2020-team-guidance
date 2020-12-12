@@ -14,8 +14,6 @@ class Floorplan extends Component {
         }
 
         this._dragStart = this._dragStart.bind(this);
-        this._dragging = this._dragging.bind(this);
-        this._dragEnd = this._dragEnd.bind(this);
         this._scroll = this._scroll.bind(this);
     }
 
@@ -39,35 +37,6 @@ class Floorplan extends Component {
         })
     }
 
-    _dragging(e) {
-        if(this.state.dragging && e.screenX !== 0) {
-            let left;
-            let top;
-
-            if(e.screenX) {
-                left = e.screenX - this.state.diffX; //New Mouse x - Mouse x on Image
-                top = e.screenY - this.state.diffY; //New Mouse y - Mouse y on Image
-            }
-            else if(e.touches[0]) {
-                left = e.touches[0].clientX - this.state.diffX; //New Touch x - Touch x on Image
-                top = e.touches[0].clientY - this.state.diffY; //New Touch y - Touch y on Image
-            }
-
-            this.setState({
-                styles: {
-                    left: left, //Style left
-                    top: top //Style top
-                }
-            });
-        }
-    }
-
-    _dragEnd() {
-        this.setState({
-            dragging: false
-        })
-    }
-
     _scroll(e) {
         const floorplan = document.getElementById("floorplan-container-image");
 
@@ -87,11 +56,7 @@ class Floorplan extends Component {
                  draggable="false"
                  style={this.state.styles}
                  onMouseDown={this._dragStart}
-                 onMouseMove={this._dragging}
-                 onMouseUp={this._dragEnd}
                  onTouchStart={this._dragStart}
-                 onTouchMove={this._dragging}
-                 onTouchEnd={this._dragEnd}
                  onWheel={this._scroll}
                  onClick={this.onload}
             />

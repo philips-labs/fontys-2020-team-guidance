@@ -8,6 +8,7 @@ class SettingsPanel extends Component {
         this.state = {
             ssid: '',
             InputSSID: '',
+            floorplanid: '',
             floorplan: '',
 
             email: '',
@@ -108,6 +109,14 @@ class SettingsPanel extends Component {
 
     getFloorplan = (closestBeacon) => {
         fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
+            .then(res => res.text())
+            .then(ssid => {
+                this.setState({
+                    ssid: ssid
+                })
+            })
+
+        fetch("/books/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid+"")
             .then(res => res.text())
             .then(imagesrc => {
                 if(imagesrc) {

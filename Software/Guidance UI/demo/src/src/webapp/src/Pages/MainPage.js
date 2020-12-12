@@ -8,7 +8,7 @@ import Floorplan from "../Components/Floorplan";
 function MainPage() {
 
     return (
-        <div className="App">
+        <div className="MainPage">
             <Logo/>
             <MobileMenu/>
             <SettingsPanel/>

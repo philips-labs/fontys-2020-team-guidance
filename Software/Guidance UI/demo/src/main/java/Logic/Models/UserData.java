@@ -1,5 +1,7 @@
 package Logic.Models;
 
+import Logic.Collection.NodeCollection;
+
 import java.util.*;
 
 public class UserData {
@@ -11,8 +13,8 @@ public class UserData {
     private Double distance2;
     private String beacon3;
     private Double distance3;
+
     private String location;
-    private String coordinates;
 
     public String getEmail() {
         return email;
@@ -71,30 +73,10 @@ public class UserData {
     }
 
     public String getLocation() {
-        // coordinaten van beacons bemachtigen
-        // creeer 3 arrays met circel coordinaten
-        // locatie achterhalen
         return location;
     }
 
-    public String getCoordinates(String beacon1, Double distance1, Double scale, Double distance2, Double distance3) {
-        String location = "";
-        List<String> circle1 = new ArrayList<>();
-        circle1 = getCircleAroundBeacon(beacon1, distance1, scale, 100, 100);
-
-
-        return location;
-    }
-
-    private List<String> getCircleAroundBeacon(String beacon, Double distance, Double scale, int beaconX, int beaconY) {
-        List<String> circle = new ArrayList<>();
-
-        for(var degree=0;degree<360;degree++){
-            var radians = degree * Math.PI/180;
-            var x = beaconX + distance * Math.cos(radians);
-            var y = beaconY + distance * Math.sin(radians);
-            circle.add(x + ";" + y);
-        }
-        return circle;
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

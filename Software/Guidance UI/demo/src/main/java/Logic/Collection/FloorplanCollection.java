@@ -63,7 +63,7 @@ public class FloorplanCollection {
 
     public Collection<Floorplan> DeleteFloorplan(String name) {
         String ssid = "";
-        
+
         FloorplanData.DeleteFloorplan(name);
 
         for(int i = 0; i < Floorplans.size(); i++) {
@@ -77,6 +77,7 @@ public class FloorplanCollection {
     }
 
     public Floorplan GetFloorplanByNameAndSSID(String name, String ssid) {
+        Floorplans = FloorplanData.GetAllFloorplans();
         for(Floorplan floorplan : Floorplans) {
             if(floorplan.getName().equals(name) && floorplan.getSSID().equals(ssid)) {
                 return floorplan;
@@ -89,4 +90,16 @@ public class FloorplanCollection {
     public void updateFloorplanImage(String image, String ssid, String floorplanid) {
         FloorplanData.UpdateFloorplanImage(image, ssid, floorplanid);
     }
+
+//    public ArrayList<Floorplan> GetFloorplansByName(String name) {
+//        Floorplans = FloorplanData.GetAllFloorplans();
+//        ArrayList<Floorplan> floorplanList = new ArrayList<>();
+//
+//        for(Floorplan floorplan : Floorplans) {
+//            if(floorplan.getName().equals(name)) {
+//                floorplanList.add(floorplan);
+//            }
+//        }
+//        return floorplanList;
+//    }
 }

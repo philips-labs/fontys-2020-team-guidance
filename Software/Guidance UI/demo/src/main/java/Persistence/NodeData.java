@@ -125,4 +125,36 @@ public class NodeData {
 
         return ibeacons;
     }
+
+    public ArrayList<IBeacon> GetAllIBeacons() {
+        ArrayList<IBeacon> ibeacons = new ArrayList<>();
+
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.ibeacons");
+
+            while(rs.next()) {
+                IBeacon ibeacon = new IBeacon();
+                ibeacon.setId(rs.getInt("id"));
+                ibeacon.setX(rs.getInt("x"));
+                ibeacon.setY(rs.getInt("y"));
+                ibeacon.setType(rs.getString("type"));
+                ibeacon.setSSID(rs.getString("ssid"));
+                ibeacon.setFloorplanid(rs.getString("floorplanId"));
+                ibeacon.setName(rs.getString("name"));
+                ibeacons.add(ibeacon);
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        return ibeacons;
+    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import Logo from "../Components/Logo";
-import SuperAdminMenu from "../Components/SuperAdminMenu";
+import Logo from "../Components/Logo/Logo";
+import SuperAdminMenu from "../Components/SuperAdminMenu/SuperAdminMenu";
 
 function SuperAdminPage() {
 

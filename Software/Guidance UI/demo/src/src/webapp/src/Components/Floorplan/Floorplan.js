@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './../App.css';
+import '../../App.css';
 
 class Floorplan extends Component {
     constructor(props) {

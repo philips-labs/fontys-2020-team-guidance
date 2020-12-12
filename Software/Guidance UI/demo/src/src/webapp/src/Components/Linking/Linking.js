@@ -23,7 +23,7 @@ export default class Linking extends Component {
         return (
             <div className={"linkMenu"}>
                 <div>
-                    <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
+                    <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Images/logo.png')}/></Link><br/>
                     <p className={"NodeSaveTtl"}>Node Linker</p><br/>
                     <input placeholder="ID node" onChange={this.handleSelector}/><br/>
                     <label>Destination Node</label>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './../App.css';
+import '../../App.css';
 
 class MobileMenu extends Component {
 
@@ -30,8 +30,8 @@ class MobileMenu extends Component {
     render() {
         return (
             <div className="Menu">
-                <img onClick={this.accountMenu} alt="" id="accountButton" className="AccountImage" src={require('./Images/pf.png')}/>
-                <img onClick={this.settingsMenu} alt="" id="settingsButton" className="SettingsImage" src={require('./Images/gear.png')}/>
+                <img onClick={this.accountMenu} alt="" id="accountButton" className="AccountImage" src={require('../Images/pf.png')}/>
+                <img onClick={this.settingsMenu} alt="" id="settingsButton" className="SettingsImage" src={require('../Images/gear.png')}/>
             </div>
         );
     }

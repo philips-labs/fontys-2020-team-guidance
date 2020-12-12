@@ -178,8 +178,14 @@ img.img {
     width: auto;
   }
 
+  img.img {
+    margin-top: 5vh;
+    left: -10vw;
+  }
+
   div.Menu {
     display: inherit;
+    left: 50vw;
   }
 
 }

@@ -50,16 +50,18 @@ class Floorplan extends Component {
 
     render() {
         return (
-            <img alt=""
-                 className="img"
-                 id="floorplan-container-image"
-                 draggable="false"
-                 style={this.state.styles}
-                 onMouseDown={this._dragStart}
-                 onTouchStart={this._dragStart}
-                 onWheel={this._scroll}
-                 onClick={this.onload}
-            />
+            <div>
+                <img alt=""
+                     className="img"
+                     id="floorplan-container-image"
+                     draggable="false"
+                     style={this.state.styles}
+                     onMouseDown={this._dragStart}
+                     onTouchStart={this._dragStart}
+                     onWheel={this._scroll}
+                     onClick={this.onload}
+                />
+            </div>
         );
     }
 }

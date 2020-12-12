@@ -108,6 +108,7 @@ public class NodeData {
                 ibeacon.setId(rs.getInt("id"));
                 ibeacon.setX(rs.getInt("x"));
                 ibeacon.setY(rs.getInt("y"));
+                System.out.println(rs.getInt("x")+ " +" +rs.getInt("y"));
                 ibeacon.setType(rs.getString("type"));
                 ibeacon.setSSID(rs.getString("ssid"));
                 ibeacon.setFloorplanid(rs.getString("floorplanId"));
@@ -124,6 +125,30 @@ public class NodeData {
         }
 
         return ibeacons;
+    }
+
+    public String GetFloorplanIdBySSIDAndBeaconName(String beaconname, String ssid) {
+        String floorplanName = "";
+
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.ibeacons WHERE ssid='"+ssid+"' AND name='"+beaconname+"'");
+
+            while(rs.next()) {
+                floorplanName = rs.getString("floorplanid");
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        return floorplanName;
     }
 
     public ArrayList<IBeacon> GetAllIBeacons() {

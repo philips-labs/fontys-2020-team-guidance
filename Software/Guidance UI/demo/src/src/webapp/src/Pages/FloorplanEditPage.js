@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './../App.css';
-import Draggable from "../Components/Draggable";
-import Node from "../Components/Node";
-import IBeacon from "../Components/IBeacon";
-import Linking from "../Components/Linking";
+import Draggable from "../Components/Draggable/Draggable";
+import Node from "../Components/Node/Node";
+import IBeacon from "../Components/IBeacon/IBeacon";
+import Linking from "../Components/Linking/Linking";
 import Waypoint from '../Components/Images/waypoint.png';
 import {Link} from "react-router-dom";
 
@@ -52,8 +52,9 @@ class FloorplanEditPage extends Component {
             .then(res => res.json())
             .then(data => {
                 if(data !== undefined) {
-                    this.setState({iBeaconList: data})
+                    this.setState({iBeaconList: data, iBeaconId: data.length+1})
                 }
+                console.log(data);
             })
 
         if(this.state.image === undefined || this.state.image === null || this.state.nodeList === undefined || this.state.nodeList === null || this.state.iBeaconList === undefined || this.state.iBeaconList === null) {
@@ -224,7 +225,7 @@ class FloorplanEditPage extends Component {
     render() {
         if (this.state.nodeToggle === "lockNodes") {
             return (
-                <div className={'App'}>
+                <div className={'FloorplanEditPage'}>
                     <Linking nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}

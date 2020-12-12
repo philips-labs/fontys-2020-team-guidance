@@ -45,4 +45,8 @@ public class NodeCollection {
     public void SaveIBeacon(IBeacon ibeacon) {
         crud.CreateIBeacon(ibeacon);
     }
+
+    public String GetFloorplanIdByBeaconNameAndSSID(String ssid, String floorplanid) {
+        return crud.GetFloorplanIdBySSIDAndBeaconName(ssid, floorplanid);
+    }
 }

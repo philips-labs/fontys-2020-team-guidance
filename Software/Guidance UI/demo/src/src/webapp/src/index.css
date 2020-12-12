@@ -78,6 +78,7 @@ img.Logo {
   position: absolute;
   margin: 10px;
   width: 2.5vw;
+  left: 50%;
   transform: translate(-50%, 0);
   z-index: 10;
   user-select: none;
@@ -92,7 +93,6 @@ div.Menu {
   bottom: 0;
   width: 40vw;
   height: 5vh;
-  left: 50%;
   transform: translate(-50%, 0);
   background-color: rgb(40, 40, 40);
   border-radius: 10vw;
@@ -115,12 +115,13 @@ div.Menu img {
   top: 15%;
 }
 
+div.MainPage {
+  text-align: center;
+}
+
 img.img {
-  position: absolute;
-  width: 500px;
-  height: auto;
-  left: 10%;
-  top: 25%;
+  position: relative;
+  margin-top: 15vh;
 }
 
 @media (min-width:1025px){
@@ -177,8 +178,14 @@ img.img {
     width: auto;
   }
 
+  img.img {
+    margin-top: 5vh;
+    left: -10vw;
+  }
+
   div.Menu {
     display: inherit;
+    left: 50vw;
   }
 
 }

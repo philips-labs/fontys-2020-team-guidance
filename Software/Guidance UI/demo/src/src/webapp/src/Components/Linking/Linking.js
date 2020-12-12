@@ -23,7 +23,7 @@ export default class Linking extends Component {
         return (
             <div className={"linkMenu"}>
                 <div>
-                    <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
+                    <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Images/logo.png')}/></Link><br/>
                     <p className={"NodeSaveTtl"}>Node Linker</p><br/>
                     <input placeholder="ID node" onChange={this.handleSelector}/><br/>
                     <label>Destination Node</label>
@@ -45,12 +45,14 @@ export default class Linking extends Component {
 
     saveNodes = () => {
         this.state.nodeList.forEach(item =>  {
+            console.log(item.x)
             fetch("/books/saveNode", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain',
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
+
                 body: JSON.stringify({
                     id: item.id,
                     x: item.x,

@@ -77,7 +77,7 @@ public class FloorplanCollection {
     }
 
     public Floorplan GetFloorplanByNameAndSSID(String name, String ssid) {
-        Floorplans = FloorplanData.GetAllFloorplans();
+        GetFloorplansBySSID(ssid);
         for(Floorplan floorplan : Floorplans) {
             if(floorplan.getName().equals(name) && floorplan.getSSID().equals(ssid)) {
                 return floorplan;

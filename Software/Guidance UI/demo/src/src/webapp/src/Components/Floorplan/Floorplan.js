@@ -23,15 +23,15 @@ class Floorplan extends Component {
 
     }
 
-    setBounds(x, y) {
-        x = 625;
-        y = 132;
-        const node = document.getElementById("node");
-        const floorplan = document.getElementById("floorplan-container-image");
-        node.style.left = floorplan.getBoundingClientRect().left + x + "px";
-        node.style.top = floorplan.getBoundingClientRect().top + y + "px";
-        console.log(floorplan.getBoundingClientRect())
-    }
+    //setBounds(x, y) {
+    //    x = 625;
+    //    y = 132;
+    //    const node = document.getElementById("node");
+    //    const floorplan = document.getElementById("floorplan-container-image");
+    //    node.style.left = floorplan.getBoundingClientRect().left + x + "px";
+    //    node.style.top = floorplan.getBoundingClientRect().top + y + "px";
+    //    console.log(floorplan.getBoundingClientRect())
+    //}
 
     _dragStart(e) {
         let screenX;
@@ -67,8 +67,7 @@ class Floorplan extends Component {
     render() {
         return (
             <div id={"floorplan-container"}>
-                <div id={"user"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "#2166cf", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
-                <div id={"node"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "#2166cf", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
+                <div id={"user"} className={"floorplanNode"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "green", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
                 <img alt=""
                      className="img"
                      id="floorplan-container-image"
@@ -78,7 +77,6 @@ class Floorplan extends Component {
                      onTouchStart={this._dragStart}
                      onWheel={this._scroll}
                      onClick={this.onload}
-                     onLoad={this.setBounds}
                 />
             </div>
         );

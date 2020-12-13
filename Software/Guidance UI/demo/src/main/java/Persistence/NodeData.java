@@ -108,7 +108,6 @@ public class NodeData {
                 ibeacon.setId(rs.getInt("id"));
                 ibeacon.setX(rs.getInt("x"));
                 ibeacon.setY(rs.getInt("y"));
-                System.out.println(rs.getInt("x")+ " +" +rs.getInt("y"));
                 ibeacon.setType(rs.getString("type"));
                 ibeacon.setSSID(rs.getString("ssid"));
                 ibeacon.setFloorplanid(rs.getString("floorplanId"));

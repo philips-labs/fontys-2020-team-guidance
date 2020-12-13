@@ -19,6 +19,10 @@ public class UserDataController {
         return new ResponseEntity<>(userDataCollection.GetUserDataByEmail(email), HttpStatus.OK);
     }
 
+    @GetMapping("/getUserLocationByEmail/{email}")
+    public ResponseEntity<String> GetUserLocationByEmail(@PathVariable String email) {
+        return new ResponseEntity<>(userDataCollection.getLocationByEmail(email), HttpStatus.OK);
+    }
 
     @GetMapping("/getUserDatasByEmail/{email}")
     public ResponseEntity<UserData> GetUserDatasByEmail(@PathVariable String email) {

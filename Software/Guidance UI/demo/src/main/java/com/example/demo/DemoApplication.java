@@ -17,5 +17,6 @@ public class DemoApplication {
     private static void test(String email) {
         UserDataCollection userDataCollection = new UserDataCollection();
         String location = userDataCollection.getLocationByEmail(email);
+        System.out.println(location);
     }
 }

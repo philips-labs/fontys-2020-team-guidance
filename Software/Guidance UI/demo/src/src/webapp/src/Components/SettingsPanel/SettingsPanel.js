@@ -54,7 +54,7 @@ class SettingsPanel extends Component {
         });
 
         this.getFloorplans(ssid);
-        this.getUserData("yessin1996@hotmail.com"); // Here needs to come the email of the logged in user
+        this.getUserData("artsdylan@gmail.com"); // Here needs to come the email of the logged in user
     }
 
 
@@ -93,6 +93,32 @@ class SettingsPanel extends Component {
             }).catch((error) => {
             console.error("Error - " + error)
             });
+
+        const interval = setInterval(this.showUserLocation, 3000)
+    };
+
+    showUserLocation = () => {
+        console.log("interval");
+        this.getUserLocation("yessin1996@hotmail.com");
+        let partsArray = this.state.location.split(';');
+        let userX = partsArray[0];
+        let userY = partsArray[1];
+    };
+
+
+    getUserLocation = (email) => {
+        fetch("/books/getUserLocationByEmail/" + email)
+            .then(res => res.text())
+            .then(data => {
+                if(data != null) {
+                    console.log(data);
+                    this.setState({
+                        location: data
+                    });
+                }
+            }).catch((error) => {
+            console.error("Error - " + error)
+        });
     };
 
     checkClosestBeacon = (d1, d2, d3, b1, b2, b3) => {
@@ -130,7 +156,7 @@ class SettingsPanel extends Component {
 
 
     render() {
-        const {email, distance1, distance2, distance3, location} = this.state;
+        const {location} = this.state;
         return (
             <div id="settingsPanel" className="settingsPanel">
                 <p className="settingsHeader">Settings</p>

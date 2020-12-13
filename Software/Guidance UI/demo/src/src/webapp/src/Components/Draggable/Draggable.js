@@ -20,8 +20,6 @@ export default class Draggable extends React.Component {
       lastTranslateX: this.props.x,
       lastTranslateY: this.props.y,
 
-      boundx: this.props.boundx,
-      boundy: this.props.boundy,
       width: 0,
       height: 0,
     };
@@ -39,7 +37,7 @@ export default class Draggable extends React.Component {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  updateWindowDimensions() {
+  updateWindowDimensions = () => {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
@@ -61,7 +59,9 @@ export default class Draggable extends React.Component {
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    const {boundx , boundy, height, width} = this.state;
+    const { height, width} = this.state;
+    const boundx = this.props.boundx;
+    const boundy = this.props.boundy;
     const { isDragging } = this.state;
     const { onDrag } = this.props;
 
@@ -79,6 +79,7 @@ export default class Draggable extends React.Component {
             translateX: this.state.translateX,
             translateY: this.state.translateY
           });
+          console.log(this.state.translateX);
         }
       });
     };
@@ -158,9 +159,7 @@ export default class Draggable extends React.Component {
   };
   // calling the parent to give data
   onTrigger = (e, transX, transY) => {
-    try {this.props.parentCallback(this.state.id, transX, transY, this.state.type, this.state.name);}
-    catch {
-    }
+    this.props.parentCallback(this.state.id, transX, transY, this.state.type, this.state.name);
   }
   // rendering the new location
   render() {

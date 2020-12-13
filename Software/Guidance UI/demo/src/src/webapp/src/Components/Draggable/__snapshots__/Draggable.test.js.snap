@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly react-test-renderer 1`] = `
+<ForwardRef(styled.div)
+  className="node undefined"
+  isDragging={false}
+  onClick={[Function]}
+  onMouseDown={[Function]}
+  onMouseUp={[Function]}
+/>
+`;

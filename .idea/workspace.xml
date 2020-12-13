@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8cea0efe-6600-42c2-8ec1-827908b8f4ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/AccountPanel/AccountPanel.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/AdminMenu/AdminMenu.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Floorplan/Floorplan.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/IBeacon/IBeacon.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Linking/Linking.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Logo/Logo.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/MobileMenu/MobileMenu.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Node/Node.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/SettingsPanel/SettingsPanel.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/SuperAdminMenu/SuperAdminMenu.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/FloorplanEditPage.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/AccountPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/AccountPanel/AccountPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/AdminMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/AdminMenu/AdminMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Draggable.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Draggable/Draggable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Draggable.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Draggable/Draggable.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Floorplan.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Floorplan/Floorplan.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/IBeacon.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/IBeacon/IBeacon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Linking.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Linking/Linking.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Logo/Logo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/MobileMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/MobileMenu/MobileMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Node.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/Node/Node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/SettingsPanel.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/SettingsPanel/SettingsPanel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/SuperAdminMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Components/SuperAdminMenu/SuperAdminMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/404.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/404.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/AdminPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/AdminPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/FloorplanEditPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/FloorplanEditPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/MainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/MainPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/SuperAdminPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software/Guidance UI/demo/src/src/webapp/src/Pages/SuperAdminPage.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1l68A6bF0CGrXqF6pryOVCrgOLP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\beije\Desktop\test\Software\Guidance UI\demo\src\src\webapp\src\Components\SuperAdminMenu" />
+      <recent name="C:\Users\beije\Desktop\test\Software\Guidance UI\demo\src\src\webapp\src\Components\SettingsPanel" />
+      <recent name="C:\Users\beije\Desktop\test\Software\Guidance UI\demo\src\src\webapp\src\Components\Node" />
+      <recent name="C:\Users\beije\Desktop\test\Software\Guidance UI\demo\src\src\webapp\src\Components\MobileMenu" />
+      <recent name="C:\Users\beije\Desktop\test\Software\Guidance UI\demo\src\src\webapp\src\Components\Logo" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.DemoApplication" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../Program Files/Java/jdk-11.0.9" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8cea0efe-6600-42c2-8ec1-827908b8f4ad" name="Default Changelist" comment="" />
+      <created>1606906034562</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606906034562</updated>
+      <workItem from="1606906037327" duration="1601000" />
+      <workItem from="1606907794858" duration="3666000" />
+      <workItem from="1607531359248" duration="6457000" />
+      <workItem from="1607783243585" duration="1985000" />
+      <workItem from="1607785360823" duration="3005000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

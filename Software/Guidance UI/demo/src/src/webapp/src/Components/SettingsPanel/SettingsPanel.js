@@ -146,6 +146,7 @@ class SettingsPanel extends Component {
             .then(res => res.text())
             .then(imagesrc => {
                 if(imagesrc) {
+                    console.log(imagesrc);
                     document.getElementById("floorplan-container-image").src = imagesrc;
                 }
                 else {

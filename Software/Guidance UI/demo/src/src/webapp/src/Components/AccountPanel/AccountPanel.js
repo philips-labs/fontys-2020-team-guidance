@@ -21,7 +21,7 @@ class AccountPanel extends Component {
 
     //Change bound state value to input value on enter press
     handleInputSubmit = (e) => {
-        if(e.keyCode === 13) {
+        if(e.keyCode === "13") {
             e.preventDefault()
             this.setState({
                 Name: this.state.NameInput
@@ -33,11 +33,11 @@ class AccountPanel extends Component {
     render() {
         return (
             <div id="accountPanel" className="settingsPanel">
-                <p className="settingsHeader">Account</p>
+                <p data-testid={"setting-header"} className="settingsHeader">Account</p>
                 <div className="divider"/>
                 <div className="accountObject">
-                    <p className="settingName">{this.state.NameInput}</p>
-                    <input onKeyDown={this.handleInputSubmit} onChange={this.handleInputChange} className="ssidInput" value={"Name"} readOnly={true}/>
+                    <p data-testid={"setting-name"} className="settingName">{this.state.NameInput}</p>
+                    <input data-testid={"setting-input"} onKeyDown={this.handleInputSubmit} onChange={this.handleInputChange} className="ssidInput" value={"Name"} readOnly={true}/>
                 </div>
                 <div className="accountObject">
                     <img alt="" className="accountObjectPP" src={require('../Images/pf.png')}/>

@@ -7,6 +7,7 @@ exports[`renders correctly react-test-renderer 1`] = `
 >
   <p
     className="settingsHeader"
+    data-testid="setting-header"
   >
     Account
   </p>
@@ -18,11 +19,13 @@ exports[`renders correctly react-test-renderer 1`] = `
   >
     <p
       className="settingName"
+      data-testid="setting-name"
     >
       Albert
     </p>
     <input
       className="ssidInput"
+      data-testid="setting-input"
       onChange={[Function]}
       onKeyDown={[Function]}
       readOnly={true}

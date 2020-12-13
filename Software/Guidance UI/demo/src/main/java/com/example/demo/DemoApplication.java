@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import Logic.Collection.UserDataCollection;
-import Logic.Models.UserData;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

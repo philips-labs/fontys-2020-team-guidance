@@ -56,7 +56,7 @@ public class UserDataData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`userdata` (`email`,`distance1`,`distance2`, `distance3`,`location`) VALUES ('"+ userData.getEmail()  +"', '"+ userData.getDistance1() +"', '"+ userData.getDistance2() + "', '"+ userData.getDistance3() + "' , '"+ userData.getLocation() + "');");
+            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`userdata` (`email`,`distance1`,`distance2`, `distance3`, `beacon1`,`beacon2`,`beacon3`, `location`) VALUES ('"+ userData.getEmail()  +"', '"+ userData.getDistance1() +"', '"+ userData.getDistance2() + "', '"+ userData.getDistance3() + "' , '"+ userData.getBeacon1() + "' , '"+ userData.getBeacon2() + "' , '"+ userData.getBeacon3() + "' , '"+ userData.getLocation() + "');");
 
             System.out.println("DB update status: " + status);
             stmt.close();
@@ -71,7 +71,7 @@ public class UserDataData {
         try {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
-            int status = stmt.executeUpdate("UPDATE WJnsvdUCVX.userdata SET email = '"+userData.getEmail()+"', distance1 = '"+ userData.getDistance1() +"', distance2 = '"+ userData.getDistance2() +"', distance3 = '"+ userData.getDistance3() +"', location = '"+ userData.getLocation() +"' WHERE email = '"+ givenEmail +"'");
+            int status = stmt.executeUpdate("UPDATE WJnsvdUCVX.userdata SET email = '"+userData.getEmail()+"', distance1 = '"+ userData.getDistance1() +"', distance2 = '"+ userData.getDistance2() +"', distance3 = '"+ userData.getDistance3() +"', beacon1 = '"+ userData.getBeacon1() +"', beacon2 = '"+ userData.getBeacon2() +"', beacon3 = '"+ userData.getBeacon2() +"', location = '"+ userData.getLocation() +"' WHERE email = '"+ givenEmail +"');");
             System.out.println("DB update status: " + status);
             stmt.close();
             connection.close();

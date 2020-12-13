@@ -1,12 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly react-test-renderer 1`] = `
-<div>
+<div
+  id="floorplan-container"
+>
+  <div
+    id="node"
+    style={
+      Object {
+        "backgroundColor": "#2166cf",
+        "border": "1px solid white",
+        "borderRadius": "45px",
+        "left": "0px",
+        "padding": "8px",
+        "position": "absolute",
+        "top": "0px",
+      }
+    }
+  />
   <img
     alt=""
     className="img"
     draggable="false"
     id="floorplan-container-image"
+    onLoad={[Function]}
     onMouseDown={[Function]}
     onTouchStart={[Function]}
     onWheel={[Function]}

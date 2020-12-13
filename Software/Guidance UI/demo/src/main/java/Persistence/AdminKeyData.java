@@ -34,8 +34,6 @@ public class AdminKeyData {
                 adminKeys.add(adminkey);
             }
 
-            System.out.println("test");
-
             rs.close();
             stmt.close();
             connection.close();

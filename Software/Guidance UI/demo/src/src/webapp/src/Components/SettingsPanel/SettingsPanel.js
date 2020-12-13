@@ -54,7 +54,7 @@ class SettingsPanel extends Component {
         });
 
         this.getFloorplans(ssid);
-        this.getUserData("yessin1996@hotmail.com"); // Here needs to come the email of the logged in user
+        this.getUserData("artsdylan@gmail.com"); // Here needs to come the email of the logged in user
     }
 
 
@@ -120,6 +120,7 @@ class SettingsPanel extends Component {
             .then(res => res.text())
             .then(imagesrc => {
                 if(imagesrc) {
+                    console.log(imagesrc);
                     document.getElementById("floorplan-container-image").src = imagesrc;
                 }
                 else {

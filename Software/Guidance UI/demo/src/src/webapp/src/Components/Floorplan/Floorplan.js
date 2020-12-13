@@ -10,7 +10,9 @@ class Floorplan extends Component {
             diffY: 0,           //y of Mouse on image
             dragging: false,    //if mousedown+move
             styles: {},         //style container for image
-            scroll: 1           //zoom for image 1=100%
+            scroll: 1,           //zoom for image 1=100%
+            nodeList: {},
+            userLocation: {}
         }
 
         this._dragStart = this._dragStart.bind(this);
@@ -18,6 +20,7 @@ class Floorplan extends Component {
     }
 
     componentDidMount() {
+
     }
 
     setBounds(x, y) {
@@ -64,6 +67,7 @@ class Floorplan extends Component {
     render() {
         return (
             <div id={"floorplan-container"}>
+                <div id={"user"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "#2166cf", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
                 <div id={"node"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "#2166cf", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
                 <img alt=""
                      className="img"

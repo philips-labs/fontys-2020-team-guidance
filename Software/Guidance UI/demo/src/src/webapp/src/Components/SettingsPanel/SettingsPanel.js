@@ -54,7 +54,7 @@ class SettingsPanel extends Component {
         });
 
         this.getFloorplans(ssid);
-        this.getUserData("artsdylan@gmail.com"); // Here needs to come the email of the logged in user
+        this.getUserData("yessin1996@hotmail.com"); // Here needs to come the email of the logged in user
     }
 
 
@@ -103,6 +103,10 @@ class SettingsPanel extends Component {
         let partsArray = this.state.location.split(';');
         let userX = partsArray[0];
         let userY = partsArray[1];
+
+        const floorplan = document.getElementById("floorplan-container-image");
+        document.getElementById("user").style.left = floorplan.getBoundingClientRect().left + parseInt(userX) + "px"
+        document.getElementById("user").style.top = floorplan.getBoundingClientRect().top + parseInt(userY) + "px"
     };
 
 

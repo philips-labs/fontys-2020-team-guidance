@@ -271,7 +271,6 @@ class FloorplanEditPage extends Component {
                         <this.checkStart/><br/>
                         <this.checkEnd/><br/>
                         <button onClick={this.LockNodes}>Lock Nodes</button><br/>
-                        <button onClick={this.openFileDialog} className={"ImageEditBtn"}>Change image</button>
                     </div>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}

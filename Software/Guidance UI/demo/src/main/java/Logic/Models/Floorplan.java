@@ -5,7 +5,6 @@ public class Floorplan {
     private String Image;
     private String Name;
     private Double Width;
-
     private Double Scale;
 
     public String getSSID() {

@@ -64,9 +64,6 @@ class AdminMenu extends Component {
             const ssid = this.state.SSID;
             const name = prompt("Please enter the name of the image", "Name");
             const width = parseInt(prompt("Please enter the width of the floorplan in real life in metres", "Only give a number"));
-
-            let scale;
-
             var image = new Image();
             image.src = reader.result;
             image.onload = this.uploadImage(result, ssid, name, width, image);

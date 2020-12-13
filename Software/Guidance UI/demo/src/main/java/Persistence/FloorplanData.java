@@ -68,8 +68,7 @@ public class FloorplanData {
         try {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
-            System.out.println(ssid);
-            int status = stmt.executeUpdate("UPDATE `floorplans` SET `image`=["+ image +"] WHERE ssid='"+ ssid +"' AND name='"+ floorplanId +"'");
+            int status = stmt.executeUpdate("UPDATE `floorplans` SET `image`='"+ image +"' WHERE ssid='"+ ssid +"' AND name='"+ floorplanId +"'");
             System.out.println("DB update status: " + status);
             stmt.close();
             connection.close();

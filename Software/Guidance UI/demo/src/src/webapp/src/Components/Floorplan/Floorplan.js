@@ -17,6 +17,19 @@ class Floorplan extends Component {
         this._scroll = this._scroll.bind(this);
     }
 
+    componentDidMount() {
+    }
+
+    setBounds(x, y) {
+        x = 625;
+        y = 132;
+        const node = document.getElementById("node");
+        const floorplan = document.getElementById("floorplan-container-image");
+        node.style.left = floorplan.getBoundingClientRect().left + x + "px";
+        node.style.top = floorplan.getBoundingClientRect().top + y + "px";
+        console.log(floorplan.getBoundingClientRect())
+    }
+
     _dragStart(e) {
         let screenX;
         let screenY;
@@ -51,7 +64,7 @@ class Floorplan extends Component {
     render() {
         return (
             <div id={"floorplan-container"}>
-                <div style={{position: "absolute", left: "1070px", top: "320px", backgroundColor: "#2166cf", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
+                <div id={"node"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "#2166cf", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
                 <img alt=""
                      className="img"
                      id="floorplan-container-image"
@@ -61,6 +74,7 @@ class Floorplan extends Component {
                      onTouchStart={this._dragStart}
                      onWheel={this._scroll}
                      onClick={this.onload}
+                     onLoad={this.setBounds}
                 />
             </div>
         );

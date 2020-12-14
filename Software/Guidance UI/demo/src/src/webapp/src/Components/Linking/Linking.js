@@ -107,10 +107,21 @@ export default class Linking extends Component {
     }
 
     handleCheck = (e) => {
-        var list = this.state.nodeList;
+        let list = this.state.nodeList;
         if (e.target.checked === true)
         {
-            list[this.state.selectedNode].type = "destinationNode";
+            for(let i = 0; i < list.length; i++) {
+                if(this.state.selectedNode === list[i].id) {
+                    list[i].type = "destinationNode"
+                }
+            }
+        }
+        else {
+            for(let i = 0; i < list.length; i++) {
+                if(this.state.selectedNode === list[i].id) {
+                    list[i].type = "intermediaryNode"
+                }
+            }
         }
     }
     

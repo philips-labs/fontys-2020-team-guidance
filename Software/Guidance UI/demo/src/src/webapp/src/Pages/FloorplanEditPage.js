@@ -119,6 +119,7 @@ class FloorplanEditPage extends Component {
         const list = this.state.nodeList;
         for(let i = 0; i < list.length; i++) {
             if(list[i].id === this.state.selectedItem){
+                console.log(i)
                 list.splice(i,1);
             }
         }
@@ -238,19 +239,19 @@ class FloorplanEditPage extends Component {
                             width: `${this.state.imgWidth}px`,
                         }}>
                             {
-                                this.state.nodeList.map((item, key) => {
+                                this.state.nodeList.map((item) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={item.id}
-                                               type={item.type} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
-                                        <Node className={key} key={key} type={item.type} data={this.state.nodeData}
+                                               type={item.type} key={item.id} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
+                                        <Node className={item.id} key={item.id} type={item.type} data={this.state.nodeData}
                                               nodeId={item.id}/>
                                     </Draggable>
                                 );
                             })}
-                            {this.state.iBeaconList.map((item, key) => {
+                            {this.state.iBeaconList.map((item) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={item.id} type={item.type} name={item.name}
-                                               key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
+                                               key={item.id} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
                                 );
@@ -283,20 +284,21 @@ class FloorplanEditPage extends Component {
                             height: `${this.state.imgHeight}px`,
                             width: `${this.state.imgWidth}px`,
                         }}>
-                            {this.state.nodeList.map((item, key) => {
+                            {this.state.nodeList.map((item) => {
+                                console.log(item.id);
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={item.id}
-                                               type={item.type} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
-                                        <Node className={key} key={key} type={item.type} data={this.state.nodeData}
+                                               type={item.type} key={item.id} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
+                                        <Node className={item.id} key={item.id} type={item.type} data={this.state.nodeData}
                                               nodeId={item.id}/>
                                     </Draggable>
 
                                 );
                             })}
-                            {this.state.iBeaconList.map((item, key) => {
+                            {this.state.iBeaconList.map((item) => {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={item.id} type={item.type}
-                                               name={item.name} key={key} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
+                                               name={item.name} key={item.id} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
                                         <IBeacon/>
                                     </Draggable>
                                 );

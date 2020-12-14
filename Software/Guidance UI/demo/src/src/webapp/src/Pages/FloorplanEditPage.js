@@ -19,8 +19,6 @@ class FloorplanEditPage extends Component {
             iBeaconList: [],
             nodeId: 0,
             iBeaconId: 0,
-            x: 0,
-            y: 0,
             nodeToggle: "unlockedNodes",
         }
         this.imgRef = React.createRef();
@@ -35,33 +33,53 @@ class FloorplanEditPage extends Component {
                 }
             })
 
-        fetch("/books/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
-            .then(res => res.json())
-            .then(data => {
-                if(data !== undefined) {
-                    this.setState({nodeList: data})
-                    let list = this.state.nodeList;
-                    list.forEach(element => {
-                        element.nodeConnections = element.connectedNodesString.split(',');
-                    })
-                    this.setState({nodeList: list, nodeId: list.length+1})
-                }
-            })
+        if(this.state.nodeList.length < 1) {
+            this.fetchNode();
+        }
 
-        fetch("/books/getBeacons/" + this.state.ssid + "/" + this.state.floorplanid)
-            .then(res => res.json())
-            .then(data => {
-                if(data !== undefined) {
-                    this.setState({iBeaconList: data, iBeaconId: data.length+1})
-                }
-                console.log(data);
-            })
+        if(this.state.iBeaconList.length < 1) {
+            this.fetchIBeacon();
+        }
 
         if(this.state.image === undefined || this.state.image === null || this.state.nodeList === undefined || this.state.nodeList === null || this.state.iBeaconList === undefined || this.state.iBeaconList === null) {
             window.location = "localhost:3000/admin";
         }
     }
 
+    fetchIBeacon = () => {
+        fetch("/books/getBeacons/" + this.state.ssid + "/" + this.state.floorplanid)
+            .then(res => res.json())
+            .then(data => {
+                    let list = data;
+                    let id = 0;
+                    list.forEach(iBeacon => {
+                        if (iBeacon.id > id) {
+                            id = iBeacon.id;
+                        }
+                    })
+                    this.setState({iBeaconList: list, iBeaconId: id+1});
+            })
+    }
+
+    fetchNode = () => {
+        fetch("/books/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                    this.setState({nodeList: data})
+                    let list = this.state.nodeList;
+                    list.forEach(element => {
+                        element.nodeConnections = element.connectedNodesString.split(',');
+                    })
+                    let id = 0;
+                    list.forEach(node => {
+                        if (node.id > id) {
+                            id = node.id;
+                        }
+                    })
+                    this.setState({nodeList: list, nodeId: id+1});
+            })
+    }
 
     handleImageLoad = () =>{
         const height = this.imgRef.current.clientHeight;
@@ -94,6 +112,20 @@ class FloorplanEditPage extends Component {
         this.setState({nodeId: id + 1})
     }
 
+    handleSelector = (e) => {
+        this.setState({selectedItem: parseInt(e.target.value)});
+    }
+
+    deleteNode = () => {
+        const list = this.state.nodeList;
+        for(let i = 0; i < list.length; i++) {
+            if(list[i].id === this.state.selectedItem){
+                list.splice(i,1);
+            }
+        }
+        this.setState({nodeList: list});
+    }
+
     // creating a new iBeacon and adding it to the iBeacon list
     newIBeacon = () => {
         const item = this.state.iBeaconList;
@@ -108,6 +140,12 @@ class FloorplanEditPage extends Component {
         this.setState({iBeaconId: id + 1});
     }
 
+    deleteIBeacon = () => {
+        const list = this.state.iBeaconList;
+        list.splice(this.state.selectedItem-1,1);
+        this.setState({iBeaconList: list});
+    }
+
     LockNodes = () => {
         if (this.state.nodeToggle === "unlockedNodes")
         {
@@ -120,64 +158,27 @@ class FloorplanEditPage extends Component {
 
     // doesnt do what it says it just recieves data from the child component and sets it to the correct node in the array
     onSaveNode = (id, childX, childY, type) => {
-        this.setState({x: childX, y: childY})
-
-        const item = this.state.nodeList;
-        const x = this.state.x;
-        const y = this.state.y;
-        item[id-1] = {id, x, y, type};
+        const itemN = this.state.nodeList;
+        const x = childX;
+        const y = childY;
+        for(let i =0; i<itemN.length; i++){
+            if(itemN[i].id === id) {
+                itemN[i] = {id, x, y, type};
+            }
+        }
+        this.setState({nodeList: itemN});
     }
 
     onSaveBeacon = (id, childX, childY, type, name) => {
-        this.setState({x: childX, y: childY})
-
-        const item = this.state.iBeaconList;
-        const x = this.state.x;
-        const y = this.state.y;
-        item[id-1] = {id, x, y, type, name};
-    }
-
-    // check if a start node exists
-    checkStart = () => {
-        let exists = false;
-        for (let i = 0; i < this.state.nodeList.length; i++)
-        {
-            if (this.state.nodeList[i].type === "start")
-            {
-                exists = true;
-                break;
-            }
-            else {
-                exists = false;
+        const itemB = this.state.iBeaconList;
+        const x = childX;
+        const y = childY;
+        for(let i =0; i<itemB.length; i++){
+            if(itemB[i].id === id) {
+                itemB[i] = {id, x, y, type};
             }
         }
-        if (exists === false) {
-            return (<button onClick={this.newNode} value="start">Add Start Point</button>)
-        }
-        else {
-            return null;
-        }
-    }
-    // check if a end node exists
-    checkEnd = () => {
-        let exists = false;
-        for (let i = 0; i < this.state.nodeList.length; i++)
-        {
-            if (this.state.nodeList[i].type === "end")
-            {
-                exists = true;
-                break;
-            }
-            else {
-                exists = false;
-            }
-        }
-        if (exists === false) {
-            return (<button onClick={this.newNode} value="end">Add End Point</button>)
-        }
-        else {
-            return null;
-        }
+        this.setState({iBeaconList: itemB});
     }
 
     openFileDialog = () => {
@@ -223,6 +224,7 @@ class FloorplanEditPage extends Component {
 
     // renders the heatmap and draggable nodes
     render() {
+        console.log(this.state.nodeList)
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'FloorplanEditPage'}>
@@ -266,10 +268,11 @@ class FloorplanEditPage extends Component {
                     <div className={'FloorplanEdit'}>
                         <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
                         <button onClick={this.newNode}>Add Node</button><br/>
+                        <input placeholder="ID Item" onChange={this.handleSelector}/><br/>
+                        <button onClick={this.deleteNode}>Delete Node</button><br/>
+                        <button onClick={this.deleteIBeacon}>Delete IBeacon</button><br/>
                         <button onClick={this.newNode} value="stairs">Add Stairs</button><br/>
                         <button onClick={this.newIBeacon}>Add IBeacon</button><br/>
-                        <this.checkStart/><br/>
-                        <this.checkEnd/><br/>
                         <button onClick={this.LockNodes}>Lock Nodes</button><br/>
                     </div>
                     <div>

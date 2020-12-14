@@ -149,8 +149,8 @@ class AdminMenu extends Component {
                 <div className={"AdminMenu"}>
                     <div className={"CategoryTitle"}>
                         <h className={"PageCategory"}>{this.state.SSID}</h>
-                        <h onClick={this.openFileDialog} className={"PageCategoryButton green"}>+</h>
-                        <h onClick={this.openSelect} className={"PageCategoryButton red"}>-</h>
+                        <h data-testid={"adminmenu-add"} onClick={this.openFileDialog} className={"PageCategoryButton green"}>+</h>
+                        <h data-testid={"adminmenu-remove"}onClick={this.openSelect} className={"PageCategoryButton red"}>-</h>
                     </div>
                     <div className={"Divider"}/>
                     <div className={"FloorplanList"}>

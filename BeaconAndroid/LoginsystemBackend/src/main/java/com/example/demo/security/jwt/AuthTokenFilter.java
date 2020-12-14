@@ -1,7 +1,5 @@
 package com.example.demo.security.jwt;
 
-import java.io.IOException;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.demo.security.services.UserDetailsServiceImpl;
 
+import java.io.IOException;
+
 public class AuthTokenFilter extends OncePerRequestFilter {
+
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -32,7 +33,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            String jwt = parseJwt(request);
+            //String jwt = parseJwt(request);
+            //jwt has to be null to bypass this section for the Beacon httpRequest
+            String jwt = null;
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
@@ -47,16 +50,16 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             logger.error("Cannot set user authentication: {}", e);
         }
 
+        //System.out.println("SUCCESS");
+
         filterChain.doFilter(request, response);
     }
 
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
-
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7, headerAuth.length());
         }
-
         return null;
     }
 }

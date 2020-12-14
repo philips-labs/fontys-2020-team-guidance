@@ -21,6 +21,11 @@ class FloorplanEditPage extends Component {
             iBeaconId: 0,
             x: 0,
             y: 0,
+            xScale: 0,
+            yScale: 0,
+            imgHeight: 0,
+            imgWidth: 0,
+            pxToMeterRatio: 0,
             nodeToggle: "unlockedNodes",
         }
         this.imgRef = React.createRef();
@@ -67,6 +72,45 @@ class FloorplanEditPage extends Component {
         const height = this.imgRef.current.clientHeight;
         const width = this.imgRef.current.clientWidth;
         this.setState({imgHeight: height, imgWidth: width})
+    }
+
+    //updates X scale value on change of the text field
+    changeXScale = (e) =>{
+        this.setState({xScale: e.target.value})
+    }
+
+    //calculates ratio
+    changeFPScale = () =>{
+        console.log("set X meters: " + this.state.xScale);
+
+        const imgWidth = this.state.imgWidth;
+        const meterWidth = this.state.xScale;
+
+        const solution = meterWidth / imgWidth;
+
+        this.setState({pxToMeterRatio: solution});
+
+        console.log(solution);
+
+        let name = this.state.floorplanid;
+        if(name && name.length > 0) {
+            alert();
+            fetch("/books/updateFloorplanScale/" + this.state.ssid + "/" + name, {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    scale: solution
+                })
+
+            })
+                .then(floorplans => floorplans.text())
+                .then(res => {
+                    this.setState({pxToMeterRatio: res})
+                })
+        }
     }
 
     // creating a new node and adding it to the array save
@@ -221,6 +265,27 @@ class FloorplanEditPage extends Component {
         }
     }
 
+    // updateScale(result, ssid, name) {
+    //     if(name && name.length > 0) {
+    //         alert();
+    //         fetch("/books/updateFloorplanScale/" + this.state.ssid + "/" + this.state.floorplanid, {
+    //             method: 'put',
+    //             headers: {
+    //                 'Accept': 'application/json, text/plain',
+    //                 'Content-Type': 'application/json;charset=UTF-8'
+    //             },
+    //             body: JSON.stringify({
+    //                 scale: result
+    //             })
+
+    //         })
+    //             .then(floorplans => floorplans.text())
+    //             .then(res => {
+    //                 this.setState({pxToMeterRatio: res})
+    //             })
+    //     }
+    // }
+
     // renders the heatmap and draggable nodes
     render() {
         if (this.state.nodeToggle === "lockNodes") {
@@ -268,6 +333,13 @@ class FloorplanEditPage extends Component {
                         <button onClick={this.newNode}>Add Node</button><br/>
                         <button onClick={this.newNode} value="stairs">Add Stairs</button><br/>
                         <button onClick={this.newIBeacon}>Add IBeacon</button><br/>
+
+                        <label for="dimensionx">Blueprint X Length (Meters):</label> <br/>
+                        <input type="text" name="dimensionsx" value={this.state.xScale} onChange={this.changeXScale}/> <br/> <br/>
+                        <button onClick={this.changeFPScale}>Set Dimensions</button><br/>
+                        <p>Pixel to Meter Ratio: </p>
+                        <p>{this.state.pxToMeterRatio}</p><br/>
+
                         <this.checkStart/><br/>
                         <this.checkEnd/><br/>
                         <button onClick={this.LockNodes}>Lock Nodes</button><br/>

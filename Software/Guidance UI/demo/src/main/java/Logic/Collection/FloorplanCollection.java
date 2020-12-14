@@ -91,6 +91,10 @@ public class FloorplanCollection {
         FloorplanData.UpdateFloorplanImage(image, ssid, floorplanid);
     }
 
+    public void updateFloorplanScale(String scale, String ssid, String floorplanid){
+        FloorplanData.UpdateFloorplanScale(scale, ssid, floorplanid);
+    }
+
 //    public ArrayList<Floorplan> GetFloorplansByName(String name) {
 //        Floorplans = FloorplanData.GetAllFloorplans();
 //        ArrayList<Floorplan> floorplanList = new ArrayList<>();

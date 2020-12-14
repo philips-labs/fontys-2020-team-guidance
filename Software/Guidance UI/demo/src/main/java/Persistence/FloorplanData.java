@@ -79,6 +79,21 @@ public class FloorplanData {
         }
     }
 
+    public void UpdateFloorplanScale(String scale, String ssid, String floorplanId) {
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+            System.out.println(ssid);
+            int status = stmt.executeUpdate("UPDATE `floorplans` SET `scale`=["+ scale +"] WHERE ssid='"+ ssid +"' AND name='"+ floorplanId +"'");
+            System.out.println("DB update status: " + status);
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
     public void DeleteFloorplan(String name) {
         try {
             connection = OpenConnection();

@@ -121,7 +121,11 @@ div.MainPage {
 
 img.img {
   position: relative;
-  margin-top: 15vh;
+  margin-top: 10vh;
+}
+
+div.floorplanNode {
+  transition: left 3s, top 3s
 }
 
 @media (min-width:1025px){
@@ -189,7 +193,6 @@ img.img {
   }
 
 }
-
 
 /*Panels*/
 div.settingsPanel {
@@ -794,5 +797,9 @@ input:focus, textarea:focus, select:focus{
 
   input.CheckBox {
     padding: 1vw;
+  }
+
+  p.nodeTxt {
+    color: #2c7dea;
   }
 }

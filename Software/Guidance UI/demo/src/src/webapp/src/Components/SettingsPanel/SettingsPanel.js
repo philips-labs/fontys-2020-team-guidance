@@ -11,14 +11,16 @@ class SettingsPanel extends Component {
             floorplanid: '',
             floorplan: '',
 
-            email: '',
+            email: 'artsdylan@gmail.com',
             distance1: 0,
             distance2: 0,
             distance3: 0,
             location: '',
             beacon1: '',
             beacon2: '',
-            beacon3: ''
+            beacon3: '',
+
+            nodeList: {}
         }
     }
 
@@ -54,7 +56,7 @@ class SettingsPanel extends Component {
         });
 
         this.getFloorplans(ssid);
-        this.getUserData("yessin1996@hotmail.com"); // Here needs to come the email of the logged in user
+        this.getUserData(this.state.email); // Here needs to come the email of the logged in user
     }
 
 
@@ -99,7 +101,7 @@ class SettingsPanel extends Component {
 
     showUserLocation = () => {
         console.log("interval");
-        this.getUserLocation("yessin1996@hotmail.com");
+        this.getUserLocation(this.state.email);
         let partsArray = this.state.location.split(';');
         let userX = partsArray[0];
         let userY = partsArray[1];
@@ -115,7 +117,6 @@ class SettingsPanel extends Component {
             .then(res => res.text())
             .then(data => {
                 if(data != null) {
-                    console.log(data);
                     this.setState({
                         location: data
                     });
@@ -140,17 +141,17 @@ class SettingsPanel extends Component {
     getFloorplan = (closestBeacon) => {
         fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
             .then(res => res.text())
-            .then(ssid => {
+            .then(floorplanid => {
                 this.setState({
-                    ssid: ssid
+                    floorplanid: floorplanid
                 })
+                this.getNodes(floorplanid);
             })
 
         fetch("/books/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid+"")
             .then(res => res.text())
             .then(imagesrc => {
                 if(imagesrc) {
-                    console.log(imagesrc);
                     document.getElementById("floorplan-container-image").src = imagesrc;
                 }
                 else {
@@ -159,6 +160,33 @@ class SettingsPanel extends Component {
             })
     }
 
+    getNodes(floorplanid) {
+        fetch("/books/getNodes/" + this.state.ssid + "/" + floorplanid)
+            .then(res => res.json())
+            .then(data => {
+                if(data) {
+                    this.setState({nodeList: data})
+                    console.log(this.state.nodeList);
+                    this.mapNodes();
+                }
+            });
+    }
+
+    mapNodes() {
+
+        this.state.nodeList.forEach(node => {
+            const x = document.getElementById("floorplan-container-image").getBoundingClientRect().left + node.x;
+            const y = document.getElementById("floorplan-container-image").getBoundingClientRect().top + node.y;
+            if(node.type === "intermediaryNode") {
+            }
+            else if(node.type === "stairs") {
+
+                document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: yellow; padding: 8px; border-radius: 45px; border: 1px solid white"/>'
+            }
+
+            document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid white"/>'
+        })
+    }
 
     render() {
         const {location} = this.state;

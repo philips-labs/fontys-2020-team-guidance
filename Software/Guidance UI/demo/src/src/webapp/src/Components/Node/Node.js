@@ -66,7 +66,7 @@ export default class Node extends Component {
         return (
             <div>
                 <img className='nodeImg' src={Waypoint} alt=''/>
-                <p>{this.state.nodeId}</p>
+                <p className={"nodeTxt"}>{this.state.nodeId}</p>
             </div>
         )
     }

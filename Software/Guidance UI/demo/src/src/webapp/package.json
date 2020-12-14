@@ -12,8 +12,10 @@
     "react-router": "^5.2.0",
     "react-scripts": "3.4.4",
     "react-test-renderer": "^17.0.1",
+    "react-validation": "^3.0.7",
     "styled-components": "^5.2.1",
-    "test": "^0.6.0"
+    "test": "^0.6.0",
+    "validator": "^13.5.2"
   },
   "scripts": {
     "start": "react-scripts start",

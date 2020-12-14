@@ -64,9 +64,18 @@ class Floorplan extends Component {
         //}
     }
 
+    setRoute = (e) => {
+        alert(e.target.id);
+    }
+
+    test = () => {
+        alert();
+    }
+
     render() {
         return (
             <div id={"floorplan-container"}>
+
                 <div id={"user"} className={"floorplanNode"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "green", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
                 <img alt=""
                      className="img"

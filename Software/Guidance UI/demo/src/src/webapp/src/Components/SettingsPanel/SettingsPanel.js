@@ -177,6 +177,13 @@ class SettingsPanel extends Component {
         this.state.nodeList.forEach(node => {
             const x = document.getElementById("floorplan-container-image").getBoundingClientRect().left + node.x;
             const y = document.getElementById("floorplan-container-image").getBoundingClientRect().top + node.y;
+            if(node.type === "intermediaryNode") {
+            }
+            else if(node.type === "stairs") {
+
+                document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: yellow; padding: 8px; border-radius: 45px; border: 1px solid white"/>'
+            }
+
             document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid white"/>'
         })
     }

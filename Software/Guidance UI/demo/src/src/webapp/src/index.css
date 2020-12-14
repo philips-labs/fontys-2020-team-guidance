@@ -798,4 +798,8 @@ input:focus, textarea:focus, select:focus{
   input.CheckBox {
     padding: 1vw;
   }
+
+  p.nodeTxt {
+    color: #2c7dea;
+  }
 }

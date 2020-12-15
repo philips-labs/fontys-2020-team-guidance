@@ -7,14 +7,14 @@ import java.util.*;
 
 public class FloorplanData {
     static Connection connection = null;
-    static String url = "jdbc:mysql://remotemysql.com:3306/WJnsvdUCVX";
+    static String url = "jdbc:mysql://mysql-16806-0.cloudclusters.net:16806/GuidanceDB";
 
     //Open and return a database connection to use
     public static Connection OpenConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         Properties p = new Properties();
-        p.put("user", "WJnsvdUCVX");
-        p.put("password", "WMNo0fKK0Q");
+        p.put("user", "GuidanceMember");
+        p.put("password", "Guidance1234");
         connection = DriverManager.getConnection(url, p);
         return connection;
     }
@@ -25,7 +25,7 @@ public class FloorplanData {
         try {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.floorplans");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.floorplans");
 
             while(rs.next()) {
                 Floorplan floorplan = new Floorplan();
@@ -53,7 +53,7 @@ public class FloorplanData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`floorplans` (`image`,`ssid`,`name`, `width`, `scale`) VALUES ('"+ floorplan.getImage()  +"', '"+ floorplan.getSSID() +"', '"+ floorplan.getName() + "', '"+ floorplan.getWidth() + "', '"+ floorplan.getScale() + "');");
+            int status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`floorplans` (`image`,`ssid`,`name`, `width`, `scale`) VALUES ('"+ floorplan.getImage()  +"', '"+ floorplan.getSSID() +"', '"+ floorplan.getName() + "', '"+ floorplan.getWidth() + "', '"+ floorplan.getScale() + "');");
 
             System.out.println("DB update status: " + status);
             stmt.close();
@@ -84,7 +84,7 @@ public class FloorplanData {
             Statement stmt = connection.createStatement();
             String status = "";
             status += String.valueOf(stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;"));
-            status += String.valueOf(stmt.executeUpdate("DELETE FROM `WJnsvdUCVX`.`floorplans` WHERE name='"+ name +"';"));
+            status += String.valueOf(stmt.executeUpdate("DELETE FROM `GuidanceDB`.`floorplans` WHERE name='"+ name +"';"));
             status += String.valueOf(stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;"));
             System.out.println("DB update status: " + status);
             stmt.close();

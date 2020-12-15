@@ -13,29 +13,6 @@ export default class Node extends Component {
             nodeType: this.props.type,
         };
     }
-    //setting the crowd circles
-    getStyle() {
-        let connections;
-        let data = this.state.nodeData;
-
-        let nodeConnections = data.map((conn) => {
-            if(conn.id === this.props.nodeId) {
-                connections = conn.connections
-            }
-            return connections
-        })
-
-        if(connections < 5) {
-            return 'nodeSmallCircle'
-        }
-        else if(connections >= 5 && connections < 10){
-            return 'nodeMedCircle'
-        }
-        else if(connections >= 10) {
-            return 'nodeBigCircle'
-        }
-        else return ''
-    }
     // rendering nodes with heat circles
     render() {
         if (this.state.nodeType === "start")

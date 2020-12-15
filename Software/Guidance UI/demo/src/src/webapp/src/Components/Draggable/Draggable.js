@@ -21,7 +21,6 @@ export default class Draggable extends React.Component {
       lastTranslateY: this.props.y,
 
       width: 0,
-      height: 0,
     };
   }
 
@@ -59,7 +58,7 @@ export default class Draggable extends React.Component {
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    const { height, width} = this.state;
+    const {width} = this.state;
     const boundx = this.props.boundx;
     const boundy = this.props.boundy;
     const { isDragging } = this.state;

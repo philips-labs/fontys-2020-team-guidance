@@ -10,14 +10,14 @@ import java.util.Properties;
 
 public class NodeData {
     static Connection connection = null;
-    static String url = "jdbc:mysql://remotemysql.com:3306/WJnsvdUCVX";
+    static String url = "jdbc:mysql://mysql-16806-0.cloudclusters.net:16806/GuidanceDB";
 
     //Open and return a database connection to use
     public static Connection OpenConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         Properties p = new Properties();
-        p.put("user", "WJnsvdUCVX");
-        p.put("password", "WMNo0fKK0Q");
+        p.put("user", "GuidanceMember");
+        p.put("password", "Guidance1234");
         connection = DriverManager.getConnection(url, p);
         return connection;
     }
@@ -28,10 +28,10 @@ public class NodeData {
             Statement stmt = connection.createStatement();
 
             stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
-            stmt.executeUpdate("DELETE FROM `WJnsvdUCVX`.`nodes` WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"'");
+            stmt.executeUpdate("DELETE FROM `GuidanceDB`.`nodes` WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"'");
             stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;");
 
-            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
+            int status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
 
             System.out.println("DB update status: " + status);
             stmt.close();
@@ -49,7 +49,7 @@ public class NodeData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.nodes WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.nodes WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
 
             while(rs.next()) {
                 Node node = new Node();
@@ -80,10 +80,10 @@ public class NodeData {
             Statement stmt = connection.createStatement();
 
             stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
-            stmt.executeUpdate("DELETE FROM `WJnsvdUCVX`.`ibeacons` WHERE ssid='"+ ibeacon.getSSID() +"' AND floorplanId='"+ ibeacon.getFloorplanid() +"'");
+            stmt.executeUpdate("DELETE FROM `GuidanceDB`.`ibeacons` WHERE ssid='"+ ibeacon.getSSID() +"' AND floorplanId='"+ ibeacon.getFloorplanid() +"'");
             stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;");
 
-            int status = stmt.executeUpdate("INSERT INTO `WJnsvdUCVX`.`ibeacons` (`id`,`x`,`y`, `type`, `ssid`, `floorplanId`, `name` ) VALUES ('"+ ibeacon.getId()  +"', '"+ ibeacon.getX() +"', '"+ ibeacon.getY() + "', '"+ ibeacon.getType() + "', '"+ ibeacon.getSSID() + "', '"+ ibeacon.getFloorplanid() + "', '"+ ibeacon.getName() + "');");
+            int status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`ibeacons` (`id`,`x`,`y`, `type`, `ssid`, `floorplanId`, `name` ) VALUES ('"+ ibeacon.getId()  +"', '"+ ibeacon.getX() +"', '"+ ibeacon.getY() + "', '"+ ibeacon.getType() + "', '"+ ibeacon.getSSID() + "', '"+ ibeacon.getFloorplanid() + "', '"+ ibeacon.getName() + "');");
 
             System.out.println("DB update status: " + status);
             stmt.close();
@@ -101,7 +101,7 @@ public class NodeData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.ibeacons WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.ibeacons WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
 
             while(rs.next()) {
                 IBeacon ibeacon = new IBeacon();
@@ -133,7 +133,7 @@ public class NodeData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.ibeacons WHERE ssid='"+ssid+"' AND name='"+beaconname+"'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.ibeacons WHERE ssid='"+ssid+"' AND name='"+beaconname+"'");
 
             while(rs.next()) {
                 floorplanName = rs.getString("floorplanid");
@@ -157,7 +157,7 @@ public class NodeData {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM WJnsvdUCVX.ibeacons");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.ibeacons");
 
             while(rs.next()) {
                 IBeacon ibeacon = new IBeacon();

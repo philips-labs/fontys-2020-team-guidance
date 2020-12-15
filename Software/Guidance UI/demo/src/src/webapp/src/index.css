@@ -577,7 +577,7 @@ input:focus, textarea:focus, select:focus{
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
   }
 
   img.editIcon:hover {
@@ -590,8 +590,6 @@ input:focus, textarea:focus, select:focus{
     width: 2.5vw;
     height: auto;
   }
-
-
 
   .nodeSmallCircle {
     display: block;
@@ -689,7 +687,7 @@ input:focus, textarea:focus, select:focus{
   .FloorplanEdit button {
     background-color: transparent;
     border: 1px solid #4c4c4c;
-    padding: .5vw 1vw;
+    padding: .5vw -1vw;
     color: #cfcfcf;
     font-size: 1vw;
     font-family: 'Montserrat', sans-serif;
@@ -719,7 +717,7 @@ input:focus, textarea:focus, select:focus{
     font-size: 1vw;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
-    width: 8vw;
+    width: 10vw;
     margin-bottom: 1vh;
     border-radius: 45px;
   }
@@ -752,7 +750,7 @@ input:focus, textarea:focus, select:focus{
     position: absolute;
     top: 0;
     left: 0;
-    width: 10vw;
+    width: 12vw;
     height: 100vh;
     border-right: 1px solid #414141;
     text-align: center;
@@ -766,7 +764,7 @@ input:focus, textarea:focus, select:focus{
     font-size: 1vw;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
-    width: 8vw;
+    width: 10vw;
     margin-bottom: 1vh;
     border-radius: 45px;
   }
@@ -785,7 +783,7 @@ input:focus, textarea:focus, select:focus{
   .linkMenu button {
     background-color: transparent;
     border: 1px solid #4c4c4c;
-    padding: .5vw 1vw;
+    padding: .5vw -1vw;
     color: #cfcfcf;
     font-size: 1vw;
     font-family: 'Montserrat', sans-serif;

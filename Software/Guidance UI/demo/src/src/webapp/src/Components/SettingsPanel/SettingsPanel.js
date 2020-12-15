@@ -139,7 +139,7 @@ class SettingsPanel extends Component {
                 this.getNodes(floorplanid);
             })
             .catch(e => {
-                console.error("There was a problemo getto the floorplano: " + e);
+                console.error("There was a problem getting the floorplan: " + e);
                 this.configureSSID();
             })
 
@@ -162,14 +162,13 @@ class SettingsPanel extends Component {
             const x = document.getElementById("floorplan-container-image").getBoundingClientRect().left + node.x;
             const y = document.getElementById("floorplan-container-image").getBoundingClientRect().top + node.y;
 
-            if(node.type === "intermediaryNode") {
-            }
-            else if(node.type === "stairs") {
-
+            if(node.type === "stairs") {
                 document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: yellow; padding: 8px; border-radius: 45px; border: 1px solid white"/>' // eslint-disable-line
             }
+            else {
+                document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid white"/>' // eslint-disable-line
+            }
 
-            document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid white"/>' // eslint-disable-line
         })
     }
 

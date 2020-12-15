@@ -30,7 +30,7 @@ export default class Linking extends Component {
                     <input className={"CheckBox"} type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
                     <input placeholder={"Connected Node"} onChange={this.handleOnChange}/><br/>
                     <button onClick={this.saveLinks}>Save Link</button><br/><br/>
-                    <button className={"green"} onClick={this.saveNodes}>Save Nodes</button><br/>
+                    <button className={"green"} onClick={this.saveNodes}>Save</button><br/>
                 </div>
                 {/* <div>
                     <p>Path Finder</p>

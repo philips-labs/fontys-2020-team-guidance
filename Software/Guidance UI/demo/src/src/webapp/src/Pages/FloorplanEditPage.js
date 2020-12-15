@@ -264,11 +264,12 @@ class FloorplanEditPage extends Component {
                     <div className={'FloorplanEdit'}>
                         <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
                         <button onClick={this.newNode}>Add Node</button><br/>
-                        <input placeholder="ID Item" onChange={this.handleSelector}/><br/>
+                        <input placeholder="ID Node" onChange={this.handleSelector}/><br/>
                         <button className={"red"} onClick={this.deleteNode}>Delete Node</button><br/>
+                        <button onClick={this.newIBeacon}>Add IBeacon</button><br/>
+                        <input placeholder="ID Beacon" onChange={this.handleSelector}/><br/>
                         <button className={"red"} onClick={this.deleteIBeacon}>Delete IBeacon</button><br/>
                         <button onClick={this.newNode} value="stairs">Add Stairs</button><br/>
-                        <button onClick={this.newIBeacon}>Add IBeacon</button><br/>
                         <button onClick={this.LockNodes}>Lock Nodes</button><br/>
                     </div>
                     <div>

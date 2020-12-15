@@ -159,7 +159,7 @@ class AdminMenu extends Component {
                                 return  <div key={key} className={"FloorplanObject"}>
                                             <img className={"FloorplanListImage"} src={item.image} alt={""}/><br/>
                                             <h className={"FloorplanTitle"}>{item.name}</h>
-                                            <h className={"FloorplanTitle"}><Link className="log-button btn btn-secondary" to={`/editfloorplan/${item.ssid}/${item.name}`}><img onClick={this.editFloorplan} id={item.width} className={"editIcon"} src={"https://img.pngio.com/free-high-quality-edit-icon-3589-free-icons-and-png-backgrounds-edit-icon-png-1024_1024.png"} alt={" "}/></Link></h>
+                                            <h className={"FloorplanTitle"}><Link to={`/editfloorplan/${item.ssid}/${item.name}`}><img onClick={this.editFloorplan} id={item.width} className={"editIcon"} src={"https://img.pngio.com/free-high-quality-edit-icon-3589-free-icons-and-png-backgrounds-edit-icon-png-1024_1024.png"} alt={" "}/></Link></h>
                                             <h name={"SelectButton"} onClick={this.deleteFloorplanObjects} id={item.name} className={"FloorplanDeleteButton"}>-</h>
                                         </div>
                             })

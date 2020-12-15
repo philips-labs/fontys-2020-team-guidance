@@ -45,7 +45,6 @@ export default class Linking extends Component {
 
     saveNodes = () => {
         this.state.nodeList.forEach(item =>  {
-            console.log(item.x)
             fetch("/api/floorplan/saveNode", {
                 method: 'post',
                 headers: {

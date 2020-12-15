@@ -31,14 +31,9 @@ class FloorplanEditPage extends Component {
                     this.setState({image: data.image})
                 }
             })
-
-        if(this.state.nodeList.length < 1) {
             this.fetchNode();
-        }
 
-        if(this.state.iBeaconList.length < 1) {
             this.fetchIBeacon();
-        }
 
         if(this.state.image === undefined || this.state.image === null || this.state.nodeList === undefined || this.state.nodeList === null || this.state.iBeaconList === undefined || this.state.iBeaconList === null) {
             window.location = "localhost:3000/admin";

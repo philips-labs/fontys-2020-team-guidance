@@ -5,10 +5,11 @@ exports[`renders correctly react-test-renderer 1`] = `
   id="floorplan-container"
 >
   <div
-    id="node"
+    className="floorplanNode"
+    id="user"
     style={
       Object {
-        "backgroundColor": "#2166cf",
+        "backgroundColor": "green",
         "border": "1px solid white",
         "borderRadius": "45px",
         "left": "0px",
@@ -23,7 +24,6 @@ exports[`renders correctly react-test-renderer 1`] = `
     className="img"
     draggable="false"
     id="floorplan-container-image"
-    onLoad={[Function]}
     onMouseDown={[Function]}
     onTouchStart={[Function]}
     onWheel={[Function]}

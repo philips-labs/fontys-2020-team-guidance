@@ -136,14 +136,14 @@ class SettingsPanel extends Component {
         fetch("/api/floorplan/getFloorplan/"+this.state.ssid+"/"+floorplanid)
             .then(res => res.json())
             .then(imagesrc => {
-                if(imagesrc.image) {
-                    document.getElementById("floorplan-container-image").src = imagesrc.image;
-                    this.getNodes(floorplanid);
-                }
-                else {
-                    this.configureSSID();
-                }
+                document.getElementById("floorplan-container-image").src = imagesrc.image;
+                this.getNodes(floorplanid);
             })
+            .catch(e => {
+                console.error("There was a problemo getto the floorplano");
+                this.configureSSID();
+            })
+
     }
 
     getNodes(floorplanid) {
@@ -162,6 +162,7 @@ class SettingsPanel extends Component {
         this.state.nodeList.forEach(node => {
             const x = document.getElementById("floorplan-container-image").getBoundingClientRect().left + node.x;
             const y = document.getElementById("floorplan-container-image").getBoundingClientRect().top + node.y;
+
             if(node.type === "intermediaryNode") {
             }
             else if(node.type === "stairs") {

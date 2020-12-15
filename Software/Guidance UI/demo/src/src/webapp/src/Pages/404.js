@@ -1,13 +1,14 @@
 import React from 'react';
 import Logo from "../Components/Logo/Logo";
-
 function NotFoundPage() {
 
     return (
-        <div className="NotFound">
+        <div className="container h-100 d-flex justify-content-center">
             <Logo/>
-            <h className={"PageErrorCode"}>404</h>
-            <h className={"PageMessage"}>Page not found</h>
+            <div className="my-auto">
+                <h className={"PageErrorCode"}>404</h>
+                <h className={"PageMessage"}>Page not found</h>
+            </div>
         </div>
     );
 }

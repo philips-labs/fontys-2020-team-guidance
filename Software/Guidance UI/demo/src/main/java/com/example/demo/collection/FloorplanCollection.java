@@ -3,6 +3,7 @@ package com.example.demo.collection;
 import com.example.demo.models.Floorplan;
 import com.example.demo.persistence.FloorplanData;
 
+import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -84,6 +85,7 @@ public class FloorplanCollection {
             }
         }
 
+        System.out.println("KAPUT");
         return new Floorplan();
     }
 

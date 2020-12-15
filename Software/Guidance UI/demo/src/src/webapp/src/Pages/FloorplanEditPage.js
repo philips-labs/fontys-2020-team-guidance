@@ -175,7 +175,7 @@ class FloorplanEditPage extends Component {
         const y = childY;
         for(let i =0; i<itemB.length; i++){
             if(itemB[i].id === id) {
-                itemB[i] = {id, x, y, type};
+                itemB[i] = {id, x, y, type, name};
             }
         }
         this.setState({iBeaconList: itemB});
@@ -269,8 +269,8 @@ class FloorplanEditPage extends Component {
                         <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
                         <button onClick={this.newNode}>Add Node</button><br/>
                         <input placeholder="ID Item" onChange={this.handleSelector}/><br/>
-                        <button onClick={this.deleteNode}>Delete Node</button><br/>
-                        <button onClick={this.deleteIBeacon}>Delete IBeacon</button><br/>
+                        <button className={"red"} onClick={this.deleteNode}>Delete Node</button><br/>
+                        <button className={"red"} onClick={this.deleteIBeacon}>Delete IBeacon</button><br/>
                         <button onClick={this.newNode} value="stairs">Add Stairs</button><br/>
                         <button onClick={this.newIBeacon}>Add IBeacon</button><br/>
                         <button onClick={this.LockNodes}>Lock Nodes</button><br/>

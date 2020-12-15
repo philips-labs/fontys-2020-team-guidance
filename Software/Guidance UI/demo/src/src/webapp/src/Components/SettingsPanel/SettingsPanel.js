@@ -39,7 +39,6 @@ class SettingsPanel extends Component {
             })
 
             alert("Network name updated to: " + this.state.InputSSID);
-            this.getFloorplans(this.state.InputSSID)
         }
     }
 
@@ -55,26 +54,7 @@ class SettingsPanel extends Component {
             InputSSID: ssid
         });
 
-        this.getFloorplans(ssid);
         this.getUserData(this.state.email); // Here needs to come the email of the logged in user
-    }
-
-    getFloorplans(string) {
-        console.log("/api/floorplan/getFloorplanBySSID/" + string)
-        fetch("http://localhost:8080/api/floorplan/getFloorplanBySSID/" + string,{
-            credentials: 'same-origin'
-        })
-            .then(res => res.text())
-            .then(imagesrc => {
-                if(imagesrc !== null) {
-                    console.log(imagesrc)
-                    document.getElementById("floorplan-container-image").src = imagesrc;
-                }
-                else {
-                    alert("Sorry we couldn't find that SSID can you enter one again?");
-                    this.configureSSID()
-                }
-            })
     }
 
     getUserData = (email) => {
@@ -103,7 +83,6 @@ class SettingsPanel extends Component {
     };
 
     showUserLocation = () => {
-        console.log("interval");
         this.getUserLocation(this.state.email);
         let partsArray = this.state.location.split(';');
         let userX = partsArray[0];
@@ -142,20 +121,24 @@ class SettingsPanel extends Component {
     }
 
     getFloorplan = (closestBeacon) => {
-        fetch("/api/floorplan/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
+        fetch("/api/floorplan/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid)
             .then(res => res.text())
             .then(floorplanid => {
                 this.setState({
                     floorplanid: floorplanid
                 })
-                this.getNodes(floorplanid);
-            })
 
-        fetch("/api/floorplan/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid+"")
-            .then(res => res.text())
+                this.getFloorplanImage(floorplanid);
+            })
+    }
+
+    getFloorplanImage = (floorplanid) => {
+        fetch("/api/floorplan/getFloorplan/"+this.state.ssid+"/"+floorplanid)
+            .then(res => res.json())
             .then(imagesrc => {
-                if(imagesrc) {
-                    document.getElementById("floorplan-container-image").src = imagesrc;
+                if(imagesrc.image) {
+                    document.getElementById("floorplan-container-image").src = imagesrc.image;
+                    this.getNodes(floorplanid);
                 }
                 else {
                     this.configureSSID();
@@ -169,7 +152,6 @@ class SettingsPanel extends Component {
             .then(data => {
                 if(data) {
                     this.setState({nodeList: data})
-                    console.log(this.state.nodeList);
                     this.mapNodes();
                 }
             });

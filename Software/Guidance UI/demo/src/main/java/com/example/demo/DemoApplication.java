@@ -11,7 +11,7 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
 
-        test("yessin1996@hotmail.com");
+        //test("artsdylan@gmail.com");
     }
 
     private static void test(String email) {

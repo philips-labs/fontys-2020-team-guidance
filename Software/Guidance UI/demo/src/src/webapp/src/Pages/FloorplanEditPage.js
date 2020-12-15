@@ -33,15 +33,13 @@ class FloorplanEditPage extends Component {
             })
             this.fetchNode();
 
-            this.fetchIBeacon();
-
         if(this.state.image === undefined || this.state.image === null || this.state.nodeList === undefined || this.state.nodeList === null || this.state.iBeaconList === undefined || this.state.iBeaconList === null) {
             window.location = "localhost:3000/admin";
         }
     }
 
-    fetchIBeacon = () => {
-        fetch("/api/floorplan/getBeacons/" + this.state.ssid + "/" + this.state.floorplanid)
+    async fetchIBeacon() {
+        await fetch("/api/floorplan/getBeacons/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
                     let list = data;
@@ -51,12 +49,13 @@ class FloorplanEditPage extends Component {
                             id = iBeacon.id;
                         }
                     })
+                console.log(list);
                     this.setState({iBeaconList: list, iBeaconId: id+1});
             })
     }
 
-    fetchNode = () => {
-        fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
+    async fetchNode() {
+        await fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -71,7 +70,9 @@ class FloorplanEditPage extends Component {
                             id = node.id;
                         }
                     })
+                console.log(list);
                     this.setState({nodeList: list, nodeId: id+1});
+                    this.fetchIBeacon()
             })
     }
 

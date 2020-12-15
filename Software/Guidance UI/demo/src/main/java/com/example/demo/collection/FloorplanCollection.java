@@ -85,7 +85,6 @@ public class FloorplanCollection {
             }
         }
 
-        System.out.println("KAPUT");
         return new Floorplan();
     }
 

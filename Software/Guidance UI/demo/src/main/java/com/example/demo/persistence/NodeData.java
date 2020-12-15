@@ -30,7 +30,7 @@ public class NodeData {
 
             ResultSet rs = stmt.executeQuery("SELECT id FROM GuidanceDB.nodes WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"' AND id='"+ node.getId() +"'");
             if(rs.next()){
-                status = stmt.executeUpdate(" UPDATE GuidanceDB.nodes SET x='"+node.getY()+"',y='"+node.getY()+"',type='"+node.getType()+"',connectedNodes='"+node.getConnectednodes()+"',ssid='"+node.getSSID()+"',floorplanID='"+node.getFloorplanid()+"' WHERE id='"+node.getId()+"'");
+                status = stmt.executeUpdate(" UPDATE GuidanceDB.nodes SET x='"+node.getY()+"',y='"+node.getY()+"',type='"+node.getType()+"',connectedNodes='"+node.getConnectednodes()+"',ssid='"+node.getSSID()+"',floorplanID='"+node.getFloorplanid()+"' WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"' AND id='"+ node.getId() +"'");
             }
             else {
                 status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
@@ -87,7 +87,7 @@ public class NodeData {
             ResultSet rs = stmt.executeQuery("SELECT id FROM GuidanceDB.ibeacons WHERE ssid='"+ ibeacon.getSSID() +"' AND floorplanId='"+ ibeacon.getFloorplanid() +"' AND id='"+ ibeacon.getId() +"'");
             if(rs.next()){
                 System.out.println(ibeacon.getName());
-                status = stmt.executeUpdate(" UPDATE GuidanceDB.ibeacons SET x='"+ibeacon.getY()+"',y='"+ibeacon.getY()+"',type ='"+ibeacon.getType()+"',ssid='"+ibeacon.getSSID()+"',floorplanid='"+ibeacon.getFloorplanid()+"',name='"+ibeacon.getName()+"' WHERE id='"+ibeacon.getId()+"'");
+                status = stmt.executeUpdate(" UPDATE GuidanceDB.ibeacons SET x='"+ibeacon.getY()+"',y='"+ibeacon.getY()+"',type ='"+ibeacon.getType()+"',ssid='"+ibeacon.getSSID()+"',floorplanid='"+ibeacon.getFloorplanid()+"',name='"+ibeacon.getName()+"' WHERE ssid='"+ ibeacon.getSSID() +"' AND floorplanId='"+ ibeacon.getFloorplanid() +"' AND id='"+ ibeacon.getId() +"'");
             }
             else {
                 status = stmt.executeUpdate("INSERT INTO GuidanceDB.ibeacons (`id`,`x`,`y`, `type`, `ssid`, `floorplanId`, `name`) VALUES ('"+ ibeacon.getId()  +"', '"+ ibeacon.getX() +"', '"+ ibeacon.getY() + "', '"+ ibeacon.getType() + "', '"+ ibeacon.getSSID() + "', '"+ ibeacon.getFloorplanid() + "', '"+ibeacon.getName()+"');");

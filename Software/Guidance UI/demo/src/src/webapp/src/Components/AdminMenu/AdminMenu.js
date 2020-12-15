@@ -26,7 +26,7 @@ class AdminMenu extends Component {
         const key = prompt("Please enter your admin key", "Admin key");
 
         if(key && key.length > 0) {
-            fetch("/books/checkKey/" + key)
+            fetch("/api/floorplan/checkKey/" + key)
                 .then(data => data.text())
                 .then(res => {
                     if(res === "404") {
@@ -35,7 +35,7 @@ class AdminMenu extends Component {
                     }
                     else {
                         this.setState({SSID: res});
-                        fetch("/books/getFloorplansBySSID/" + res)
+                        fetch("/api/floorplan/getFloorplansBySSID/" + res)
                             .then(floorplans => floorplans.json())
                             .then(res => {
                                 this.setState({floorplans: res, logIn: true})
@@ -75,7 +75,7 @@ class AdminMenu extends Component {
             let scale = image.width / width;
             if(Number.isInteger(width)) {
                 if(name && name.length > 0) {
-                    fetch("/books/createFloorplan", {
+                    fetch("/api/floorplan/createFloorplan", {
                         method: 'post',
                         headers: {
                             'Accept': 'application/json, text/plain',
@@ -125,7 +125,7 @@ class AdminMenu extends Component {
 
     deleteFloorplanObjects = (e) => {
         if(window.confirm("Are you sure you want to delete " + e.target.id + "?")) {
-        fetch("/books/deleteFloorplan/" + e.target.id, {
+        fetch("/api/floorplan/deleteFloorplan/" + e.target.id, {
             method: 'delete'
         })
             .then(floorplans => floorplans.json())

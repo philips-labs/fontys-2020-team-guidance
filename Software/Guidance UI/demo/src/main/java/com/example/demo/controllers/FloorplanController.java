@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@CrossOrigin
 @RestController
-@RequestMapping("books")
+@RequestMapping("/api/floorplan")
 public class FloorplanController {
 
     FloorplanCollection floorplans = new FloorplanCollection();

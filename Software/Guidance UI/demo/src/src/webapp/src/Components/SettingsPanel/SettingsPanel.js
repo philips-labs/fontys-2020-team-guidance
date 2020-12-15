@@ -59,12 +59,15 @@ class SettingsPanel extends Component {
         this.getUserData(this.state.email); // Here needs to come the email of the logged in user
     }
 
-
     getFloorplans(string) {
-        fetch("/books/getFloorplanBySSID/" + string)
+        console.log("/api/floorplan/getFloorplanBySSID/" + string)
+        fetch("http://localhost:8080/api/floorplan/getFloorplanBySSID/" + string,{
+            credentials: 'same-origin'
+        })
             .then(res => res.text())
             .then(imagesrc => {
                 if(imagesrc !== null) {
+                    console.log(imagesrc)
                     document.getElementById("floorplan-container-image").src = imagesrc;
                 }
                 else {
@@ -75,7 +78,7 @@ class SettingsPanel extends Component {
     }
 
     getUserData = (email) => {
-        fetch("/books/getUserDataByEmail/" + email)
+        fetch("/api/userdata/getUserDataByEmail/" + email)
             .then(res => res.json())
             .then(data => {
                 if(data != null) {
@@ -113,7 +116,7 @@ class SettingsPanel extends Component {
 
 
     getUserLocation = (email) => {
-        fetch("/books/getUserLocationByEmail/" + email)
+        fetch("/api/userdata/getUserLocationByEmail/" + email)
             .then(res => res.text())
             .then(data => {
                 if(data != null) {
@@ -139,7 +142,7 @@ class SettingsPanel extends Component {
     }
 
     getFloorplan = (closestBeacon) => {
-        fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
+        fetch("/api/floorplan/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
             .then(res => res.text())
             .then(floorplanid => {
                 this.setState({
@@ -148,7 +151,7 @@ class SettingsPanel extends Component {
                 this.getNodes(floorplanid);
             })
 
-        fetch("/books/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid+"")
+        fetch("/api/floorplan/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid+"")
             .then(res => res.text())
             .then(imagesrc => {
                 if(imagesrc) {
@@ -161,7 +164,7 @@ class SettingsPanel extends Component {
     }
 
     getNodes(floorplanid) {
-        fetch("/books/getNodes/" + this.state.ssid + "/" + floorplanid)
+        fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + floorplanid)
             .then(res => res.json())
             .then(data => {
                 if(data) {

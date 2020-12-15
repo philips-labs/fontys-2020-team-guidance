@@ -14,7 +14,7 @@ public class NodeData {
 
     //Open and return a database connection to use
     public static Connection OpenConnection() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
         Properties p = new Properties();
         p.put("user", "GuidanceMember");
         p.put("password", "Guidance1234");

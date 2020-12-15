@@ -46,7 +46,7 @@ export default class Linking extends Component {
     saveNodes = () => {
         this.state.nodeList.forEach(item =>  {
             console.log(item.x)
-            fetch("/books/saveNode", {
+            fetch("/api/floorplan/saveNode", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain',
@@ -68,7 +68,7 @@ export default class Linking extends Component {
         alert(this.state.iBeaconList);
 
         this.state.iBeaconList.forEach(item => {
-            fetch("/books/saveBeacon", {
+            fetch("/api/floorplan/saveBeacon", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain',

@@ -55,23 +55,7 @@ class SettingsPanel extends Component {
             InputSSID: ssid
         });
 
-        this.getFloorplans(ssid);
         this.getUserData(this.state.email); // Here needs to come the email of the logged in user
-    }
-
-
-    getFloorplans(string) {
-        fetch("/books/getFloorplanBySSID/" + string)
-            .then(res => res.text())
-            .then(imagesrc => {
-                if(imagesrc !== null) {
-                    document.getElementById("floorplan-container-image").src = imagesrc;
-                }
-                else {
-                    alert("Sorry we couldn't find that SSID can you enter one again?");
-                    this.configureSSID()
-                }
-            })
     }
 
     getUserData = (email) => {
@@ -139,20 +123,23 @@ class SettingsPanel extends Component {
     }
 
     getFloorplan = (closestBeacon) => {
-        fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid+"")
+        fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid)
             .then(res => res.text())
             .then(floorplanid => {
                 this.setState({
                     floorplanid: floorplanid
                 })
-                this.getNodes(floorplanid);
+                this.getFloorplanImage(floorplanid);
             })
+    }
 
-        fetch("/books/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid+"")
-            .then(res => res.text())
+    getFloorplanImage = (floorplanid) => {
+        fetch("/books/getFloorplan/"+this.state.ssid+"/"+floorplanid)
+            .then(res => res.json())
             .then(imagesrc => {
-                if(imagesrc) {
-                    document.getElementById("floorplan-container-image").src = imagesrc;
+                if(imagesrc.image) {
+                    document.getElementById("floorplan-container-image").src = imagesrc.image;
+                    this.getNodes(this.state.floorplanid);
                 }
                 else {
                     this.configureSSID();
@@ -173,18 +160,16 @@ class SettingsPanel extends Component {
     }
 
     mapNodes() {
-
         this.state.nodeList.forEach(node => {
             const x = document.getElementById("floorplan-container-image").getBoundingClientRect().left + node.x;
             const y = document.getElementById("floorplan-container-image").getBoundingClientRect().top + node.y;
             if(node.type === "intermediaryNode") {
+                document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid white"/>'
             }
-            else if(node.type === "stairs") {
-
-                document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: yellow; padding: 8px; border-radius: 45px; border: 1px solid white"/>'
+            else {
+                document.getElementById("floorplan-container").innerHTML += '<div onClick={this.test()} id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid red"/>'
             }
 
-            document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid white"/>'
         })
     }
 

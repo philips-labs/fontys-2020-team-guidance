@@ -12,9 +12,6 @@ import AdminPage from "./Pages/AdminPage";
 import SuperAdminPage from "./Pages/SuperAdminPage";
 import FloorplanEditPage from "./Pages/FloorplanEditPage";
 import NotFoundPage from "./Pages/404";
-import LoginPage from './Pages/Login';
-import RegisterPage from './Pages/Register';
-import Profile from './Pages/Profile';
 
 function App() {
 
@@ -25,9 +22,6 @@ function App() {
               <Route exact path={"/admin"} component={AdminPage}/>
               <Route exact path={"/superadmin"} component={SuperAdminPage}/>
               <Route path={"/editfloorplan/:ssid/:floorplanid"} component={FloorplanEditPage}/>
-              <Route path={"/Login"} component={LoginPage}/>
-              <Route path={"/Register"} component={RegisterPage}/>
-              <Route path={"/Profile"} component={Profile}/>
               <Route exact path={"/404"} component={NotFoundPage}/>
               <Redirect to={"/404"}/>
           </Switch>

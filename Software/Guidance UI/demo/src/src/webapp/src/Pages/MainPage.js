@@ -23,7 +23,7 @@ class MainPage extends Component {
                 <MobileMenu/>
                 <SettingsPanel/>
                 <AccountPanel/>
-                <Floorplan/>
+                <Floorplan />
             </div>
         );
     }

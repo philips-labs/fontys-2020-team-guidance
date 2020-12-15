@@ -142,15 +142,19 @@ export default class Linking extends Component {
         })
 
         const selNode = this.state.selectedNode;
+            let value = this.state.input
+            for (let i =0; i < newArr1.length; i++) {
+                if(newArr1[i].id == selNode) {
+                    newArr1[i].nodeConnections.push(value);
+                }
+                if (newArr1[i].id == value) {
+                    newArr1[i].nodeConnections.push(selNode);
+                }
+            }
 
-        try {
-            var value = this.state.input;
-            newArr1[selNode].nodeConnections.push(value);
-            newArr1[value].nodeConnections.push(selNode);
 
         this.setState({nodeList: newArr1})
-
-        } catch {}
+            console.log(newArr1);
     }
 
     calculateDistance = (nodeOne, nodeTwo) => {

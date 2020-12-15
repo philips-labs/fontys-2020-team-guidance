@@ -8,10 +8,9 @@ const getPublicContent = () => {
             return res.text()
         }).then(steps => {
             return steps
+
         })
 };
-
-
 
 const getUserBoard = () => {
     return fetch(API_URL + "user", {headers: authHeader()})

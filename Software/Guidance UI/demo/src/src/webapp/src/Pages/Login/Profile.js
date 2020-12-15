@@ -1,5 +1,6 @@
 import React from "react";
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
+import authHeader from "../../services/auth-header";
 
 const Profile = () => {
     //Gets current user from local storage and show user information with token
@@ -15,6 +16,7 @@ const Profile = () => {
             <p>
                 <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
                 {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+
             </p>
             <p>
                 <strong>Id:</strong> {currentUser.id}

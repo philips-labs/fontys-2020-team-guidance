@@ -59,7 +59,7 @@ class SettingsPanel extends Component {
     }
 
     getUserData = (email) => {
-        fetch("/books/getUserDataByEmail/" + email)
+        fetch("/api/user/getUserDataByEmail/" + email)
             .then(res => res.json())
             .then(data => {
                 if(data != null) {
@@ -97,7 +97,7 @@ class SettingsPanel extends Component {
 
 
     getUserLocation = (email) => {
-        fetch("/books/getUserLocationByEmail/" + email)
+        fetch("/api/user/getUserLocationByEmail/" + email)
             .then(res => res.text())
             .then(data => {
                 if(data != null) {
@@ -123,7 +123,7 @@ class SettingsPanel extends Component {
     }
 
     getFloorplan = (closestBeacon) => {
-        fetch("/books/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid)
+        fetch("/api/floorplan/getFloorplanByBeaconAndSSID/"+closestBeacon+"/"+this.state.ssid)
             .then(res => res.text())
             .then(floorplanid => {
                 console.log(floorplanid)
@@ -135,7 +135,7 @@ class SettingsPanel extends Component {
     }
 
     getFloorplanImage = () => {
-        fetch("/books/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid)
+        fetch("/api/floorplan/getFloorplan/"+this.state.ssid+"/"+this.state.floorplanid)
             .then(res => res.json())
             .then(imagesrc => {
                 if(imagesrc.image) {
@@ -149,7 +149,7 @@ class SettingsPanel extends Component {
     }
 
     getNodes(floorplanid) {
-        fetch("/books/getNodes/" + this.state.ssid + "/" + floorplanid)
+        fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + floorplanid)
             .then(res => res.json())
             .then(data => {
                 if(data) {

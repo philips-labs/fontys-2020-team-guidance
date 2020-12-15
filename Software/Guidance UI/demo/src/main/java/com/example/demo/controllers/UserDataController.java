@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("books")
+@RequestMapping("/api/user")
 public class UserDataController {
 
     UserDataCollection userDataCollection = new UserDataCollection();

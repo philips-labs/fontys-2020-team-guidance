@@ -20,7 +20,7 @@ class SuperAdminMenu extends Component {
     enterKey() {
         const key = prompt("Please enter your admin key", "Admin key");
 
-        fetch("/books/checkSuperAdmin/" + key)
+        fetch("/api/floorplan/checkSuperAdmin/" + key)
             .then(data => data.json())
             .then(res => {
                 if(!res.status) {
@@ -40,7 +40,7 @@ class SuperAdminMenu extends Component {
 
         if(newAdminKey.length > 0) {
 
-            fetch("/books/editKey/" + e.target.id, {
+            fetch("/api/floorplan/editKey/" + e.target.id, {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json, text/plain',
@@ -69,7 +69,7 @@ class SuperAdminMenu extends Component {
 
         if(newSSID && newSSID.length > 0) {
 
-            fetch("/books/editSSID/" + e.target.id, {
+            fetch("/api/floorplan/editSSID/" + e.target.id, {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json, text/plain',
@@ -94,7 +94,7 @@ class SuperAdminMenu extends Component {
     deleteKey = (e) => {
         if(window.confirm("Are you sure you want to delete " + e.target.id + "?")) {
             console.log("deleted")
-            fetch("/books/deleteKey/" + e.target.id, {
+            fetch("/api/floorplan/deleteKey/" + e.target.id, {
                 method: 'delete'
 
             })
@@ -110,7 +110,7 @@ class SuperAdminMenu extends Component {
         const SSID = document.getElementById("SSID");
 
         if(AdminKey.value.length > 0 && SSID.value.length > 0) {
-            fetch("/books/addAdminKey", {
+            fetch("/api/floorplan/addAdminKey", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain',

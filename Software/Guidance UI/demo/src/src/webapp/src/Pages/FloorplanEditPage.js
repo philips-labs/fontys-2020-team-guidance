@@ -24,7 +24,7 @@ class FloorplanEditPage extends Component {
     }
 
     componentDidMount() {
-        fetch("/books/getFloorplan/" + this.state.ssid + "/" + this.state.floorplanid)
+        fetch("/api/floorplan/getFloorplan/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
                 if(data !== undefined) {
@@ -46,7 +46,7 @@ class FloorplanEditPage extends Component {
     }
 
     fetchIBeacon = () => {
-        fetch("/books/getBeacons/" + this.state.ssid + "/" + this.state.floorplanid)
+        fetch("/api/floorplan/getBeacons/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
                     let list = data;
@@ -61,7 +61,7 @@ class FloorplanEditPage extends Component {
     }
 
     fetchNode = () => {
-        fetch("/books/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
+        fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -204,7 +204,7 @@ class FloorplanEditPage extends Component {
     updateImage(result, ssid, name) {
         if(name && name.length > 0) {
             alert();
-            fetch("/books/updateFloorplan/" + this.state.ssid + "/" + this.state.floorplanid, {
+            fetch("/api/floorplan/updateFloorplan/" + this.state.ssid + "/" + this.state.floorplanid, {
                 method: 'put',
                 headers: {
                     'Accept': 'application/json, text/plain',

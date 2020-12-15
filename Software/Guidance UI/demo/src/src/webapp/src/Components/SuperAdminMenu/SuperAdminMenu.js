@@ -135,10 +135,10 @@ class SuperAdminMenu extends Component {
             return (
                 <div className={"AdminMenu"}>
                     <div className={"newKeyContainer"}>
-                        <a className={"NewAdminText"}>Create Adminkey: </a>
+                        <p className={"NewAdminText"}>Create Adminkey: </p>
                         <input id={"AdminKey"} className={"SuperAdminAddInput"} placeholder={"Admin Key"}/>
                         <input id={"SSID"} className={"SuperAdminAddInput"} placeholder={"SSID"}/>
-                        <a onClick={this.addKey} className={"SuperadminAddBtn"}>+</a>
+                        <p onClick={this.addKey} className={"SuperadminAddBtn"}>+</p>
                     </div>
                     <table>
                         <tr>
@@ -148,8 +148,8 @@ class SuperAdminMenu extends Component {
                         {
                             this.state.adminKeys.map((Item, key) => {
                                 return <tr key={key}>
-                                           <td>{Item.key} <img onClick={this.editKey} id={Item.key} className={"editIcon"} src={"https://img.pngio.com/free-high-quality-edit-icon-3589-free-icons-and-png-backgrounds-edit-icon-png-1024_1024.png"}/></td>
-                                           <td>{Item.ssid} <img onClick={this.editSSID} id={Item.key} defaultValue={Item.ssid} className={"editIcon"} src={"https://img.pngio.com/free-high-quality-edit-icon-3589-free-icons-and-png-backgrounds-edit-icon-png-1024_1024.png"}/></td>
+                                           <td>{Item.key} <img onClick={this.editKey} id={Item.key} className={"editIcon"} src={"https://img.pngio.com/free-high-quality-edit-icon-3589-free-icons-and-png-backgrounds-edit-icon-png-1024_1024.png"} alt={""}/></td>
+                                           <td>{Item.ssid} <img onClick={this.editSSID} id={Item.key} defaultValue={Item.ssid} className={"editIcon"} src={"https://img.pngio.com/free-high-quality-edit-icon-3589-free-icons-and-png-backgrounds-edit-icon-png-1024_1024.png"} alt={""}/></td>
                                            <td onClick={this.deleteKey} className={"red"} id={Item.key}>x</td>
                                        </tr>
                             })

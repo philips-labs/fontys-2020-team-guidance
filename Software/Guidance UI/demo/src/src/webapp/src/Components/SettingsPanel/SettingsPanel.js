@@ -78,8 +78,7 @@ class SettingsPanel extends Component {
             }).catch((error) => {
             console.error("Error - " + error)
             });
-
-        const interval = setInterval(this.showUserLocation, 3000)
+        setInterval(this.showUserLocation, 3000)
     };
 
     showUserLocation = () => {
@@ -140,7 +139,7 @@ class SettingsPanel extends Component {
                 this.getNodes(floorplanid);
             })
             .catch(e => {
-                console.error("There was a problemo getto the floorplano");
+                console.error("There was a problemo getto the floorplano: " + e);
                 this.configureSSID();
             })
 
@@ -175,7 +174,6 @@ class SettingsPanel extends Component {
     }
 
     render() {
-        const {location} = this.state;
         return (
             <div id="settingsPanel" className="settingsPanel">
                 <p className="settingsHeader">Settings</p>

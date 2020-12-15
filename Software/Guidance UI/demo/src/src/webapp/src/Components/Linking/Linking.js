@@ -144,10 +144,10 @@ export default class Linking extends Component {
         const selNode = this.state.selectedNode;
             let value = this.state.input
             for (let i =0; i < newArr1.length; i++) {
-                if(newArr1[i].id == selNode) {
+                if(newArr1[i].id === selNode) {
                     newArr1[i].nodeConnections.push(value);
                 }
-                if (newArr1[i].id == value) {
+                if (newArr1[i].id === value) {
                     newArr1[i].nodeConnections.push(selNode);
                 }
             }

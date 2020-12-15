@@ -14,7 +14,7 @@ public class NodeData {
 
     //Open and return a database connection to use
     public static Connection OpenConnection() throws SQLException, ClassNotFoundException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         Properties p = new Properties();
         p.put("user", "GuidanceMember");
         p.put("password", "Guidance1234");
@@ -24,16 +24,20 @@ public class NodeData {
 
     public void CreateNode(Node node) {
         try {
+            int status;
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
-            stmt.executeUpdate("DELETE FROM `GuidanceDB`.`nodes` WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"'");
-            stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;");
-
-            int status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
+            ResultSet rs = stmt.executeQuery("SELECT id FROM GuidanceDB.nodes WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"' AND id='"+ node.getId() +"'");
+            if(rs.next()){
+                status = stmt.executeUpdate(" UPDATE GuidanceDB.nodes SET x='"+node.getY()+"',y='"+node.getY()+"',type='"+node.getType()+"',connectedNodes='"+node.getConnectednodes()+"',ssid='"+node.getSSID()+"',floorplanID='"+node.getFloorplanid()+"' WHERE id='"+node.getId()+"'");
+            }
+            else {
+                status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
+            }
 
             System.out.println("DB update status: " + status);
+            rs.close();
             stmt.close();
             connection.close();
         }
@@ -76,16 +80,21 @@ public class NodeData {
 
     public void CreateIBeacon(IBeacon ibeacon) {
         try {
+            int status;
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            stmt.executeUpdate("SET SQL_SAFE_UPDATES = 0;");
-            stmt.executeUpdate("DELETE FROM `GuidanceDB`.`ibeacons` WHERE ssid='"+ ibeacon.getSSID() +"' AND floorplanId='"+ ibeacon.getFloorplanid() +"'");
-            stmt.executeUpdate("SET SQL_SAFE_UPDATES = 1;");
-
-            int status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`ibeacons` (`id`,`x`,`y`, `type`, `ssid`, `floorplanId`, `name` ) VALUES ('"+ ibeacon.getId()  +"', '"+ ibeacon.getX() +"', '"+ ibeacon.getY() + "', '"+ ibeacon.getType() + "', '"+ ibeacon.getSSID() + "', '"+ ibeacon.getFloorplanid() + "', '"+ ibeacon.getName() + "');");
+            ResultSet rs = stmt.executeQuery("SELECT id FROM GuidanceDB.ibeacons WHERE ssid='"+ ibeacon.getSSID() +"' AND floorplanId='"+ ibeacon.getFloorplanid() +"' AND id='"+ ibeacon.getId() +"'");
+            if(rs.next()){
+                System.out.println(ibeacon.getName());
+                status = stmt.executeUpdate(" UPDATE GuidanceDB.ibeacons SET x='"+ibeacon.getY()+"',y='"+ibeacon.getY()+"',type ='"+ibeacon.getType()+"',ssid='"+ibeacon.getSSID()+"',floorplanid='"+ibeacon.getFloorplanid()+"',name='"+ibeacon.getName()+"' WHERE id='"+ibeacon.getId()+"'");
+            }
+            else {
+                status = stmt.executeUpdate("INSERT INTO GuidanceDB.ibeacons (`id`,`x`,`y`, `type`, `ssid`, `floorplanId`, `name`) VALUES ('"+ ibeacon.getId()  +"', '"+ ibeacon.getX() +"', '"+ ibeacon.getY() + "', '"+ ibeacon.getType() + "', '"+ ibeacon.getSSID() + "', '"+ ibeacon.getFloorplanid() + "', '"+ibeacon.getName()+"');");
+            }
 
             System.out.println("DB update status: " + status);
+            rs.close();
             stmt.close();
             connection.close();
         }

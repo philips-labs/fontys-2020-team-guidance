@@ -136,7 +136,7 @@ public class NodeData {
     }
 
     public String GetFloorplanIdBySSIDAndBeaconName(String beaconname, String ssid) {
-        String floorplanName = "";
+        String floorplanName = "%-error-%";
 
         try {
             connection = OpenConnection();

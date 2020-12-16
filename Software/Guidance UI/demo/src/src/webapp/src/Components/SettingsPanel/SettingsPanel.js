@@ -141,8 +141,8 @@ class SettingsPanel extends Component {
             })
     }
 
-    getFloorplanImage = (floorplanid) => {
-        fetch("/api/floorplan/getFloorplan/"+this.state.ssid+"/"+floorplanid)
+    async getFloorplanImage(floorplanid) {
+        await fetch("/api/floorplan/getFloorplan/"+this.state.ssid+"/"+floorplanid)
             .then(res => res.json())
             .then(imagesrc => {
                 document.getElementById("floorplan-container-image").src = imagesrc.image;
@@ -155,8 +155,8 @@ class SettingsPanel extends Component {
 
     }
 
-    getNodes(floorplanid) {
-        fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + floorplanid)
+    async getNodes(floorplanid) {
+        await fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + floorplanid)
             .then(res => res.json())
             .then(data => {
                 if(data) {

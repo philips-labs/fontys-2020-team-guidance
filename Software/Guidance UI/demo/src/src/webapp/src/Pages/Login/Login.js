@@ -51,7 +51,6 @@ const Login = (props) => {
             AuthService.login(username, password).then(
                 () => {
                     props.history.push("/home");
-                    window.location.reload();
                 },
                 (error) => {
                     const resMessage =

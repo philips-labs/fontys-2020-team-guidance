@@ -26,7 +26,6 @@ function App() {
             <Router>
                 <Switch>
                     <Route exact path={"/home"} component={MainPage}/>
-                    <Route path={["/Login", "/"]} component={LoginPage}/>
                     <Route exact path={"/admin"} component={AdminPage}/>
                     <Route exact path={"/superadmin"} component={SuperAdminPage}/>
                     <Route path={"/editfloorplan/:ssid/:floorplanid"} component={FloorplanEditPage}/>
@@ -34,6 +33,7 @@ function App() {
                     <Route path={"/Profile"} component={Profile}/>
                     <Route path={"/ForgotPassword"} component={ForgotPassword}/>
                     <Route exact path={"/404"} component={NotFoundPage}/>
+                    <Route path={["/Login", "/"]} component={LoginPage}/>
                     <Redirect to={"/404"}/>
                 </Switch>
             </Router>

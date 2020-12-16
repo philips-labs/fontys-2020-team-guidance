@@ -824,7 +824,7 @@ input:focus, textarea:focus, select:focus{
     color: #2c7dea;
   }
 
-  div.stair {
+  div.stairMainpage {
     background-image: url("./Components/Images/stairs.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -833,7 +833,7 @@ input:focus, textarea:focus, select:focus{
     height: 3vw;
   }
 
-  div.node {
+  div.nodeMainpage {
     background-image: url("./Components/Images/waypoint.png");
     background-repeat: no-repeat;
     background-position: center;

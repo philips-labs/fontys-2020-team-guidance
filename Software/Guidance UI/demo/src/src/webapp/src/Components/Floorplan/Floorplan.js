@@ -67,7 +67,7 @@ class Floorplan extends Component {
     render() {
         return (
             <div id={"floorplan-container"}>
-                <div id={"user"} className={"floorplanNode"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "green", padding: "8px", borderRadius: "45px", border: "1px solid white"}}/>
+                <div id={"user"} className={"floorplanNode"} style={{position: "absolute", left: "0px", top: "0px", backgroundColor: "green", padding: "8px", borderRadius: "45px", border: "3px solid white"}}/>
                 <img alt=""
                      className="img"
                      id="floorplan-container-image"

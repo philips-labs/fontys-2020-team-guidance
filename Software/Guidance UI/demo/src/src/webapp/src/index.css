@@ -823,4 +823,22 @@ input:focus, textarea:focus, select:focus{
   p.nodeTxt {
     color: #2c7dea;
   }
+
+  div.stair {
+    background-image: url("./Components/Images/stairs.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3vw;
+    width: 3vw;
+    height: 3vw;
+  }
+
+  div.node {
+    background-image: url("./Components/Images/waypoint.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3vw;
+    width: 3vw;
+    height: 3vw;
+  }
 }

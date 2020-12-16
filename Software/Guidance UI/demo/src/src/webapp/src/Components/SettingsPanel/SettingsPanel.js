@@ -163,10 +163,10 @@ class SettingsPanel extends Component {
             const y = document.getElementById("floorplan-container-image").getBoundingClientRect().top + node.y;
 
             if(node.type === "stairs") {
-                document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: yellow; padding: 8px; border-radius: 45px; border: 1px solid white"/>' // eslint-disable-line
+                document.getElementById("floorplan-container").innerHTML += '<div class="stair" id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+';"/>' // eslint-disable-line
             }
             else {
-                document.getElementById("floorplan-container").innerHTML += '<div id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+'; background-color: #2166cf; padding: 8px; border-radius: 45px; border: 1px solid white"/>' // eslint-disable-line
+                document.getElementById("floorplan-container").innerHTML += '<div class="node" id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+';"/>' // eslint-disable-line
             }
 
         })

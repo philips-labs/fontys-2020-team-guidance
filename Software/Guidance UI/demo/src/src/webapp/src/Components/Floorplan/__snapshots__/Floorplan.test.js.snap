@@ -10,7 +10,7 @@ exports[`renders correctly react-test-renderer 1`] = `
     style={
       Object {
         "backgroundColor": "green",
-        "border": "1px solid white",
+        "border": "3px solid white",
         "borderRadius": "45px",
         "left": "0px",
         "padding": "8px",

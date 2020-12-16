@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import '../../App.css';
+import AuthService from "../../services/auth.service";
+import {Link} from "react-router-dom";
 
 class AccountPanel extends Component {
 
@@ -7,8 +9,8 @@ class AccountPanel extends Component {
         super(props);
 
         this.state = {
-            Name: "Albert",
-            NameInput: "Albert"
+            user: '',
+            isLoaded: false
         }
     }
 
@@ -29,6 +31,16 @@ class AccountPanel extends Component {
         }
     }
 
+    componentDidMount() {
+        if (!this.state.isLoaded) {
+            const user = AuthService.getCurrentUser();
+            this.setState({
+                user: user,
+                isLoaded: true
+            })
+        }
+    }
+
 
     render() {
         return (
@@ -42,6 +54,14 @@ class AccountPanel extends Component {
                 <div className="accountObject">
                     <img alt="" className="accountObjectPP" src={require('../Images/pf.png')}/>
                     <input className="ssidInput" defaultValue={"Image link"} readOnly={true}/>
+                </div>
+                <div className="accountObject">
+                    <p data-testid={"setting-name"} className="settingName">{this.state.NameInput}</p>
+                    <Link to={"/Login"}
+                        onClick={AuthService.logout}
+                    >
+                        Log out
+                    </Link>
                 </div>
             </div>
         );

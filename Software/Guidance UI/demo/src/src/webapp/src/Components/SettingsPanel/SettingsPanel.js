@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../../App.css';
+import AuthService from "../../services/auth.service";
 
 class SettingsPanel extends Component {
     constructor(props) {
@@ -10,8 +11,8 @@ class SettingsPanel extends Component {
             InputSSID: '',
             floorplanid: '',
             floorplan: '',
-
-            email: 'artsdylan@gmail.com',
+            users: '',
+            email: '',
             distance1: 0,
             distance2: 0,
             distance3: 0,
@@ -19,7 +20,7 @@ class SettingsPanel extends Component {
             beacon1: '',
             beacon2: '',
             beacon3: '',
-
+            isLoaded: false,
             nodeList: {}
         }
     }
@@ -43,18 +44,27 @@ class SettingsPanel extends Component {
     }
 
     componentDidMount() {
-        this.configureSSID();
+        this.setState({isLoaded: true})
+
+        const user = AuthService.getCurrentUser();
+        this.setState({
+            email: user.email
+        })
+        this.configureSSID(user)
     }
 
-    configureSSID() {
+    configureSSID(user) {
         const ssid = prompt("Please enter the network name", "Network Name");
 
-        this.setState({
-            ssid: ssid,
-            InputSSID: ssid
-        });
+        if(user.email !== "null") {
+            this.setState({
+                ssid: ssid,
+                InputSSID: ssid,
+                email: user.email
+            });
+        }
+        this.getUserData(user.email);
 
-        this.getUserData(this.state.email); // Here needs to come the email of the logged in user
     }
 
     getUserData = (email) => {

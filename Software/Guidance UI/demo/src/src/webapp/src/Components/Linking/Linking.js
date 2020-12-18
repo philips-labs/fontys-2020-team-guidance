@@ -64,8 +64,6 @@ export default class Linking extends Component {
             })
         })
 
-        alert(this.state.iBeaconList);
-
         this.state.iBeaconList.forEach(item => {
             fetch("/api/floorplan/saveBeacon", {
                 method: 'post',

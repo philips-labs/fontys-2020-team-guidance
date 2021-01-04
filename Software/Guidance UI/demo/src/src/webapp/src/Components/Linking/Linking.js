@@ -14,12 +14,9 @@ export default class Linking extends Component {
             count: 0,
             selectedNode: 0,
             distance: 0,
-            startingNode: "",
-            result: [],
-            endingNode: "",
             ssid: this.props.ssid,
             floorplanid: this.props.floorplanid,
-            presetPaths: ["path1"],
+            presetPaths: [],
             tempPathName: '',
             editingIndex: null
         };
@@ -38,8 +35,8 @@ export default class Linking extends Component {
                                 this.state.presetPaths.map((i, key) => {
                                     return (
                                         <div key={key} className={"pathButton"}>
-                                            <p className={"pathTitle"}>{i}</p>
-                                            <button className={"invisBtn"} onClick={this.editPath} value={key}><img className={"manageButton"} alt={key} src={EditImage}/></button>
+                                            <p className={"pathTitle"}>{i.name}</p>
+                                            <button className={"invisBtn"} onClick={this.editPath} value={key}><img className={"manageButton"} alt={i.name} src={EditImage}/></button>
                                             <button className={"invisBtn"} onClick={this.deletePath} value={key}><img className={"manageButton"} alt={key} src={DeleteImage}/></button>
                                         </div>
                                     )
@@ -58,7 +55,6 @@ export default class Linking extends Component {
                         <input placeholder="ID node" onChange={this.handleSelector}/><br/>
                         <label>Destination Node</label>
                         <input className={"CheckBox"} type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
-                        <input placeholder={"Connected Node"} onChange={this.handleOnChange}/><br/>
                         <button onClick={this.saveLinks}>Save Link</button><br/><br/>
                         <button className={"green"} onClick={this.saveNodes}>Save</button><br/>
                     </div>
@@ -99,7 +95,7 @@ export default class Linking extends Component {
 
     savePresetPath = () => {
         if(this.state.presetPaths.indexOf(this.state.tempPathName) && this.state.tempPathName.length > 0) {
-            const newList = this.state.presetPaths.concat(this.state.tempPathName);
+            const newList = this.state.presetPaths.concat({name: this.state.tempPathName, path: []});
 
             this.setState({
                 tempPathName: '',
@@ -204,33 +200,27 @@ export default class Linking extends Component {
         this.setState({selectedNode: parseInt(e.target.value)});
     }
 
-    handleOnChange = (e) => {
-        this.setState({input: parseInt(e.target.value)});
-    }
-
     saveLinks = () => {
-        const newArr1 = this.state.nodeList;
-        newArr1.forEach (element => {
-            if (element.nodeConnections === undefined)
-            {
-                element.nodeConnections = [];
-            }
-        })
-
-        const selNode = this.state.selectedNode;
-            let value = this.state.input
-            for (let i =0; i < newArr1.length; i++) {
-                if(newArr1[i].id === selNode) {
-                    newArr1[i].nodeConnections.push(value);
+        const list = this.state.presetPaths
+        for (let i =0; i < list.length; i++) {
+            console.log("name:"+ this.state.editingIndex)
+            console.log("listname:"+ list[i].name)
+            if(list[i].name === this.state.editingIndex) {
+                if (list[i].path.length === 0) {
+                    list[i].path.push(this.state.selectedNode);
+                    console.log('test');
                 }
-                if (newArr1[i].id === value) {
-                    newArr1[i].nodeConnections.push(selNode);
+                else {
+                    for (let x = 0; x < list[i].path.length; x++) {
+                        if (list[i].path[x] === this.state.selectedNode) {
+                            break;
+                        }
+                        list[i].path.push(this.state.selectedNode);
+                    }
                 }
             }
-
-
-        this.setState({nodeList: newArr1})
-            console.log(newArr1);
+        }
+        this.setState({presetPaths: list});
     }
 
     calculateDistance = (nodeOne, nodeTwo) => {

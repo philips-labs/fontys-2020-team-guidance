@@ -671,6 +671,11 @@ input:focus, textarea:focus, select:focus{
     width: 400px;
   }
 
+  .nodeLinkContainer {
+    pointer-events: none;
+    opacity: .2;
+  }
+
   .FloorplanEdit{
     float: left;
     background-color: rgb(23, 23, 24);
@@ -840,5 +845,87 @@ input:focus, textarea:focus, select:focus{
     background-size: 3vw;
     width: 3vw;
     height: 3vw;
+  }
+
+  div.pathList {
+    width: 90%;
+    text-align: center;
+    margin-bottom: 5vh;
+    position: relative;
+    left: 5%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 45vh;
+  }
+
+  div.pathList p {
+    color: rgb(205, 205, 205);
+    font-size: 1.3vw;
+  }
+
+  div.pathButton {
+    width: 90%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  p.pathTitle {
+    margin-left: 7%;
+  }
+
+  img.manageButton {
+    width: auto;
+    height: 2vh;
+    margin-top: 6%;
+  }
+
+  div.addInput {
+    display: none;
+  }
+
+  input.addPathInput {
+    text-align: center;
+    width: 70%;
+    height: 3vh;
+  }
+
+  button.invisBtn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    width: auto;
+    height: auto;
+    margin-top: -3%;
+    border-radius: 45px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+
+  button.invisBtn:hover {
+    border: none;
+  }
+
+  img.pathAddSaveBtn {
+    width: auto;
+    height: 2vh;
+    margin-top: -6%;
+    margin-left: 2%;
+  }
+
+  img.pathAddSaveBtn:hover {
+    cursor: pointer;
+  }
+
+  p.addPathText {
+    font-size: 1.5vw !important;
+    color: #00a200 !important;
+  }
+
+  p.addPathText:hover {
+    cursor: pointer;
   }
 }

@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
+import SaveImage from "../Images/check.png";
+import DeleteImage from "../Images/delete.png";
+import EditImage from "../Images/edit.png";
 
 export default class Linking extends Component {
     constructor(props) {
@@ -15,7 +18,10 @@ export default class Linking extends Component {
             result: [],
             endingNode: "",
             ssid: this.props.ssid,
-            floorplanid: this.props.floorplanid
+            floorplanid: this.props.floorplanid,
+            presetPaths: ["path1"],
+            tempPathName: '',
+            editingIndex: null
         };
     }
 
@@ -24,13 +30,38 @@ export default class Linking extends Component {
             <div className={"linkMenu"}>
                 <div>
                     <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Images/logo.png')}/></Link><br/>
-                    <p className={"NodeSaveTtl"}>Node Linker</p><br/>
-                    <input placeholder="ID node" onChange={this.handleSelector}/><br/>
-                    <label>Destination Node</label>
-                    <input className={"CheckBox"} type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
-                    <input placeholder={"Connected Node"} onChange={this.handleOnChange}/><br/>
-                    <button onClick={this.saveLinks}>Save Link</button><br/><br/>
-                    <button className={"green"} onClick={this.saveNodes}>Save</button><br/>
+
+                    <div className={"pathList"}>
+                        <p>Preset paths</p>
+                        <div>
+                            {
+                                this.state.presetPaths.map((i, key) => {
+                                    return (
+                                        <div key={key} className={"pathButton"}>
+                                            <p className={"pathTitle"}>{i}</p>
+                                            <button className={"invisBtn"} onClick={this.editPath} value={key}><img className={"manageButton"} alt={key} src={EditImage}/></button>
+                                            <button className={"invisBtn"} onClick={this.deletePath} value={key}><img className={"manageButton"} alt={key} src={DeleteImage}/></button>
+                                        </div>
+                                    )
+                                })
+                            }
+                            <div id={"addPathInput"} className={"pathButton addInput"}>
+                                <input onChange={this.handleTempPresetPathName} value={this.state.tempPathName} className={"addPathInput"} maxLength={"8"}/>
+                                <img onClick={this.savePresetPath} className={"pathAddSaveBtn"} alt={""} src={SaveImage}/>
+                            </div>
+                            <p id={"addNewBtn"} onClick={this.unlockAddPathInput} className={"addPathText"}>+</p>
+                        </div>
+                    </div>
+
+                    <div id={"nodeLinkContainer"} className={"nodeLinkContainer"}>
+                        <p className={"NodeSaveTtl"}>Node Linker</p><br/>
+                        <input placeholder="ID node" onChange={this.handleSelector}/><br/>
+                        <label>Destination Node</label>
+                        <input className={"CheckBox"} type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
+                        <input placeholder={"Connected Node"} onChange={this.handleOnChange}/><br/>
+                        <button onClick={this.saveLinks}>Save Link</button><br/><br/>
+                        <button className={"green"} onClick={this.saveNodes}>Save</button><br/>
+                    </div>
                 </div>
                 {/* <div>
                     <p>Path Finder</p>
@@ -43,7 +74,54 @@ export default class Linking extends Component {
         );
     }
 
+    editPath = (e) => {
+        this.setState({
+            editingIndex: e.target.alt
+        })
+
+        const container = document.getElementById("nodeLinkContainer");
+        container.style.pointerEvents = "auto";
+        container.style.opacity = "1";
+    }
+
+    deletePath = (e) => {
+        const newList = this.state.presetPaths;
+        newList.splice(parseInt(e.target.alt), 1);
+        console.log(newList);
+        this.setState({
+            presetPaths: newList
+        })
+    }
+
+    unlockAddPathInput = () => {
+        document.getElementById("addPathInput").style.display = "inline";
+    }
+
+    savePresetPath = () => {
+        if(this.state.presetPaths.indexOf(this.state.tempPathName) && this.state.tempPathName.length > 0) {
+            const newList = this.state.presetPaths.concat(this.state.tempPathName);
+
+            this.setState({
+                tempPathName: '',
+                presetPaths: newList
+            })
+
+            document.getElementById("addPathInput").style.display = "none";
+        }
+        else alert("Something is wrong with the entry, check the name");
+    }
+
+    handleTempPresetPathName = (e) => {
+        this.setState({
+            tempPathName: e.target.value
+        })
+    }
+
     saveNodes = () => {
+        const container = document.getElementById("nodeLinkContainer");
+        container.style.pointerEvents = "none";
+        container.style.opacity = ".2";
+
         this.state.nodeList.forEach(item =>  {
             fetch("/api/floorplan/saveNode", {
                 method: 'post',

@@ -847,6 +847,11 @@ input:focus, textarea:focus, select:focus{
     height: 3vw;
   }
 
+  p.pathsTitle {
+    color: rgb(205, 205, 205);
+    font-size: 1.3vw;
+  }
+
   div.pathList {
     width: 90%;
     text-align: center;
@@ -855,7 +860,7 @@ input:focus, textarea:focus, select:focus{
     left: 5%;
     overflow-y: scroll;
     overflow-x: hidden;
-    height: 45vh;
+    height: 35vh;
   }
 
   div.pathList p {

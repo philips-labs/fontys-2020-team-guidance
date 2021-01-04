@@ -2,6 +2,7 @@ package com.example.demo.persistence;
 
 import com.example.demo.models.IBeacon;
 import com.example.demo.models.Node;
+import com.example.demo.models.Path;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -189,5 +190,58 @@ public class NodeData {
         }
 
         return ibeacons;
+    }
+
+    public void CreatePath(Path path) {
+        try {
+            int status;
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT name FROM GuidanceDB.paths WHERE ssid='"+ path.getSSID() +"' AND floorplan='"+ path.getFloorplan() +"' AND name='"+ path.getName() +"'");
+            if(rs.next()){
+                status = stmt.executeUpdate(" UPDATE GuidanceDB.paths SET name='"+path.getName()+"',path='"+path.getPath()+"',ssid='"+path.getSSID()+"',floorplan='"+path.getFloorplan()+"' WHERE ssid='"+ path.getSSID() +"' AND floorplan='"+ path.getFloorplan() +"' AND name ='"+ path.getName() +"'");
+            }
+            else {
+                status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`paths` (`name`,`path`,`ssid`, `floorplan`) VALUES ('"+ path.getName()  +"', '"+ path.getPath() +"', '"+ path.getSSID() + "', '"+ path.getFloorplan() + "');");
+            }
+
+            System.out.println("DB update status: " + status);
+            rs.close();
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public Collection<Path> GetPaths(String ssid, String floorplanId) {
+        ArrayList<Path> paths = new ArrayList<>();
+
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.paths WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
+
+            while(rs.next()) {
+                Path path = new Path();
+                path.setName(rs.getString("name"));
+                path.setPath(rs.getString("path"));
+                path.setSSID(rs.getString("ssid"));
+                path.setFloorplan(rs.getString("floorplan"));
+                paths.add(path);
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        return paths;
     }
 }

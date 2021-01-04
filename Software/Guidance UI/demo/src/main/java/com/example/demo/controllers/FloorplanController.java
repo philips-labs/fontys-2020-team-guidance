@@ -3,10 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.collection.AdminKeyCollection;
 import com.example.demo.collection.FloorplanCollection;
 import com.example.demo.collection.NodeCollection;
-import com.example.demo.models.AdminKey;
-import com.example.demo.models.Floorplan;
-import com.example.demo.models.IBeacon;
-import com.example.demo.models.Node;
+import com.example.demo.models.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -115,4 +112,14 @@ public class FloorplanController {
         return new ResponseEntity<>(nodes.GetFloorplanIdByBeaconNameAndSSID(beaconName, ssid), HttpStatus.OK);
     }
 
+    @GetMapping("/getPaths/{ssid}/{floorplan}")
+    public ResponseEntity<Collection<Path>> GetPaths(@PathVariable String ssid, @PathVariable String floorplan) {
+        return new ResponseEntity<>(nodes.GetPaths(ssid, floorplan), HttpStatus.OK);
+    }
+
+    @PostMapping("/createPath")
+    public ResponseEntity<HttpStatus> CreatePath(@RequestBody Path path) {
+        nodes.CreatePath(path);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

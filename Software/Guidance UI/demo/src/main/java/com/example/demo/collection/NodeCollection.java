@@ -2,6 +2,7 @@ package com.example.demo.collection;
 
 import com.example.demo.models.IBeacon;
 import com.example.demo.models.Node;
+import com.example.demo.models.Path;
 import com.example.demo.persistence.NodeData;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class NodeCollection {
     NodeData crud = new NodeData();
     NodeData nodeData = new NodeData();
     private ArrayList<IBeacon> ibeaconList = new ArrayList<>();
+    private ArrayList<Path> paths = new ArrayList<>();
 
     public Collection<Node> GetNodesBySSIDAndFloorplanId(String ssid, String floorplanId) {
         return crud.GetNodes(ssid, floorplanId);
@@ -48,5 +50,15 @@ public class NodeCollection {
 
     public String GetFloorplanIdByBeaconNameAndSSID(String ssid, String floorplanid) {
         return crud.GetFloorplanIdBySSIDAndBeaconName(ssid, floorplanid);
+    }
+
+    public void CreatePath(Path path) {
+        System.out.println(path.getFloorplan());
+        paths.add(path);
+        crud.CreatePath(path);
+    }
+
+    public Collection<Path> GetPaths(String ssid, String floorplan) {
+        return crud.GetPaths(ssid, floorplan);
     }
 }

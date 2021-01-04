@@ -28,8 +28,8 @@ export default class Linking extends Component {
                 <div>
                     <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Images/logo.png')}/></Link><br/>
 
+                    <p className={"pathsTitle"}>Preset paths</p>
                     <div className={"pathList"}>
-                        <p>Preset paths</p>
                         <div>
                             {
                                 this.state.presetPaths.map((i, key) => {
@@ -55,7 +55,8 @@ export default class Linking extends Component {
                         <input placeholder="ID node" onChange={this.handleSelector}/><br/>
                         <label>Destination Node</label>
                         <input className={"CheckBox"} type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
-                        <button onClick={this.saveLinks}>Save Link</button><br/><br/>
+                        <button onClick={this.saveLinks}>Add Node</button><br/><br/>
+                        <button onClick={this.deleteLinks}>Delete Node</button><br/><br/>
                         <button className={"green"} onClick={this.saveNodes}>Save</button><br/>
                     </div>
                 </div>
@@ -83,7 +84,6 @@ export default class Linking extends Component {
     deletePath = (e) => {
         const newList = this.state.presetPaths;
         newList.splice(parseInt(e.target.alt), 1);
-        console.log(newList);
         this.setState({
             presetPaths: newList
         })
@@ -156,17 +156,22 @@ export default class Linking extends Component {
                 })
             })
         })
-    }
 
-    appendInput() {
-        var result = this.state.inputs;
-        var id = this.state.inputs.length;
-        var value = "";
-        if (this.state.inputs.length === 0) {
-            id = 0;
-        }
-        result.push({id, value});
-        this.setState({input: result});
+        this.state.presetPaths.forEach(item => {
+            fetch("/api/floorplan/createPath", {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    name: item.name,
+                    path: item.path.toString(),
+                    ssid: this.state.ssid,
+                    floorplan: this.state.floorplanid
+                })
+            })
+        })
     }
 
     handleStart = (e) => {
@@ -203,23 +208,29 @@ export default class Linking extends Component {
     saveLinks = () => {
         const list = this.state.presetPaths
         for (let i =0; i < list.length; i++) {
-            console.log("name:"+ this.state.editingIndex)
-            console.log("listname:"+ list[i].name)
             if(list[i].name === this.state.editingIndex) {
                 if (list[i].path.length === 0) {
                     list[i].path.push(this.state.selectedNode);
-                    console.log('test');
                 }
                 else {
-                    for (let x = 0; x < list[i].path.length; x++) {
-                        if (list[i].path[x] === this.state.selectedNode) {
-                            break;
-                        }
+                    if(list[i].path.indexOf(this.state.selectedNode)) {
                         list[i].path.push(this.state.selectedNode);
                     }
                 }
             }
         }
+        this.setState({presetPaths: list});
+    }
+
+    deleteLinks = () => {
+        let list = this.state.presetPaths
+
+        list.forEach(item => {
+            if(item.name === this.state.editingIndex) {
+                item.path.splice(this.state.selectedNode, 1);
+            }
+        })
+
         this.setState({presetPaths: list});
     }
 

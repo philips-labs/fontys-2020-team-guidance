@@ -27,6 +27,7 @@ class FloorplanEditPage extends Component {
     }
 
     componentDidMount() {
+        this.updateWindowDimensions();
         fetch("/api/floorplan/getFloorplan/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
@@ -245,6 +246,10 @@ class FloorplanEditPage extends Component {
         }
     }
 
+    updateWindowDimensions = () => {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+    }
+
     // renders the heatmap and draggable nodes
     render() {
         if (this.state.nodeToggle === "lockNodes") {
@@ -322,9 +327,9 @@ class FloorplanEditPage extends Component {
                                     })
 
                                     if(node1Position !== null && node2Position !== null) {
-                                        console.log(node1Position[0] + ", " + node1Position[1] + "; " + node2Position[0] + ", " + node2Position[1])
+
                                         return (
-                                            <Line x0={node1Position[0]} y0={node1Position[1]} x1={node2Position[0]} y1={node2Position[1]} />
+                                            <Line x0={node1Position[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y0={node1Position[1] + 99 + 46.41/2} x1={node2Position[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y1={node2Position[1] + 99 + 46.41/2} />
                                         )
                                     }
                                 }

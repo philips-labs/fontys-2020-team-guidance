@@ -67,7 +67,7 @@ export default class Draggable extends React.Component {
     if (!isDragging) {
       return;
     }
-    if(clientX < (width-boundx)/2 + boundx && clientY < boundy+99 && clientX > (width-boundx)/2 && clientY > 0){
+    if(clientX < (width-boundx)/2 + boundx && clientY < boundy+99 && clientX > (width-boundx)/2 && clientY > 99){
       // calculating coordinate changes
       this.setState(prevState => ({
         translateX: clientX - prevState.originalX + prevState.lastTranslateX,

@@ -200,10 +200,10 @@ public class NodeData {
 
             ResultSet rs = stmt.executeQuery("SELECT name FROM GuidanceDB.paths WHERE ssid='"+ path.getSSID() +"' AND floorplan='"+ path.getFloorplan() +"' AND name='"+ path.getName() +"'");
             if(rs.next()){
-                status = stmt.executeUpdate(" UPDATE GuidanceDB.paths SET name='"+path.getName()+"',path='"+path.getPath()+"',ssid='"+path.getSSID()+"',floorplan='"+path.getFloorplan()+"' WHERE ssid='"+ path.getSSID() +"' AND floorplan='"+ path.getFloorplan() +"' AND name ='"+ path.getName() +"'");
+                status = stmt.executeUpdate(" UPDATE GuidanceDB.paths SET name='"+path.getName()+"',path='"+path.getPath()+"',ssid='"+path.getSSID()+"',floorplan='"+path.getFloorplan()+"',color='"+ path.getColor() + "' WHERE ssid='"+ path.getSSID() +"' AND floorplan='"+ path.getFloorplan() +"' AND name ='"+ path.getName() +"'");
             }
             else {
-                status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`paths` (`name`,`path`,`ssid`, `floorplan`) VALUES ('"+ path.getName()  +"', '"+ path.getPath() +"', '"+ path.getSSID() + "', '"+ path.getFloorplan() + "');");
+                status = stmt.executeUpdate("INSERT INTO `paths`(`name`, `path`, `ssid`, `floorplan`, `color`) VALUES ('"+ path.getName() +"','"+ path.getPath() +"','"+ path.getSSID() +"','"+ path.getFloorplan() +"','"+ path.getColor() +"')");
             }
 
             System.out.println("DB update status: " + status);
@@ -230,6 +230,7 @@ public class NodeData {
                 path.setName(rs.getString("name"));
                 path.setPath(rs.getString("path"));
                 path.setSSID(rs.getString("ssid"));
+                path.setColor(rs.getString("color"));
                 path.setFloorplan(rs.getString("floorplan"));
                 paths.add(path);
             }

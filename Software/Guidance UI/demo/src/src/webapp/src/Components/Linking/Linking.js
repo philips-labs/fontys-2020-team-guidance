@@ -19,7 +19,8 @@ export default class Linking extends Component {
             floorplanid: this.props.floorplanid,
             presetPaths: this.props.pathList,
             tempPathName: '',
-            editingIndex: null
+            editingIndex: null,
+            pathColor: "#ff0000"
         };
     }
 
@@ -36,6 +37,7 @@ export default class Linking extends Component {
                                 this.state.presetPaths.map((i, key) => {
                                     return (
                                         <div key={key} className={"pathButton"}>
+                                            <input value={i.color} className={"pathColorInput menuColor"} type={"color"} disabled/>
                                             <p className={"pathTitle"}>{i.name}</p>
                                             <button className={"invisBtn"} onClick={this.editPath} value={key}><img className={"manageButton"} alt={i.name} src={EditImage}/></button>
                                             <button className={"invisBtn"} onClick={this.deletePath} value={key}><img className={"manageButton"} alt={i.name} src={DeleteImage}/></button>
@@ -44,6 +46,7 @@ export default class Linking extends Component {
                                 })
                             }
                             <div id={"addPathInput"} className={"pathButton addInput"}>
+                                <input value={this.state.pathColor} className={"pathColorInput"} type={"color"} onChange={this.handlePathColor}/>
                                 <input onChange={this.handleTempPresetPathName} value={this.state.tempPathName} className={"addPathInput"} maxLength={"8"}/>
                                 <img onClick={this.savePresetPath} className={"pathAddSaveBtn"} alt={""} src={SaveImage}/>
                             </div>
@@ -70,6 +73,10 @@ export default class Linking extends Component {
                 </div> */}
             </div>
         );
+    }
+
+    handlePathColor = (e) => {
+        this.setState({pathColor: e.target.value})
     }
 
     editPath = (e) => {
@@ -106,7 +113,7 @@ export default class Linking extends Component {
 
     savePresetPath = () => {
         if(this.state.presetPaths.indexOf(this.state.tempPathName) && this.state.tempPathName.length > 0) {
-            const newList = this.state.presetPaths.concat({name: this.state.tempPathName, path: []});
+            const newList = this.state.presetPaths.concat({name: this.state.tempPathName, path: [], color: this.state.pathColor});
 
             this.setState({
                 tempPathName: '',
@@ -142,7 +149,6 @@ export default class Linking extends Component {
                     x: item.x,
                     y: item.y,
                     type: item.type,
-                    connectednodes: item.nodeConnections.toString(),
                     ssid: this.state.ssid,
                     floorplanid: this.state.floorplanid
                 })
@@ -169,6 +175,7 @@ export default class Linking extends Component {
         })
 
         this.state.presetPaths.forEach(item => {
+            alert("sent color: " + item.color);
             fetch("/api/floorplan/createPath", {
                 method: 'post',
                 headers: {
@@ -179,7 +186,8 @@ export default class Linking extends Component {
                     name: item.name,
                     path: item.path.toString(),
                     ssid: this.state.ssid,
-                    floorplan: this.state.floorplanid
+                    floorplan: this.state.floorplanid,
+                    color: item.color
                 })
             })
         })

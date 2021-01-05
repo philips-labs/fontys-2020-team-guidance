@@ -21,7 +21,8 @@ class FloorplanEditPage extends Component {
             iBeaconId: 0,
             nodeToggle: "unlockedNodes",
             presetPaths: [],
-            pageLoading: true
+            pageLoading: true,
+            pathLineCoords: []
         }
         this.imgRef = React.createRef();
     }
@@ -96,11 +97,52 @@ class FloorplanEditPage extends Component {
                 })
 
                 this.setState({
-                    presetPaths: list,
-                    pageLoading: false
+                    presetPaths: list
                 });
                 console.log(list);
             })
+
+        this.setupPathLines();
+    }
+
+    async setupPathLines() {
+        let list = [];
+
+        this.state.presetPaths.forEach(item => {
+            console.log("length: " +item.path.length)
+            for(let x = 0; x < item.path.length; x++) {
+                const node1 = item.path[x];
+                const node2 = item.path[x+1];
+                let node1Position = null;
+                let node2Position = null;
+
+                this.state.nodeList.forEach(node => {
+                    if(node.id === node1) {
+                        node1Position = [node.x, node.y];
+                    }
+                })
+
+                this.state.nodeList.forEach(node => {
+                    if(node.id === node2) {
+                        node2Position = [node.x, node.y];
+                    }
+                })
+
+                if(node1Position !== null && node2Position !== null) {
+                    list.push([node1Position[0], node1Position[1], node2Position[0], node2Position[1], item.color]);
+
+                    this.setState({
+                        pathLineCoords: list
+                    })
+                }
+            }
+        })
+
+        this.setState({
+            pageLoading: false
+        });
+
+        console.log(this.state.pathLineCoords)
     }
 
 
@@ -191,6 +233,7 @@ class FloorplanEditPage extends Component {
             }
         }
         this.setState({nodeList: itemN});
+        this.setupPathLines();
     }
 
     onSaveBeacon = (id, childX, childY, type, name) => {
@@ -257,6 +300,14 @@ class FloorplanEditPage extends Component {
                 <div className={'FloorplanEditPage'}>
                     <Linking nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} pathList={this.state.presetPaths} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
+                        {
+                            this.state.pathLineCoords.map(item => {
+                                console.log(this.state.pathLineCoords);
+                                return (
+                                    <Line x0={item[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y0={item[1] + 99 + 46.41/2} x1={item[2] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y1={item[3] + 99 + 46.41/2} borderColor={item[4]} borderWidth={"3px"} />
+                                );
+                            })
+                        }
                         {/*<button onClick={this.onSave}>save</button>*/}
                         <div className={"draggingBounds " + this.state.nodeToggle} style={{
                             backgroundImage: `url(${this.state.image})`,
@@ -307,32 +358,11 @@ class FloorplanEditPage extends Component {
                     </div>
                     <div>
                         {
-                            this.state.presetPaths.map(item => {
-                                for(let x = 0; x < item.path.length; x++) {
-                                    const node1 = item.path[x];
-                                    const node2 = item.path[x+1];
-                                    let node1Position = null;
-                                    let node2Position = null;
-
-                                    this.state.nodeList.forEach(node => {
-                                        if(node.id === node1) {
-                                            node1Position = [node.x, node.y];
-                                        }
-                                    })
-
-                                    this.state.nodeList.forEach(node => {
-                                        if(node.id === node2) {
-                                            node2Position = [node.x, node.y];
-                                        }
-                                    })
-
-                                    if(node1Position !== null && node2Position !== null) {
-
-                                        return (
-                                            <Line x0={node1Position[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y0={node1Position[1] + 99 + 46.41/2} x1={node2Position[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y1={node2Position[1] + 99 + 46.41/2} />
-                                        )
-                                    }
-                                }
+                            this.state.pathLineCoords.map(item => {
+                                console.log(this.state.pathLineCoords);
+                                return (
+                                    <Line x0={item[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y0={item[1] + 99 + 46.41/2} x1={item[2] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y1={item[3] + 99 + 46.41/2} borderColor={item[4]} borderWidth={"3px"}/>
+                                );
                             })
                         }
                         {/*<button onClick={this.onSave}>save</button>*/}
@@ -343,7 +373,8 @@ class FloorplanEditPage extends Component {
                             height: `${this.state.imgHeight}px`,
                             width: `${this.state.imgWidth}px`,
                         }}>
-                            {this.state.nodeList.map((item) => {
+                            {
+                                this.state.nodeList.map((item) => {
                                 console.log(item.id);
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={item.id}

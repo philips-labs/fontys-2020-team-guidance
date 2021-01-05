@@ -890,6 +890,38 @@ input:focus, textarea:focus, select:focus{
     display: none;
   }
 
+  input.pathColorInput {
+    padding: 0;
+    position: relative;
+    right: -14.5%;
+    transform: translate(0, 25%);
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    width: 2.7vh;
+    height: 2.7vh;
+  }
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  input[type="color"]::-webkit-color-swatch {
+    border-radius: 45px;
+    border: none;
+  }
+
+  input[type="color"].menuColor {
+    -webkit-appearance: none;
+    border: none;
+    width: 1.5vh;
+    height: 1.5vh;
+  }
+  input.menuColor {
+    right: -3%;
+    transform: translate(0, 95%);
+  }
+
   input.addPathInput {
     text-align: center;
     width: 70%;

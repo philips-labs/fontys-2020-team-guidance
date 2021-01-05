@@ -5,6 +5,7 @@ public class Path {
     private String Path;
     private String SSID;
     private String Floorplan;
+    private String Color;
 
     public String getName() {
         return Name;
@@ -36,5 +37,13 @@ public class Path {
 
     public void setFloorplan(String floorplan) {
         Floorplan = floorplan;
+    }
+
+    public String getColor() {
+        return Color;
+    }
+
+    public void setColor(String color) {
+        Color = color;
     }
 }

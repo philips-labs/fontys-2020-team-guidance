@@ -114,12 +114,23 @@ public class FloorplanController {
 
     @GetMapping("/getPaths/{ssid}/{floorplan}")
     public ResponseEntity<Collection<Path>> GetPaths(@PathVariable String ssid, @PathVariable String floorplan) {
+        nodes.GetPaths(ssid, floorplan).forEach(item -> {
+            System.out.println(item.getName());
+            System.out.println(item.getPath());
+        });
+
         return new ResponseEntity<>(nodes.GetPaths(ssid, floorplan), HttpStatus.OK);
     }
 
     @PostMapping("/createPath")
     public ResponseEntity<HttpStatus> CreatePath(@RequestBody Path path) {
         nodes.CreatePath(path);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping ("/deletePath/{ssid}/{floorplan}/{pathName}")
+    public ResponseEntity<HttpStatus> DeletePath(@PathVariable String ssid, @PathVariable String floorplan, @PathVariable String pathName) {
+        nodes.DeletePath(ssid, floorplan, pathName);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

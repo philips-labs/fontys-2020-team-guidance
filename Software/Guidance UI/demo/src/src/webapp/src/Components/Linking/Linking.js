@@ -7,6 +7,7 @@ import EditImage from "../Images/edit.png";
 export default class Linking extends Component {
     constructor(props) {
         super(props)
+
         this.state = { 
             input: 0,
             nodeList: this.props.nodeList,
@@ -16,7 +17,7 @@ export default class Linking extends Component {
             distance: 0,
             ssid: this.props.ssid,
             floorplanid: this.props.floorplanid,
-            presetPaths: [],
+            presetPaths: this.props.pathList,
             tempPathName: '',
             editingIndex: null
         };
@@ -37,7 +38,7 @@ export default class Linking extends Component {
                                         <div key={key} className={"pathButton"}>
                                             <p className={"pathTitle"}>{i.name}</p>
                                             <button className={"invisBtn"} onClick={this.editPath} value={key}><img className={"manageButton"} alt={i.name} src={EditImage}/></button>
-                                            <button className={"invisBtn"} onClick={this.deletePath} value={key}><img className={"manageButton"} alt={key} src={DeleteImage}/></button>
+                                            <button className={"invisBtn"} onClick={this.deletePath} value={key}><img className={"manageButton"} alt={i.name} src={DeleteImage}/></button>
                                         </div>
                                     )
                                 })
@@ -83,9 +84,19 @@ export default class Linking extends Component {
 
     deletePath = (e) => {
         const newList = this.state.presetPaths;
-        newList.splice(parseInt(e.target.alt), 1);
+
+        for(let x = 0; x < this.state.presetPaths.length; x++) {
+            if(this.state.presetPaths[x].name === e.target.alt) {
+                newList.splice(x, 1);
+            }
+        }
+
         this.setState({
             presetPaths: newList
+        })
+
+        fetch("/api/floorplan/deletePath/"+this.state.ssid+"/"+this.state.floorplanid+"/"+ e.target.alt, {
+            method: 'delete'
         })
     }
 

@@ -61,4 +61,8 @@ public class NodeCollection {
     public Collection<Path> GetPaths(String ssid, String floorplan) {
         return crud.GetPaths(ssid, floorplan);
     }
+
+    public void DeletePath(String ssid, String floorplan, String pathName) {
+        crud.DeletePath(ssid, floorplan, pathName);
+    }
 }

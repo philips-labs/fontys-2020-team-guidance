@@ -5,6 +5,7 @@ import Node from "../Components/Node/Node";
 import IBeacon from "../Components/IBeacon/IBeacon";
 import Linking from "../Components/Linking/Linking";
 import {Link} from "react-router-dom";
+import { Line } from 'react-lineto';
 
 class FloorplanEditPage extends Component {
     constructor(props) {
@@ -19,6 +20,8 @@ class FloorplanEditPage extends Component {
             nodeId: 0,
             iBeaconId: 0,
             nodeToggle: "unlockedNodes",
+            presetPaths: [],
+            pageLoading: true
         }
         this.imgRef = React.createRef();
     }
@@ -33,9 +36,32 @@ class FloorplanEditPage extends Component {
             })
             this.fetchNode();
 
+
         if(this.state.image === undefined || this.state.image === null || this.state.nodeList === undefined || this.state.nodeList === null || this.state.iBeaconList === undefined || this.state.iBeaconList === null) {
             window.location = "localhost:3000/admin";
         }
+    }
+
+    async fetchNode() {
+        await fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                this.setState({nodeList: data})
+                let list = this.state.nodeList;
+                list.forEach(element => {
+                    element.nodeConnections = element.connectedNodesString.split(',');
+                })
+                let id = 0;
+                list.forEach(node => {
+                    if (node.id > id) {
+                        id = node.id;
+                    }
+                })
+                console.log(list);
+                this.setState({nodeList: list, nodeId: id+1});
+                this.fetchIBeacon()
+            })
     }
 
     async fetchIBeacon() {
@@ -51,30 +77,31 @@ class FloorplanEditPage extends Component {
                     })
                 console.log(list);
                     this.setState({iBeaconList: list, iBeaconId: id+1});
+                    this.fetchPaths();
             })
     }
 
-    async fetchNode() {
-        await fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
+    async fetchPaths() {
+        await fetch("/api/floorplan/getPaths/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                    this.setState({nodeList: data})
-                    let list = this.state.nodeList;
-                    list.forEach(element => {
-                        element.nodeConnections = element.connectedNodesString.split(',');
-                    })
-                    let id = 0;
-                    list.forEach(node => {
-                        if (node.id > id) {
-                            id = node.id;
-                        }
-                    })
+                const list = data;
+                list.forEach(presetPath => {
+                    presetPath.path = presetPath.path.split(',');
+                    for(let i = 0; i < presetPath.path.length; i++) {
+                        presetPath.path[i] = parseInt(presetPath.path[i]);
+                    }
+                })
+
+                this.setState({
+                    presetPaths: list,
+                    pageLoading: false
+                });
                 console.log(list);
-                    this.setState({nodeList: list, nodeId: id+1});
-                    this.fetchIBeacon()
             })
     }
+
 
     handleImageLoad = () =>{
         const height = this.imgRef.current.clientHeight;
@@ -220,11 +247,10 @@ class FloorplanEditPage extends Component {
 
     // renders the heatmap and draggable nodes
     render() {
-        console.log(this.state.nodeList)
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'FloorplanEditPage'}>
-                    <Linking nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
+                    <Linking nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} pathList={this.state.presetPaths} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
                         {/*<button onClick={this.onSave}>save</button>*/}
                         <div className={"draggingBounds " + this.state.nodeToggle} style={{
@@ -258,7 +284,9 @@ class FloorplanEditPage extends Component {
                 </div>
             );
 
-        } else {
+        }
+        else if(this.state.pageLoading !== true) {
+            console.log(this.state.presetPaths);
             return (
                 <div className={'App'}>
                     <div className={'FloorplanEdit'}>
@@ -273,6 +301,35 @@ class FloorplanEditPage extends Component {
                         <button onClick={this.LockNodes}>Lock Nodes</button><br/>
                     </div>
                     <div>
+                        {
+                            this.state.presetPaths.map(item => {
+                                for(let x = 0; x < item.path.length; x++) {
+                                    const node1 = item.path[x];
+                                    const node2 = item.path[x+1];
+                                    let node1Position = null;
+                                    let node2Position = null;
+
+                                    this.state.nodeList.forEach(node => {
+                                        if(node.id === node1) {
+                                            node1Position = [node.x, node.y];
+                                        }
+                                    })
+
+                                    this.state.nodeList.forEach(node => {
+                                        if(node.id === node2) {
+                                            node2Position = [node.x, node.y];
+                                        }
+                                    })
+
+                                    if(node1Position !== null && node2Position !== null) {
+                                        console.log(node1Position[0] + ", " + node1Position[1] + "; " + node2Position[0] + ", " + node2Position[1])
+                                        return (
+                                            <Line x0={node1Position[0]} y0={node1Position[1]} x1={node2Position[0]} y1={node2Position[1]} />
+                                        )
+                                    }
+                                }
+                            })
+                        }
                         {/*<button onClick={this.onSave}>save</button>*/}
                         <div className={"draggingBounds "+ this.state.nodeToggle} style={{
                             backgroundImage:  `url(${this.state.image})`,
@@ -307,6 +364,11 @@ class FloorplanEditPage extends Component {
                     <input onChange={this.fileInputOnchange} className={"FileInput"} id="file-input" type="file" name="name" accept="image/*" />
                 </div>
             );
+        }
+        else {
+            return (
+                <p className={"loading"}>loading...</p>
+            )
         }
     }
 }

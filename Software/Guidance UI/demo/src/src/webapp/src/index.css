@@ -669,6 +669,7 @@ input:focus, textarea:focus, select:focus{
   .linkMenu {
     float: left;
     width: 400px;
+    z-index: 9001;
   }
 
   .nodeLinkContainer {
@@ -932,5 +933,13 @@ input:focus, textarea:focus, select:focus{
 
   p.addPathText:hover {
     cursor: pointer;
+  }
+
+  p.loading {
+    position: relative;
+    top: 45vh;
+    font-size: 2vw;
+    color: #c3c3c3;
+    text-align: center;
   }
 }

@@ -216,14 +216,14 @@ public class NodeData {
         }
     }
 
-    public Collection<Path> GetPaths(String ssid, String floorplanId) {
+    public Collection<Path> GetPaths(String ssid, String floorplan) {
         ArrayList<Path> paths = new ArrayList<>();
 
         try {
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.paths WHERE ssid='"+ ssid +"' AND floorplanId='"+ floorplanId +"'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GuidanceDB.paths WHERE ssid='"+ ssid +"' AND floorplan='"+ floorplan +"'");
 
             while(rs.next()) {
                 Path path = new Path();
@@ -243,5 +243,24 @@ public class NodeData {
         }
 
         return paths;
+    }
+
+    public void DeletePath(String ssid, String floorplan, String pathname) {
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            System.out.println(ssid);
+            System.out.println(floorplan);
+            System.out.println(pathname);
+            int status = stmt.executeUpdate("DELETE FROM `paths` WHERE ssid='"+ssid+"' AND floorplan='"+floorplan+"' AND name='"+pathname+"'");
+            System.out.println("DB update status: " + status);
+
+            stmt.close();
+            connection.close();
+            }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
     }
 }

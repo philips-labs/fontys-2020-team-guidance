@@ -27,33 +27,33 @@ public class BeaconEntry {
     private String beacon1;
 
     @NotBlank
-    private int distance1;
+    private double distance1;
 
     @NotBlank
     @Size(max = 25)
     private String beacon2;
 
     @NotBlank
-    private int distance2;
+    private double distance2;
 
     @NotBlank
     @Size(max = 25)
     private String beacon3;
 
     @NotBlank
-    private int distance3;
+    private double distance3;
 
     public BeaconEntry(){}
 
-    public BeaconEntry(String userEmail, String location, Object[][] beacons){
+    public BeaconEntry(String userEmail, String location, String beacon1, String beacon2, String beacon3, double distance1, double distance2, double distance3){
         this.email = userEmail;
         this.location = location;
-        this.beacon1 = (String)beacons[0][0];
-        this.distance1 = (int)beacons[0][1];
-        this.beacon2 = (String)beacons[1][0];
-        this.distance2= (int)beacons[1][1];
-        this.beacon3 = (String)beacons[2][0];
-        this.distance3 = (int)beacons[2][1];
+        this.beacon1 = beacon1;
+        this.distance1 = distance1;
+        this.beacon2 = beacon2;
+        this.distance2= distance2;
+        this.beacon3 = beacon3;
+        this.distance3 = distance3;
     }
 
     public String getEmail(){ return this.email; }
@@ -64,25 +64,51 @@ public class BeaconEntry {
 
     public void setLocation(String location){ this.location = location;}
 
-    public Object[][] getAllBeacons(){
-        Object[][] temp = new Object[3][2];
-
-        temp[0][0] = this.beacon1;
-        temp[0][1] = this.distance1;
-        temp[1][0] = this.beacon2;
-        temp[1][1] = this.distance2;
-        temp[2][0] = this.beacon3;
-        temp[2][1] = this.distance3;
-
-        return temp;
+    public String getBeacon1() {
+        return beacon1;
     }
 
-    public void setAllBeacons(Object[][] beacons){
-        this.beacon1 = (String)beacons[0][0];
-        this.distance1 = (Integer)beacons[0][1];
-        this.beacon2 = (String)beacons[1][0];
-        this.distance2 = (Integer)beacons[1][1];
-        this.beacon3 = (String)beacons[2][0];
-        this.distance3 = (Integer)beacons[2][1];
+    public void setBeacon1(String beacon1) {
+        this.beacon1 = beacon1;
+    }
+
+    public double getDistance1() {
+        return distance1;
+    }
+
+    public void setDistance1(double distance1) {
+        this.distance1 = distance1;
+    }
+
+    public String getBeacon2() {
+        return beacon2;
+    }
+
+    public void setBeacon2(String beacon2) {
+        this.beacon2 = beacon2;
+    }
+
+    public double getDistance2() {
+        return distance2;
+    }
+
+    public void setDistance2(double distance2) {
+        this.distance2 = distance2;
+    }
+
+    public String getBeacon3() {
+        return beacon3;
+    }
+
+    public void setBeacon3(String beacon3) {
+        this.beacon3 = beacon3;
+    }
+
+    public double getDistance3() {
+        return distance3;
+    }
+
+    public void setDistance3(double distance3) {
+        this.distance3 = distance3;
     }
 }

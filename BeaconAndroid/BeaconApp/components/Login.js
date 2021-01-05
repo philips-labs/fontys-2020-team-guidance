@@ -41,7 +41,6 @@ export default class Login extends React.Component {
 
             this.setState({message: ''})
             this.setState({loading: true})
-
             try{
                 AuthService.login(values.username, values.password).then(
                     () => {

@@ -54,18 +54,18 @@ public class Scanner_BLE {
         if (enable && !mScanning) {
             Utils.toast(sa.getApplication(), "Starting BLE Scan...");
 
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Utils.toast(sa.getApplicationContext(), "Stopping BLE Scan...");
-
-                    mScanning = false;
-                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
-
-                    sa.stopScan();
-                    Log.d("SCAN", "Scan is gestart");
-                }
-            }, scanPeriod);
+//            mHandler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Utils.toast(sa.getApplicationContext(), "Stopping BLE Scan...");
+//
+//                    mScanning = false;
+//                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
+//
+//                    sa.stopScan();
+//                    Log.d("SCAN", "Scan is gestart");
+//                }
+//            }, scanPeriod);
 
             mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback);

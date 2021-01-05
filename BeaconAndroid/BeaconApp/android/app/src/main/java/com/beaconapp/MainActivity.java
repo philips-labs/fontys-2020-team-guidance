@@ -65,7 +65,6 @@ public class MainActivity extends ReactActivity implements DefaultHardwareBackBt
       mReactRootView.startReactApplication(mReactInstanceManager, "BeaconApp", null);
 
       setContentView(mReactRootView);
-
       }
 
   @Override

@@ -1,5 +1,6 @@
 package com.beaconapp;
 
+import android.os.StrictMode;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -41,6 +42,8 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean PausedOnStartUp = false;
 
+    CallAPI callAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +80,13 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
         btn_Settings = (Button) findViewById(R.id.btn_Settings);
         findViewById(R.id.btn_Settings).setOnClickListener(this);
 
+        callAPI = new CallAPI(getApplicationContext());
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-
         registerReceiver(mBTStateUpdateReceiver, new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
     }
 
@@ -98,6 +101,10 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
         //For some reason onPause gets called after onCreate
         if (!PausedOnStartUp) {
             PausedOnStartUp = true;
+            startScan();
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            callAPI.feedAPI();
         }
         else {
             stopScan();
@@ -113,6 +120,9 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onDestroy() {
+        if (callAPI != null) {
+            callAPI.cancel(true);
+        }
         super.onDestroy();
     }
 
@@ -204,7 +214,7 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
         }
         //Log.d("HASHMAP", filterRSSIHashMap.toString());
         //Log.d("ARRAYLIST", filterBleArrayList.toString());
-
+        callAPI.updateDevices(filterBleArrayList);
         filterRSSIHashMap.clear();
     }
 

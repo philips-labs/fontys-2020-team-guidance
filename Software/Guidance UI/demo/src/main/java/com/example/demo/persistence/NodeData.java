@@ -31,10 +31,10 @@ public class NodeData {
 
             ResultSet rs = stmt.executeQuery("SELECT id FROM GuidanceDB.nodes WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"' AND id='"+ node.getId() +"'");
             if(rs.next()){
-                status = stmt.executeUpdate(" UPDATE GuidanceDB.nodes SET x='"+node.getX()+"',y='"+node.getY()+"',type='"+node.getType()+"',connectedNodes='"+node.getConnectednodes()+"',ssid='"+node.getSSID()+"',floorplanID='"+node.getFloorplanid()+"' WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"' AND id='"+ node.getId() +"'");
+                status = stmt.executeUpdate(" UPDATE GuidanceDB.nodes SET x='"+node.getX()+"',y='"+node.getY()+"',type='"+node.getType()+"',ssid='"+node.getSSID()+"',floorplanID='"+node.getFloorplanid()+"' WHERE ssid='"+ node.getSSID() +"' AND floorplanId='"+ node.getFloorplanid() +"' AND id='"+ node.getId() +"'");
             }
             else {
-                status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`nodes` (`id`,`x`,`y`, `type`, `connectedNodes`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '"+ node.getConnectednodes() + "', '"+ node.getSSID() + "', '"+ node.getFloorplanid() + "');");
+                status = stmt.executeUpdate("INSERT INTO `GuidanceDB`.`nodes` (`id`,`x`,`y`, `type`, `ssid`, `floorplanId`) VALUES ('"+ node.getId()  +"', '"+ node.getX() +"', '"+ node.getY() + "', '"+ node.getType() + "', '" + node.getSSID() + "', '"+ node.getFloorplanid() + "');");
             }
 
             System.out.println("DB update status: " + status);
@@ -62,9 +62,9 @@ public class NodeData {
                 node.setX(rs.getInt("x"));
                 node.setY(rs.getInt("y"));
                 node.setType(rs.getString("type"));
-                node.setConnectednodes(rs.getString("connectedNodes"));
                 node.setSSID(rs.getString("ssid"));
                 node.setFloorplanid(rs.getString("floorplanId"));
+                node.setUserCount(rs.getInt("user_count"));
                 nodes.add(node);
             }
 

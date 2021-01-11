@@ -9,6 +9,9 @@ public class UserData {
     private Double distance2;
     private String beacon3;
     private Double distance3;
+    private int nodeId;
+    private String floorplanId;
+    private String ssid;
 
     private String location;
 
@@ -74,5 +77,29 @@ public class UserData {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public int getNodeId() {
+        return nodeId;
+    }
+
+    public void setNodeId(int nodeId) {
+        this.nodeId = nodeId;
+    }
+
+    public String getFloorplanId() {
+        return floorplanId;
+    }
+
+    public void setFloorplanId(String floorplanId) {
+        this.floorplanId = floorplanId;
+    }
+
+    public String getSSID() {
+        return ssid;
+    }
+
+    public void setSSID(String ssid) {
+        this.ssid = ssid;
     }
 }

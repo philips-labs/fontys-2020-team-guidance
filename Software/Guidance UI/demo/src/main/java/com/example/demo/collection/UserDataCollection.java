@@ -12,6 +12,15 @@ public class UserDataCollection {
     UserDataData userDataData = new UserDataData();
     private ArrayList<UserData> userDataList = new ArrayList<>();
 
+    public void UpdateClosestNode(int nodeId, String floorplanId, String SSID, String email) {
+        UpdateNodeCount(email);
+        userDataData.UpdateClosestNode(nodeId, floorplanId, SSID, email);
+    }
+
+    public void UpdateNodeCount(String email) {
+        userDataData.RemoveOldClosestNode(email);
+    }
+
     public UserData GetUserDatasByEmail(String email) {
         userDataList = userDataData.GetAllUserData();
 

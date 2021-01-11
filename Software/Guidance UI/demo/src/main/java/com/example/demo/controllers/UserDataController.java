@@ -38,4 +38,9 @@ public class UserDataController {
         return new ResponseEntity<>(userDataCollection.DeleteUserData(email), HttpStatus.OK);
     }
 
+    @PutMapping("/updateClosestNode/{nodeId}/{floorplanId}/{ssid}/{email}")
+    public ResponseEntity<HttpStatus> UpdateClosestNode(@PathVariable int nodeId, @PathVariable String floorplanId, @PathVariable String ssid, @PathVariable String email) {
+        userDataCollection.UpdateClosestNode(nodeId, floorplanId, ssid, email);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

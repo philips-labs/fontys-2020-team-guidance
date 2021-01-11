@@ -17,11 +17,12 @@ class SettingsPanel extends Component {
             distance2: 0,
             distance3: 0,
             location: '',
+            cacheLocation: [],
             beacon1: '',
             beacon2: '',
             beacon3: '',
             isLoaded: false,
-            nodeList: {}
+            nodeList: []
         }
     }
 
@@ -63,8 +64,7 @@ class SettingsPanel extends Component {
                 email: user.email
             });
         }
-        this.getUserData(user.email);
-
+        this.getUserData(user.email)
     }
 
     getUserData = (email) => {
@@ -87,12 +87,12 @@ class SettingsPanel extends Component {
                 }
             }).catch((error) => {
             console.error("Error - " + error)
-            });
+            })
         setInterval(this.showUserLocation, 3000)
     };
 
     showUserLocation = () => {
-        this.getUserLocation(this.state.email);
+        this.getUserLocation();
         let partsArray = this.state.location.split(';');
         let userX = partsArray[0];
         let userY = partsArray[1];
@@ -100,11 +100,15 @@ class SettingsPanel extends Component {
         const floorplan = document.getElementById("floorplan-container-image");
         document.getElementById("user").style.left = floorplan.getBoundingClientRect().left + parseInt(userX) + "px"
         document.getElementById("user").style.top = floorplan.getBoundingClientRect().top + parseInt(userY) + "px"
+
+        if(this.state.location.split) {
+            this.getClosesNode();
+        }
     };
 
 
-    getUserLocation = (email) => {
-        fetch("/api/userdata/getUserLocationByEmail/" + email)
+    async getUserLocation() {
+        await fetch("/api/userdata/getUserLocationByEmail/" + this.state.email)
             .then(res => res.text())
             .then(data => {
                 if(data != null) {
@@ -164,6 +168,48 @@ class SettingsPanel extends Component {
                     this.mapNodes();
                 }
             });
+    }
+
+    getClosesNode = () => {
+        this.getUserLocation();
+        if(this.state.location !== "location") {
+            const userLocation = this.state.location.split(';');
+            let distanceList = [];
+
+            this.state.nodeList.forEach(item => {
+                distanceList.push([item.id, this.pythagoras(item.x, item.y, userLocation[0], userLocation[1])])
+            })
+
+            let closestNode = [];
+
+            distanceList.forEach(item => {
+                console.log(closestNode[1] + item[1])
+                if(closestNode[1] > item[1]) {
+                    closestNode = [item[0], item[1]];
+                }
+                else if(!closestNode[1]) {
+                    closestNode = [item[0], item[1]];
+                }
+            })
+
+            fetch("/api/userdata/updateClosestNode/" + closestNode[0] + "/" + this.state.floorplanid + "/" + this.state.ssid + "/" + this.state.email, {
+                method: 'put'
+            })
+        }
+    }
+
+    pythagoras = (x1, y1, x2, y2) => {
+        var xDiff = x1 - x2;
+        var yDiff = y1 - y2;
+
+        if (xDiff < 0) {
+            xDiff = xDiff * -1;
+        }
+        if (yDiff < 0) {
+            yDiff = yDiff * -1;
+        }
+
+        return Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
     }
 
     mapNodes() {

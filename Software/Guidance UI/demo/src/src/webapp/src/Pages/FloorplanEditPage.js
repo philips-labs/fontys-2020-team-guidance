@@ -51,9 +51,6 @@ class FloorplanEditPage extends Component {
                 console.log(data);
                 this.setState({nodeList: data})
                 let list = this.state.nodeList;
-                list.forEach(element => {
-                    element.nodeConnections = element.connectedNodesString.split(',');
-                })
                 let id = 0;
                 list.forEach(node => {
                     if (node.id > id) {
@@ -87,7 +84,6 @@ class FloorplanEditPage extends Component {
         await fetch("/api/floorplan/getPaths/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 const list = data;
                 list.forEach(presetPath => {
                     presetPath.path = presetPath.path.split(',');
@@ -99,7 +95,6 @@ class FloorplanEditPage extends Component {
                 this.setState({
                     presetPaths: list
                 });
-                console.log(list);
             })
 
         this.setupPathLines();
@@ -270,7 +265,6 @@ class FloorplanEditPage extends Component {
 
     updateImage(result, ssid, name) {
         if(name && name.length > 0) {
-            alert();
             fetch("/api/floorplan/updateFloorplan/" + this.state.ssid + "/" + this.state.floorplanid, {
                 method: 'put',
                 headers: {
@@ -293,12 +287,16 @@ class FloorplanEditPage extends Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
+    reloadpage = () => {
+        this.fetchPaths();
+    }
+
     // renders the heatmap and draggable nodes
     render() {
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'FloorplanEditPage'}>
-                    <Linking nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} pathList={this.state.presetPaths} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
+                    <Linking parentCallback={this.reloadpage} nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} pathList={this.state.presetPaths} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
                         {
                             this.state.pathLineCoords.map(item => {

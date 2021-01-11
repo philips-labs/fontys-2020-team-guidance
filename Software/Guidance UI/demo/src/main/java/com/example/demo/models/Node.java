@@ -5,9 +5,9 @@ public class Node {
     private int X;
     private int Y;
     private String Type;
-    private String Connectednodes;
     private String SSID;
     private String Floorplanid;
+    private int UserCount;
 
     public int getId() {
         return Id;
@@ -41,16 +41,6 @@ public class Node {
         this.Type = type;
     }
 
-    public String getConnectednodes() {
-        return Connectednodes;
-    }
-
-    public String getConnectedNodesString() {
-        return Connectednodes.toString();
-    }
-
-    public void setConnectednodes(String connectednodes) { this.Connectednodes = connectednodes; }
-
     public String getSSID() {
         return SSID;
     }
@@ -65,5 +55,13 @@ public class Node {
 
     public void setFloorplanid(String floorplanid) {
         Floorplanid = floorplanid;
+    }
+
+    public int getUserCount() {
+        return UserCount;
+    }
+
+    public void setUserCount(int userCount) {
+        UserCount = userCount;
     }
 }

@@ -105,6 +105,8 @@ export default class Linking extends Component {
         fetch("/api/floorplan/deletePath/"+this.state.ssid+"/"+this.state.floorplanid+"/"+ e.target.alt, {
             method: 'delete'
         })
+
+        this.props.parentCallback();
     }
 
     unlockAddPathInput = () => {
@@ -112,7 +114,14 @@ export default class Linking extends Component {
     }
 
     savePresetPath = () => {
-        if(this.state.presetPaths.indexOf(this.state.tempPathName) && this.state.tempPathName.length > 0) {
+        let namePresent = false;
+        this.state.presetPaths.forEach(item => {
+            if(item.name === this.state.tempPathName) {
+                namePresent = true;
+            }
+        })
+
+        if(!namePresent && this.state.tempPathName.length > 0) {
             const newList = this.state.presetPaths.concat({name: this.state.tempPathName, path: [], color: this.state.pathColor});
 
             this.setState({
@@ -175,7 +184,6 @@ export default class Linking extends Component {
         })
 
         this.state.presetPaths.forEach(item => {
-            alert("sent color: " + item.color);
             fetch("/api/floorplan/createPath", {
                 method: 'post',
                 headers: {
@@ -191,6 +199,8 @@ export default class Linking extends Component {
                 })
             })
         })
+
+        this.props.parentCallback();
     }
 
     handleStart = (e) => {

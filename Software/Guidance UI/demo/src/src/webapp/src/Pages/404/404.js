@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from "../Components/Logo/Logo";
+import Logo from "../../Components/Logo/Logo";
 function NotFoundPage() {
 
     return (

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import './../App.css';
-import Draggable from "../Components/Draggable/Draggable";
-import Node from "../Components/Node/Node";
-import IBeacon from "../Components/IBeacon/IBeacon";
-import Linking from "../Components/Linking/Linking";
+import '../../App.css';
+import Draggable from "../../Components/Draggable/Draggable";
+import Node from "../../Components/Node/Node";
+import IBeacon from "../../Components/IBeacon/IBeacon";
+import Linking from "../../Components/Linking/Linking";
 import {Link} from "react-router-dom";
 import { Line } from 'react-lineto';
 
@@ -344,7 +344,7 @@ class FloorplanEditPage extends Component {
             return (
                 <div className={'App'}>
                     <div className={'FloorplanEdit'}>
-                        <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../Components/Images/logo.png')}/></Link><br/>
+                        <Link to={"/"}><img draggable={"false"} alt="" className="Logo MenuLogo" src={require('../../Components/Images/logo.png')}/></Link><br/>
                         <button onClick={this.newNode}>Add Node</button><br/>
                         <input placeholder="ID Node" onChange={this.handleSelector}/><br/>
                         <button className={"red"} onClick={this.deleteNode}>Delete Node</button><br/>

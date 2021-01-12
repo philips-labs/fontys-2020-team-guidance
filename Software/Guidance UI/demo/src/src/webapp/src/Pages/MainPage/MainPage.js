@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Logo from "../Components/Logo/Logo";
-import MobileMenu from "../Components/MobileMenu/MobileMenu";
-import SettingsPanel from "../Components/SettingsPanel/SettingsPanel";
-import AccountPanel from "../Components/AccountPanel/AccountPanel";
-import Floorplan from "../Components/Floorplan/Floorplan";
+import Logo from "../../Components/Logo/Logo";
+import MobileMenu from "../../Components/MobileMenu/MobileMenu";
+import SettingsPanel from "../../Components/SettingsPanel/SettingsPanel";
+import AccountPanel from "../../Components/AccountPanel/AccountPanel";
+import Floorplan from "../../Components/Floorplan/Floorplan";
 
 class MainPage extends Component {
 

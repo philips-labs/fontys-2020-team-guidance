@@ -5,6 +5,11 @@ exports[`renders correctly react-test-renderer 1`] = `
   className="settingsPanel"
   id="settingsPanel"
 >
+  <button
+    onClick={[Function]}
+  >
+    setPath
+  </button>
   <p
     className="settingsHeader"
   >

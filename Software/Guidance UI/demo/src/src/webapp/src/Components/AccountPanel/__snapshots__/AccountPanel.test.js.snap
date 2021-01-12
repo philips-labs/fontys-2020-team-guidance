@@ -1,40 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly react-test-renderer 1`] = `
-<Router
-  history={
-    Object {
-      "action": "POP",
-      "block": [Function],
-      "canGo": [Function],
-      "createHref": [Function],
-      "entries": Array [
-        Object {
-          "hash": "",
-          "key": "jos2eu",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-      ],
-      "go": [Function],
-      "goBack": [Function],
-      "goForward": [Function],
-      "index": 0,
-      "length": 1,
-      "listen": [Function],
-      "location": Object {
-        "hash": "",
-        "key": "jos2eu",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      "push": [Function],
-      "replace": [Function],
-    }
-  }
+<div
+  className="settingsPanel"
+  id="accountPanel"
 >
-  <AccountPanel />
-</Router>
+  <p
+    className="settingsHeader"
+    data-testid="setting-header"
+  >
+    Account
+  </p>
+  <div
+    className="divider"
+  />
+  <div
+    className="accountObject"
+  >
+    <p
+      className="settingName"
+      data-testid="setting-name"
+    />
+    <input
+      className="ssidInput"
+      data-testid="setting-input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      readOnly={true}
+      value="Name"
+    />
+  </div>
+  <div
+    className="accountObject"
+  >
+    <img
+      alt=""
+      className="accountObjectPP"
+      src="pf.png"
+    />
+    <input
+      className="ssidInput"
+      defaultValue="Image link"
+      readOnly={true}
+    />
+  </div>
+  <div
+    className="accountObject"
+  >
+    <p
+      className="settingName"
+      data-testid="setting-name"
+    />
+    <ForwardRef(Link)
+      onClick={[Function]}
+      to="/Login"
+    >
+      Log out
+    </ForwardRef(Link)>
+  </div>
+</div>
 `;

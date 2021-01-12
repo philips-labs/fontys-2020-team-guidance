@@ -9,7 +9,7 @@ afterEach(cleanup);
 
 it('renders correctly react-test-renderer', () => {
     const renderer = new ShallowRenderer();
-    renderer.render(<MemoryRouter><AccountPanel /></MemoryRouter>);
+    renderer.render(<AccountPanel />);
     const result = renderer.getRenderOutput();
     expect(result).toMatchSnapshot();
 });

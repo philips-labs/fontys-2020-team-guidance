@@ -4,10 +4,10 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
-import AuthService from "../../services/auth.service";
+import AuthService from "../../../services/auth.service";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './login.css'
+import '../login.css'
 
 
 

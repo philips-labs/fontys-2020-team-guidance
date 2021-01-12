@@ -62,6 +62,10 @@ public class NodeCollection {
         return crud.GetPaths(ssid, floorplan);
     }
 
+    public Collection<Path> GetPathsContainingStartAndEndNode(String ssid, String floorplan){
+        return crud.GetPathsContainingStartAndEndNode(ssid, floorplan);
+    }
+
     public void DeletePath(String ssid, String floorplan, String pathName) {
         crud.DeletePath(ssid, floorplan, pathName);
     }

@@ -65,6 +65,7 @@ public class NodeData {
                 node.setSSID(rs.getString("ssid"));
                 node.setFloorplanid(rs.getString("floorplanId"));
                 node.setUserCount(rs.getInt("user_count"));
+
                 nodes.add(node);
             }
 
@@ -263,5 +264,37 @@ public class NodeData {
         catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
         }
+    }
+
+    //Fetches all paths that contain a start node and end node for calculation
+    public Collection<Path> GetPathsContainingStartAndEndNode(String ssid, String floorplan)
+    {
+        ArrayList<Path> paths = new ArrayList<>();
+
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `paths` WHERE `ssid`='"+ ssid + "' AND `floorplan`='"+ floorplan + "'");
+
+            while(rs.next()) {
+                Path path = new Path();
+                path.setName(rs.getString("name"));
+                path.setPath(rs.getString("path"));
+                path.setSSID(rs.getString("ssid"));
+                path.setColor(rs.getString("color"));
+                path.setFloorplan(rs.getString("floorplan"));
+                paths.add(path);
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        return paths;
     }
 }

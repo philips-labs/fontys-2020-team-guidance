@@ -7,7 +7,9 @@ public class Node {
     private String Type;
     private String SSID;
     private String Floorplanid;
+
     private int UserCount;
+
 
     public int getId() {
         return Id;
@@ -64,4 +66,5 @@ public class Node {
     public void setUserCount(int userCount) {
         UserCount = userCount;
     }
+
 }

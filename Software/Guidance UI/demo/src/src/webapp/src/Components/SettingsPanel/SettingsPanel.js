@@ -30,6 +30,8 @@ class SettingsPanel extends Component {
             imageOffsetY: 0,
             chosenPath: []
         }
+
+        this.getLeastPopPath = this.getLeastPopPath.bind(this);
     }
 
     handleInputChange = (e) => {
@@ -257,13 +259,19 @@ class SettingsPanel extends Component {
             })
     }
 
-    handlePickPath = () => {
+    async getLeastPopPath() {
+        let path;
+
         await fetch("/api/floorplan/getPathfinding/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
-                const path = data;
+                console.log(path);
+                path = data;
+                this.handlePickPath(path);
             })
+    }
 
+    handlePickPath = (path) => {
         this.state.presetPaths.forEach(item => {
             if(item.name === path.name) {
                 console.log(item);
@@ -313,7 +321,7 @@ class SettingsPanel extends Component {
     render() {
         return (
             <div id="settingsPanel" className="settingsPanel">
-                <button onClick={this.handlePickPath}>setPath</button>
+                <button onClick={this.getLeastPopPath}>setPath</button>
                 <p className="settingsHeader">Settings</p>
                 <div className="divider"/>
                 <div className="settingObject">

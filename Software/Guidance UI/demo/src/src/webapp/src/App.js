@@ -24,13 +24,11 @@ function App() {
 
     const [showSuperAdminBoard, setShowSuperAdminBoard] = useState(false);
     const [showAdminBoard, setShowAdminBoard] = useState(false);
-    const [currentUser, setCurrentUser] = useState(undefined);
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
 
         if (user) {
-            setCurrentUser(user);
             setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
             setShowSuperAdminBoard(user.roles.includes("ROLE_SUPER_ADMIN"));
         }

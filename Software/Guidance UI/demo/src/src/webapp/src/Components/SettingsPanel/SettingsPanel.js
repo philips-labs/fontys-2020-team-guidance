@@ -258,10 +258,14 @@ class SettingsPanel extends Component {
     }
 
     handlePickPath = () => {
-        let name = "path 2";
+        await fetch("/api/floorplan/getPathfinding/" + this.state.ssid + "/" + this.state.floorplanid)
+            .then(res => res.json())
+            .then(data => {
+                const path = data;
+            })
 
         this.state.presetPaths.forEach(item => {
-            if(item.name === name) {
+            if(item.name === path.name) {
                 console.log(item);
                 this.setupPathLines(item);
             }

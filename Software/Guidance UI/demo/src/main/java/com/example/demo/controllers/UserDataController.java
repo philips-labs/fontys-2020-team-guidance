@@ -20,12 +20,13 @@ public class UserDataController {
 
     @GetMapping("/getUserLocationByEmail/{email}")
     public ResponseEntity<String> GetUserLocationByEmail(@PathVariable String email) {
+        System.out.println(email);
         return new ResponseEntity<>(userDataCollection.getLocationByEmail(email), HttpStatus.OK);
     }
 
     @GetMapping("/getUserDatasByEmail/{email}")
     public ResponseEntity<UserData> GetUserDatasByEmail(@PathVariable String email) {
-        return new ResponseEntity<>(userDataCollection.GetUserDatasByEmail(email), HttpStatus.OK);
+        return new ResponseEntity<>(userDataCollection.GetUserDataByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping("/createUserData")
@@ -38,9 +39,9 @@ public class UserDataController {
         return new ResponseEntity<>(userDataCollection.DeleteUserData(email), HttpStatus.OK);
     }
 
-    @PutMapping("/updateClosestNode/{nodeId}/{floorplanId}/{ssid}/{email}")
-    public ResponseEntity<HttpStatus> UpdateClosestNode(@PathVariable int nodeId, @PathVariable String floorplanId, @PathVariable String ssid, @PathVariable String email) {
-        userDataCollection.UpdateClosestNode(nodeId, floorplanId, ssid, email);
+    @GetMapping("/updateClosestNode/{nodeId}/{email}/{floorplanId}/{ssid}")
+    public ResponseEntity<HttpStatus> UpdateClosestNode(@PathVariable int nodeId, @PathVariable String email, @PathVariable String floorplanId, @PathVariable String ssid) {
+        userDataCollection.UpdateNodeCount(nodeId, email, floorplanId, ssid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

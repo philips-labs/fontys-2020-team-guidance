@@ -1,6 +1,7 @@
 package com.example.demo.persistence;
 
 import com.example.demo.models.UserData;
+import org.springframework.security.core.parameters.P;
 
 import java.sql.*;
 import java.util.*;
@@ -48,7 +49,7 @@ public class UserDataData {
             connection.close();
         }
         catch (SQLException | ClassNotFoundException | NullPointerException e) {
-            System.out.println(e);
+            System.out.println("getall: " + e);
         }
 
         return userDataList;
@@ -101,100 +102,109 @@ public class UserDataData {
         }
     }
 
-    public void UpdateClosestNode(int nodeId, String floorplanId, String ssid, String email) {
+    public void UpdateNodeConnection(int nodeId, String email, String floorplanID, String SSID) {
         try {
-            System.out.println("UpdateClosestNode");
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
-            String status = "";
-            status += String.valueOf(stmt.executeUpdate("UPDATE `userdata` SET `nodeId`='"+nodeId+"',`floorplanId`='"+floorplanId+"',`ssid`='"+ssid+"' WHERE email='"+email+"'"));
-            System.out.println("DB update status: " + status);
-            if(status.equals("1")) {
-                UpdateNodeCount(nodeId, floorplanId, ssid, true);
+
+            int nodeID = 0;
+            String floorplanId = "";
+            String ssid = "";
+
+            ResultSet rs = stmt.executeQuery("SELECT `nodeId`, `floorplanId`, `ssid` FROM `userdata` WHERE email='"+email+"'");
+
+            while(rs.next()) {
+                nodeID = rs.getInt("nodeId");
+                floorplanId = rs.getString("floorplanId");
+                ssid = rs.getString("ssid");
             }
+
+            if(nodeId != 0 && !floorplanId.equals("") && !ssid.equals("")) {
+                int count = NodeConnectionCount(nodeID, floorplanId, ssid);
+                SetNodeCount(count, nodeID, floorplanId, ssid, false);
+                System.out.println(nodeID);
+                System.out.println(floorplanId);
+                System.out.println(ssid);
+
+                count = NodeConnectionCount(nodeId, floorplanID, SSID);
+                SetNodeCount(count, nodeId, floorplanId, ssid, true);
+
+                //SetPastNodeConnection(email, nodeId, floorplanID, SSID);
+                System.out.println(nodeId);
+                System.out.println(floorplanId);
+                System.out.println(ssid);
+            }
+            else {
+                System.out.println("Some of the data was null!");
+            }
+
             stmt.close();
             connection.close();
-            System.out.println("UpdateClosestNode - END");
         }
         catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
         }
     }
 
-    public void RemoveOldClosestNode(String email) {
+    public int NodeConnectionCount(int nodeId, String floorplanId, String ssid) {
+        int count = 0;
+
         try {
-            System.out.println("RemoveOldClosestNode");
             connection = OpenConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT `nodeId`, `floorplanId`, `ssid` FROM `userdata` WHERE email='"+email+"'");
 
-            int nodeId = 0;
-            String floorplanId = "";
-            String ssid = "";
-
-            while(rs.next()) {
-                nodeId = rs.getInt("nodeId");
-                floorplanId = rs.getString("floorplanId");
-                ssid = rs.getString("ssid");
-            }
-
-            if(nodeId != 0 && !floorplanId.equals("") && !ssid.equals("")) {
-                UpdateNodeCount(nodeId, floorplanId, ssid, false);
-            }
-            else {
-                System.out.println("DB update status: " + 0);
-            }
-
-
-            rs.close();
-            stmt.close();
-            connection.close();
-            System.out.println("RemoveOldClosestNode - END");
-        }
-        catch (SQLException | ClassNotFoundException | NullPointerException e) {
-            System.out.println(e);
-        }
-    }
-
-    public void UpdateNodeCount(int nodeId, String floorplanId, String ssid, boolean plus) {
-        try {
-            System.out.println("UpdateNodeCount");
-            connection = OpenConnection();
-            Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT `user_count` FROM `nodes` WHERE id='"+nodeId+"' AND floorplanID='"+floorplanId+"' AND ssid='"+ssid+"'");
-
-            int count = 0;
 
             while(rs.next()) {
                 count = rs.getInt("user_count");
             }
 
-            System.out.println("count: " + count);
-
-            rs.close();
             stmt.close();
             connection.close();
 
-            if(plus) {
-                count += 1;
-            }
-            else if(count > 0) count -= 1;
+            return count;
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
 
-            System.out.println("count: " + count);
+        return count;
+    }
+
+    public void SetNodeCount(int count, int nodeId, String floorplanId, String ssid, boolean add) {
+        try {
+            if(add) {
+                count++;
+            }
+            else if(count > 0) {
+                count--;
+            }
 
             connection = OpenConnection();
-            stmt = connection.createStatement();
-
+            Statement stmt = connection.createStatement();
 
             int status = stmt.executeUpdate("UPDATE `nodes` SET `user_count`= '"+count+"' WHERE id='"+nodeId+"' AND floorplanID='"+floorplanId+"' AND ssid='"+ssid+"'");
 
-            System.out.println("DB update status: " + status);
+            stmt.close();
+            connection.close();
+        }
+        catch(SQLException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void SetPastNodeConnection(String email, int nodeId, String floorplanId, String ssid) {
+        System.out.println("updated old connection");
+        try {
+            connection = OpenConnection();
+            Statement stmt = connection.createStatement();
+
+            int status = stmt.executeUpdate("UPDATE `userdata` SET `nodeId`='"+nodeId+"',`floorplanId`='"+floorplanId+"',`ssid`='"+ssid+"' WHERE email='"+email+"'");
 
             stmt.close();
             connection.close();
-            System.out.println("UpdateNodeCount - END");
         }
-        catch(SQLException | ClassNotFoundException e) {
+        catch (SQLException | ClassNotFoundException e) {
             System.out.println(e);
         }
     }

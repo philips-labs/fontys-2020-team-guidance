@@ -41,7 +41,7 @@ public class FloorplanData {
             stmt.close();
             connection.close();
         }
-        catch (SQLException | ClassNotFoundException e) {
+        catch (SQLException | ClassNotFoundException | NullPointerException e) {
             System.out.println(e);
         }
 

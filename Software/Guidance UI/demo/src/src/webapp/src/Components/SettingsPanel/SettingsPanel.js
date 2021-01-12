@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import '../../App.css';
 import AuthService from "../../services/auth.service";
+import {Line} from "react-lineto";
 
 class SettingsPanel extends Component {
     constructor(props) {
@@ -22,7 +23,12 @@ class SettingsPanel extends Component {
             beacon2: '',
             beacon3: '',
             isLoaded: false,
-            nodeList: []
+            nodeList: [],
+            presetPaths: [],
+            pathLineCoords: [],
+            imageOffsetX: 0,
+            imageOffsetY: 0,
+            chosenPath: []
         }
     }
 
@@ -63,8 +69,12 @@ class SettingsPanel extends Component {
                 InputSSID: ssid,
                 email: user.email
             });
+
+            this.getUserData(user.email)
         }
-        this.getUserData(user.email)
+        else {
+            window.location.reload();
+        }
     }
 
     getUserData = (email) => {
@@ -88,7 +98,7 @@ class SettingsPanel extends Component {
             }).catch((error) => {
             console.error("Error - " + error)
             })
-        setInterval(this.showUserLocation, 3000)
+        setInterval(this.showUserLocation, 6000)
     };
 
     showUserLocation = () => {
@@ -192,9 +202,7 @@ class SettingsPanel extends Component {
                 }
             })
 
-            fetch("/api/userdata/updateClosestNode/" + closestNode[0] + "/" + this.state.floorplanid + "/" + this.state.ssid + "/" + this.state.email, {
-                method: 'put'
-            })
+            fetch("/api/userdata/updateClosestNode/" + closestNode[0] + "/" + this.state.email + "/" + this.state.floorplanid + "/" + this.state.ssid)
         }
     }
 
@@ -226,11 +234,82 @@ class SettingsPanel extends Component {
             }
 
         })
+
+        this.fetchPaths();
+    }
+
+    async fetchPaths() {
+        await fetch("/api/floorplan/getPaths/" + this.state.ssid + "/" + this.state.floorplanid)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const list = data;
+                list.forEach(presetPath => {
+                    presetPath.path = presetPath.path.split(',');
+                    for(let i = 0; i < presetPath.path.length; i++) {
+                        presetPath.path[i] = parseInt(presetPath.path[i]);
+                    }
+                })
+
+                this.setState({
+                    presetPaths: list
+                });
+            })
+    }
+
+    handlePickPath = () => {
+        let name = "path 2";
+
+        this.state.presetPaths.forEach(item => {
+            if(item.name === name) {
+                console.log(item);
+                this.setupPathLines(item);
+            }
+        })
+    }
+
+    setupPathLines = (item) => {
+        let list = [];
+
+        this.setState({
+            imageOffsetX: document.getElementById("floorplan-container-image").offsetLeft + 40,
+            imageOffsetY: document.getElementById("floorplan-container-image").offsetTop + 55
+        })
+
+        console.log(this.state.chosenPath);
+
+            for (let x = 0; x < item.path.length; x++) {
+                const node1 = item.path[x];
+                const node2 = item.path[x + 1];
+                let node1Position = null;
+                let node2Position = null;
+
+                this.state.nodeList.forEach(node => {
+                    if (node.id === node1) {
+                        node1Position = [node.x, node.y];
+                    }
+                })
+
+                this.state.nodeList.forEach(node => {
+                    if (node.id === node2) {
+                        node2Position = [node.x, node.y];
+                    }
+                })
+
+                if (node1Position !== null && node2Position !== null) {
+                    list.push([node1Position[0], node1Position[1], node2Position[0], node2Position[1], item.color]);
+
+                    this.setState({
+                        pathLineCoords: list
+                    })
+                }
+            }
     }
 
     render() {
         return (
             <div id="settingsPanel" className="settingsPanel">
+                <button onClick={this.handlePickPath}>setPath</button>
                 <p className="settingsHeader">Settings</p>
                 <div className="divider"/>
                 <div className="settingObject">
@@ -241,6 +320,14 @@ class SettingsPanel extends Component {
                     <p className="settingName">Primary Device</p>
                     <input className="checkbox" type="checkbox"/>
                 </div>
+
+                {
+                    this.state.pathLineCoords.map((item, key) => {
+                        return (
+                            <Line key={key} x0={item[0] + this.state.imageOffsetX} y0={item[1] + this.state.imageOffsetY} x1={item[2] + this.state.imageOffsetX} y1={item[3] + this.state.imageOffsetY} borderColor={item[4]} borderWidth={"3px"} />
+                        );
+                    })
+                }
             </div>
         );
     }

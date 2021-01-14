@@ -51,12 +51,11 @@ public class BeaconController {
                     bUpdateRequest.getDistance3());
             response = "CREATED";
         }
+        
 
         triangRepository.save(bEntry);
         //System.out.println(response);
-        return ResponseEntity.ok(new MessageResponse("Successfully " + response + " a row with User Email: "
-                + bUpdateRequest.getEmail()
-                + " at / " + new Date() + " /"));
+        return ResponseEntity.ok(new MessageResponse("successful"));
     }
     @GetMapping("/test")
     public void test(){

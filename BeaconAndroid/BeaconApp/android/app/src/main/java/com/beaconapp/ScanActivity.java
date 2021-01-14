@@ -218,7 +218,7 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
         filterRSSIHashMap.clear();
     }
 
-    private String getMinKey(HashMap<String, Integer> map, Set<String> keys) {
+    public String getMinKey(HashMap<String, Integer> map, Set<String> keys) {
         String minKey = null;
         int minValue = Integer.MAX_VALUE;
         for(String key : keys) {

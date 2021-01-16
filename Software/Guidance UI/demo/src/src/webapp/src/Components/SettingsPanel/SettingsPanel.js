@@ -28,7 +28,8 @@ class SettingsPanel extends Component {
             pathLineCoords: [],
             imageOffsetX: 0,
             imageOffsetY: 0,
-            chosenPath: []
+            chosenPath: [],
+            loading: true
         }
 
         this.getLeastPopPath = this.getLeastPopPath.bind(this);
@@ -257,6 +258,8 @@ class SettingsPanel extends Component {
                     presetPaths: list
                 });
             })
+
+        this.setState({loading: false})
     }
 
     async getLeastPopPath() {
@@ -319,29 +322,36 @@ class SettingsPanel extends Component {
     }
 
     render() {
-        return (
-            <div id="settingsPanel" className="settingsPanel">
-                <button onClick={this.getLeastPopPath}>setPath</button>
-                <p className="settingsHeader">Settings</p>
-                <div className="divider"/>
-                <div className="settingObject">
-                    <p className="settingName">Network name</p>
-                    <input onKeyDown={this.handleInputSubmit} onChange={this.handleInputChange} className="ssidInput" value={this.state.InputSSID}/>
+        if(this.state.loading) {
+            return (
+                <div className={"mainLoading"}>
+                    <p className={"loading"}>loading...</p>
                 </div>
-                <div className="settingObject">
-                    <p className="settingName">Primary Device</p>
-                    <input className="checkbox" type="checkbox"/>
-                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <button className={"testPath"} onClick={this.getLeastPopPath}>Get safe path</button>
+                    <div id="settingsPanel" className="settingsPanel">
+                        <p className="settingsHeader">Settings</p>
+                        <div className="divider"/>
+                        <div className="settingObject">
+                            <p className="settingName">Network name</p>
+                            <input onKeyDown={this.handleInputSubmit} onChange={this.handleInputChange} className="ssidInput" value={this.state.InputSSID}/>
+                        </div>
 
-                {
-                    this.state.pathLineCoords.map((item, key) => {
-                        return (
-                            <Line key={key} x0={item[0] + this.state.imageOffsetX} y0={item[1] + this.state.imageOffsetY} x1={item[2] + this.state.imageOffsetX} y1={item[3] + this.state.imageOffsetY} borderColor={item[4]} borderWidth={"3px"} />
-                        );
-                    })
-                }
-            </div>
-        );
+                        {
+                            this.state.pathLineCoords.map((item, key) => {
+                                return (
+                                    <Line key={key} x0={item[0] + this.state.imageOffsetX} y0={item[1] + this.state.imageOffsetY} x1={item[2] + this.state.imageOffsetX} y1={item[3] + this.state.imageOffsetY} borderColor={item[4]} borderWidth={"3px"} />
+                                );
+                            })
+                        }
+                    </div>
+                </div>
+            );
+        }
     }
 }
 

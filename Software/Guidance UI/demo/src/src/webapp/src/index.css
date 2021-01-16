@@ -199,30 +199,30 @@ div.settingsPanel {
   position: absolute;
   width: 94vw;
   z-index: 5;
-  background-color: rgb(40, 40, 40);
+  background-color: rgb(65, 65, 65);
   border-radius: 10px;
-  color: rgb(205, 205, 205);
   text-align: center;
   bottom: 8%;
   left: 3%;
   overflow-x: hidden;
   max-height: 80vh;
   display: none;
+  color: white;
 }
 
 div.accountPanel {
   position: absolute;
   width: 94vw;
   z-index: 5;
-  background-color: rgb(40, 40, 40);
+  background-color: rgb(65, 65, 65);
   border-radius: 10px;
-  color: rgb(205, 205, 205);
   text-align: center;
   bottom: 8%;
   left: 3%;
   overflow-x: hidden;
   max-height: 80vh;
   display: none;
+  color: white;
 }
 
 p.settingsHeader {
@@ -238,7 +238,7 @@ div.divider {
 }
 
 div.accountObject {
-  margin: 10%;
+  margin: 4% 10%;
   width: 90%;
   display: flex;
   text-align: left;
@@ -312,7 +312,7 @@ input:focus, textarea:focus, select:focus{
     width: 20vw;
     top: 8%;
     left: 79.5%;
-    max-height: 32.5vh;
+    max-height: 16vh;
   }
 
   p.settingsHeader {
@@ -967,11 +967,33 @@ input:focus, textarea:focus, select:focus{
     cursor: pointer;
   }
 
+  div.mainLoading {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000000000;
+    text-align: center;
+    background-color: rgb(29, 29, 31);
+    width: 100vw;
+    height: 100vh;
+  }
+
   p.loading {
     position: relative;
     top: 45vh;
     font-size: 2vw;
     color: #c3c3c3;
     text-align: center;
+  }
+
+  button.testPath {
+    position: absolute;
+    top: 2vh;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid white;
+    left: 1vw;
+    padding: 1vh 1vw;
+    border-radius: 10px;
   }
 }

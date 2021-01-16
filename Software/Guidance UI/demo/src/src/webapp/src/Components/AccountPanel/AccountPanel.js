@@ -44,24 +44,12 @@ class AccountPanel extends Component {
 
     render() {
         return (
-            <div id="accountPanel" className="settingsPanel">
+            <div id="accountPanel" className="settingsPanel accountPanel">
                 <p data-testid={"setting-header"} className="settingsHeader">Account</p>
                 <div className="divider"/>
                 <div className="accountObject">
-                    <p data-testid={"setting-name"} className="settingName">{this.state.NameInput}</p>
-                    <input data-testid={"setting-input"} onKeyDown={this.handleInputSubmit} onChange={this.handleInputChange} className="ssidInput" value={"Name"} readOnly={true}/>
-                </div>
-                <div className="accountObject">
-                    <img alt="" className="accountObjectPP" src={require('../Images/pf.png')}/>
-                    <input className="ssidInput" defaultValue={"Image link"} readOnly={true}/>
-                </div>
-                <div className="accountObject">
-                    <p data-testid={"setting-name"} className="settingName">{this.state.NameInput}</p>
-                    <Link to={"/Login"}
-                        onClick={AuthService.logout}
-                    >
-                        Log out
-                    </Link>
+                    <p data-testid={"setting-name"} className="settingName">{AuthService.getCurrentUser().email}</p>
+                    <p className="settingName"><Link to={"/Login"} onClick={AuthService.logout}>Log out</Link></p>
                 </div>
             </div>
         );

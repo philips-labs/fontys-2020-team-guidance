@@ -48,7 +48,6 @@ class FloorplanEditPage extends Component {
         await fetch("/api/floorplan/getNodes/" + this.state.ssid + "/" + this.state.floorplanid)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 this.setState({nodeList: data})
                 let list = this.state.nodeList;
                 let id = 0;
@@ -57,7 +56,6 @@ class FloorplanEditPage extends Component {
                         id = node.id;
                     }
                 })
-                console.log(list);
                 this.setState({nodeList: list, nodeId: id+1});
                 this.fetchIBeacon()
             })
@@ -74,7 +72,6 @@ class FloorplanEditPage extends Component {
                             id = iBeacon.id;
                         }
                     })
-                console.log(list);
                     this.setState({iBeaconList: list, iBeaconId: id+1});
                     this.fetchPaths();
             })
@@ -104,7 +101,6 @@ class FloorplanEditPage extends Component {
         let list = [];
 
         this.state.presetPaths.forEach(item => {
-            console.log("length: " +item.path.length)
             for(let x = 0; x < item.path.length; x++) {
                 const node1 = item.path[x];
                 const node2 = item.path[x+1];
@@ -136,8 +132,6 @@ class FloorplanEditPage extends Component {
         this.setState({
             pageLoading: false
         });
-
-        console.log(this.state.pathLineCoords)
     }
 
 
@@ -180,7 +174,6 @@ class FloorplanEditPage extends Component {
         const list = this.state.nodeList;
         for(let i = 0; i < list.length; i++) {
             if(list[i].id === this.state.selectedItem){
-                console.log(i)
                 list.splice(i,1);
             }
         }
@@ -300,7 +293,6 @@ class FloorplanEditPage extends Component {
                     <div>
                         {
                             this.state.pathLineCoords.map(item => {
-                                console.log(this.state.pathLineCoords);
                                 return (
                                     <Line x0={item[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y0={item[1] + 99 + 46.41/2} x1={item[2] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y1={item[3] + 99 + 46.41/2} borderColor={item[4]} borderWidth={"3px"} />
                                 );
@@ -357,7 +349,6 @@ class FloorplanEditPage extends Component {
                     <div>
                         {
                             this.state.pathLineCoords.map(item => {
-                                console.log(this.state.pathLineCoords);
                                 return (
                                     <Line x0={item[0] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y0={item[1] + 99 + 46.41/2} x1={item[2] + (this.state.width - this.state.imgWidth)/2 + 46.41/2} y1={item[3] + 99 + 46.41/2} borderColor={item[4]} borderWidth={"3px"}/>
                                 );
@@ -373,7 +364,6 @@ class FloorplanEditPage extends Component {
                         }}>
                             {
                                 this.state.nodeList.map((item) => {
-                                console.log(item.id);
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveNode} id={item.id}
                                                type={item.type} key={item.id} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>

@@ -242,8 +242,11 @@ export default class Linking extends Component {
                     list[i].path.push(this.state.selectedNode);
                 }
                 else {
-                    if(list[i].path.indexOf(this.state.selectedNode)) {
+                    if(list[i].path.includes(this.state.selectedNode) !== true) {
                         list[i].path.push(this.state.selectedNode);
+                    }
+                    else {
+                        alert("your mom gay");
                     }
                 }
             }
@@ -256,7 +259,7 @@ export default class Linking extends Component {
 
         list.forEach(item => {
             if(item.name === this.state.editingIndex) {
-                item.path.splice(this.state.selectedNode, 1);
+                item.path.splice(item.path.indexOf(this.state.selectedNode), 1);
             }
         })
 

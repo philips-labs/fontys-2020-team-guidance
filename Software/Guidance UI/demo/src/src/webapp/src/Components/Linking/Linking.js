@@ -246,7 +246,7 @@ export default class Linking extends Component {
                         list[i].path.push(this.state.selectedNode);
                     }
                     else {
-                        alert("your mom gay");
+                        alert("That node is already in the path!");
                     }
                 }
             }

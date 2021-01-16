@@ -178,7 +178,7 @@ class SettingsPanel extends Component {
             .then(data => {
                 if(data) {
                     this.setState({nodeList: data})
-                    this.mapNodes();
+                    this.fetchPaths();
                 }
             });
     }
@@ -221,24 +221,6 @@ class SettingsPanel extends Component {
         }
 
         return Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-    }
-
-    mapNodes() {
-
-        this.state.nodeList.forEach(node => {
-            const x = document.getElementById("floorplan-container-image").getBoundingClientRect().left + node.x;
-            const y = document.getElementById("floorplan-container-image").getBoundingClientRect().top + node.y;
-
-            if(node.type === "stairs") {
-                document.getElementById("floorplan-container").innerHTML += '<div class="stairMainpage" id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+';"/>' // eslint-disable-line
-            }
-            else {
-                document.getElementById("floorplan-container").innerHTML += '<div class="nodeMainpage" id="'+node.id+'" style="position:absolute; left: '+x+"px"+'; top: '+y+"px"+';"/>' // eslint-disable-line
-            }
-
-        })
-
-        this.fetchPaths();
     }
 
     async fetchPaths() {
@@ -344,7 +326,7 @@ class SettingsPanel extends Component {
                         {
                             this.state.pathLineCoords.map((item, key) => {
                                 return (
-                                    <Line key={key} x0={item[0] + this.state.imageOffsetX} y0={item[1] + this.state.imageOffsetY} x1={item[2] + this.state.imageOffsetX} y1={item[3] + this.state.imageOffsetY} borderColor={item[4]} borderWidth={"3px"} />
+                                    <Line key={key} x0={item[0] + this.state.imageOffsetX} y0={item[1] + this.state.imageOffsetY} x1={item[2] + this.state.imageOffsetX} y1={item[3] + this.state.imageOffsetY} borderColor={"green"} borderWidth={"6px"} zIndex={"10000000000"}/>
                                 );
                             })
                         }

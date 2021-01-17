@@ -124,6 +124,10 @@ body {
     font-size: 16px;
 }
 
+.input-group {
+    display: initial;
+}
+
 
 /* Mobile */
 

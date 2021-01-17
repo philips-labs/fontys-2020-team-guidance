@@ -111,8 +111,10 @@ class SettingsPanel extends Component {
         let userY = partsArray[1];
 
         const floorplan = document.getElementById("floorplan-container-image");
-        document.getElementById("user").style.left = floorplan.getBoundingClientRect().left + parseInt(userX) + "px"
-        document.getElementById("user").style.top = floorplan.getBoundingClientRect().top + parseInt(userY) + "px"
+        if(floorplan) {
+            document.getElementById("user").style.left = floorplan.getBoundingClientRect().left + parseInt(userX) + "px"
+            document.getElementById("user").style.top = floorplan.getBoundingClientRect().top + parseInt(userY) + "px"
+        }
 
         if(this.state.location.split) {
             this.getClosesNode();

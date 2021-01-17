@@ -35,19 +35,18 @@ body {
     right: -10px;
 }
 .modal-login h4 {
-    color: #636363;
+    color: #ffffff;
     text-align: center;
     font-size: 26px;
     margin-top: 0;
 }
 .modal-login .modal-content {
-    color: #999;
-    border-radius: 1px;
+    color: #ffffff;
     margin-bottom: 15px;
-    background: #fff;
-    border: 1px solid #f3f3f3;
+    background: #3c3c3c;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     padding: 25px;
+    border-radius: 1px;
 }
 .modal-login .form-group {
     margin-bottom: 20px;
@@ -64,7 +63,7 @@ body {
     border-radius: 0;
 }
 .modal-login .form-control:focus {
-    border-color: #ccc;
+    border-color: #ffffff;
 }
 .modal-login .input-group-addon {
     max-width: 42px;
@@ -77,14 +76,14 @@ body {
 .modal-login .btn {
     font-size: 16px;
     font-weight: bold;
-    background: #19aa8d;
+    background: #3f98dd;
     border-radius: 3px;
     border: none;
     min-width: 140px;
     outline: none !important;
 }
 .modal-login .btn:hover, .modal-login .btn:focus {
-    background: #179b81;
+    background: #3f98dd;
 }
 .modal-login .hint-text {
     text-align: center;
@@ -92,7 +91,7 @@ body {
     font-size: 13px;
 }
 .modal-login .modal-footer {
-    color: #999;
+    color: #ffffff;
     border-color: #dee4e7;
     text-align: center;
     margin: 0 -25px -25px;
@@ -107,7 +106,7 @@ body {
     text-decoration: none;
 }
 .modal-login a {
-    color: #19aa8d;
+    color: #3f98dd;
     text-decoration: none;
 }
 .modal-login a:hover {

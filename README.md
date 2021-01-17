@@ -7,6 +7,12 @@ Documentation:
   - QA documentation ~ (Documentation/QA document.pdf)
 ________________________________________________________________
 
+Research:
+  - Node system research ~ (Research/Node system research.pdf)
+  - Pathfinding algorithm research ~ (Software/Pathfinding Algorithm Research.pdf)
+  - Triangulation research ~ (Software/Triangulation Research.pdf)
+________________________________________________________________
+
 Software:
   - Web application ~ (Software/Guidance UI)
   - Routing algorithm prototype ~ (Software/RoutingAlgorithm)

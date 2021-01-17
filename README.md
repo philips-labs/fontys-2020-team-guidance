@@ -6,3 +6,8 @@ Documentation:
   - Project plan ~ (Documentation/Project Plan.pdf)
   - QA documentation ~ (Documentation/QA document.pdf)
 ________________________________________________________________
+
+Software:
+  - Web application ~ (Software/Guidance UI)
+  - Routing algorithm prototype ~ (Software/RoutingAlgorithm)
+________________________________________________________________

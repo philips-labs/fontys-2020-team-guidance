@@ -16,4 +16,5 @@ ________________________________________________________________
 Software:
   - Web application ~ (Software/Guidance UI)
   - Routing algorithm prototype ~ (Software/RoutingAlgorithm)
+  - Beacon scanning application ~ (Software/BeaconAndroid)
 ________________________________________________________________

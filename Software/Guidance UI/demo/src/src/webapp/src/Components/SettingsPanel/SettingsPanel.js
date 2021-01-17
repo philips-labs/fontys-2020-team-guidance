@@ -66,7 +66,7 @@ class SettingsPanel extends Component {
     configureSSID(user) {
         const ssid = prompt("Please enter the network name", "Network Name");
 
-        if(user.email !== "null") {
+        if(user !== undefined) {
             this.setState({
                 ssid: ssid,
                 InputSSID: ssid,

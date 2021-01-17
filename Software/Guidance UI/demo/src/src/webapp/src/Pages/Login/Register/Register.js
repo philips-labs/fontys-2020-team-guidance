@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import AuthService from "../../../services/auth.service";
-
+import { createMemoryHistory } from 'history';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../login.css'
 
@@ -53,16 +53,16 @@ const vpassword = (value) => {
 
 
 
-const Register = (props) => {
+const Register = () => {
     const form = useRef();
     const checkBtn = useRef();
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
+    const history = createMemoryHistory()
 
     const onChangeUsername = (e) => {
         const username = e.target.value;
@@ -79,11 +79,6 @@ const Register = (props) => {
         setPassword(password);
     };
 
-    const onChangeConfirmPassword = (e) => {
-        const confirmPassword = e.target.value;
-        setConfirmPassword(confirmPassword);
-    }
-
     const handleRegister = (e) => {
         e.preventDefault();
 
@@ -94,15 +89,13 @@ const Register = (props) => {
 
         if (checkBtn.current.context._errors.length === 0) {
                 AuthService.register(username, email, password).then(
-                    (response) => {
-                        props.history.push("/Login");
-                        window.location.reload();
+                    () => {
                         setSuccessful(true);
+                        setMessage("Register Successful")
+                        history.push("/Login")
                     },
-                    (error) => {
-                        console.log(error)
-
-                        setMessage(error);
+                    () => {
+                        setMessage("Something went wrong, please try again")
                         setSuccessful(false);
                     }
                 );
@@ -122,7 +115,7 @@ const Register = (props) => {
                         {!successful && (
                             <div>
                                 <div className="form-group">
-                                    <div className="input-group">
+                                    <label htmlFor="username">Username</label>
                                     <Input
                                         type="text"
                                         className="form-control"
@@ -130,59 +123,43 @@ const Register = (props) => {
                                         value={username}
                                         onChange={onChangeUsername}
                                         validations={[required, vusername]}
-                                        placeholder="Username"
-                                        style={{fontSize: '20px'}}
+                                        data-testid="register-input-username"
                                     />
-                                    </div>
                                 </div>
 
                                 <div className="form-group">
-                                    <div className="input-group">
-                                        <Input
-                                            type="text"
-                                            className="form-control"
-                                            name="email"
-                                            value={email}
-                                            onChange={onChangeEmail}
-                                            validations={[required, validEmail]}
-                                            placeholder="Email"
-                                            style={{fontSize: '20px'}}
-                                        />
-                                    </div>
+                                    <label htmlFor="email">Email</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control"
+                                        name="email"
+                                        value={email}
+                                        onChange={onChangeEmail}
+                                        validations={[required, validEmail]}
+                                        data-testid="register-input-email"
+                                    />
                                 </div>
 
                                 <div className="form-group">
-                                    <div className="input-group">
-                                        <Input
-                                            type="password"
-                                            className="form-control"
-                                            name="password"
-                                            value={password}
-                                            onChange={onChangePassword}
-                                            validations={[required, vpassword]}
-                                            placeholder="Password"
-                                            style={{fontSize: '20px'}}
-                                        />
-                                    </div>
+                                    <label htmlFor="password">Password</label>
+                                    <Input
+                                        type="password"
+                                        className="form-control"
+                                        name="password"
+                                        value={password}
+                                        onChange={onChangePassword}
+                                        validations={[required, vpassword]}
+                                        data-testid="register-input-password"
+                                    />
                                 </div>
 
                                 <div className="form-group">
-                                    <div className="input-group">
-                                        <Input
-                                            type="password"
-                                            className="form-control"
-                                            name="confirmPassword"
-                                            value={confirmPassword}
-                                            onChange={onChangeConfirmPassword}
-                                            validations={[required, vpassword]}
-                                            placeholder="Confirm Password"
-                                            style={{fontSize: '20px'}}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Register</button>
+                                    <button
+                                        className="btn btn-primary btn-block"
+                                        data-testid="register-button-submit"
+                                    >
+                                        Sign Up
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -193,9 +170,13 @@ const Register = (props) => {
                                     className={ successful ? "alert alert-success" : "alert alert-danger" }
                                     role="alert"
                                 >
-                                    {message}
+                                    <p style={{paddingLeft: '25%', paddingTop: 10}}>
+                                        {message}
+                                    </p>
                                 </div>
+                                <p className="hint-text font-weight-normal"><a href="/Login">Login</a></p>
                             </div>
+
                         )}
                         <CheckButton style={{ display: "none" }} ref={checkBtn} />
                     </Form>

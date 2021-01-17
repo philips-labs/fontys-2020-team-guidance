@@ -2,49 +2,12 @@
 
 exports[`renders correctly react-test-renderer 1`] = `
 <div
-  className="settingsPanel"
-  id="settingsPanel"
+  className="mainLoading"
 >
-  <button
-    onClick={[Function]}
-  >
-    setPath
-  </button>
   <p
-    className="settingsHeader"
+    className="loading"
   >
-    Settings
+    loading...
   </p>
-  <div
-    className="divider"
-  />
-  <div
-    className="settingObject"
-  >
-    <p
-      className="settingName"
-    >
-      Network name
-    </p>
-    <input
-      className="ssidInput"
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      value=""
-    />
-  </div>
-  <div
-    className="settingObject"
-  >
-    <p
-      className="settingName"
-    >
-      Primary Device
-    </p>
-    <input
-      className="checkbox"
-      type="checkbox"
-    />
-  </div>
 </div>
 `;

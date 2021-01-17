@@ -24,6 +24,7 @@ const Login = (props) => {
     const form = useRef();
     const checkBtn = useRef();
 
+    const [successful, setSuccessful] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -50,18 +51,15 @@ const Login = (props) => {
         if (checkBtn.current.context._errors.length === 0) {
             AuthService.login(username, password).then(
                 () => {
-                    props.history.push("/home");
-                },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-
+                    setSuccessful(true);
                     setLoading(false);
-                    setMessage(resMessage);
+                    setMessage("Login Successful")
+                    props.history.push("/home")
+                },
+                () => {
+                    setSuccessful(false);
+                    setLoading(false);
+                    setMessage("Invalid account credentials");
                 }
             );
         } else {
@@ -78,54 +76,56 @@ const Login = (props) => {
 
                     <div className="modal-body">
                         <Form onSubmit={handleLogin} ref={form}>
+                            {!successful && (
+                                <div>
+                                    <div className="form-group">
+                                        <label htmlFor="username">Username</label>
+                                        <Input
+                                            type="text"
+                                            className="form-control"
+                                            name="username"
+                                            value={username}
+                                            onChange={onChangeUsername}
+                                            validations={[required]}
+                                            data-testid="login-input-username"
+                                        />
+                                    </div>
 
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        name="username"
-                                        value={username}
-                                        onChange={onChangeUsername}
-                                        validations={[required]}
-                                        placeholder="Username"
-                                        style={{fontSize: '20px'}}
-                                    />
+                                    <div className="form-group">
+                                        <label htmlFor="password">Password</label>
+                                        <Input
+                                            type="password"
+                                            className="form-control"
+                                            name="password"
+                                            value={password}
+                                            onChange={onChangePassword}
+                                            validations={[required]}
+                                            data-testid="login-input-password"
+                                        />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <button className="btn btn-primary btn-block"
+                                                disabled={loading}
+                                                data-testid="login-button-submit"
+                                        >
+                                            {loading && (
+                                                <span className="spinner-border spinner-border-sm"/>
+                                            )}
+                                            <span>Login</span>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <Input
-                                        type="password"
-                                        className="form-control"
-                                        name="password"
-                                        value={password}
-                                        onChange={onChangePassword}
-                                        validations={[required]}
-                                        placeholder="Password"
-                                        style={{fontSize: '20px'}}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <button className="btn btn-primary btn-block btn-lg" disabled={loading}
-
-                                >
-                                    {loading && (
-                                        <span className="spinner-border spinner-border-sm mr-2"/>
-                                    )}
-                                    <p style={{marginBottom: '5px'}}>
-                                        Sign In
-                                    </p>
-                                </button>
-                            </div>
-
+                            )}
                             {message && (
                                 <div className="form-group">
-                                    <div className="alert alert-danger" role="alert">
-                                        {message}
+                                    <div
+                                        className={ successful ? "alert alert-success" : "alert alert-danger" }
+                                        role="alert"
+                                    >
+                                        <p style={{paddingLeft: '25%', paddingTop: 10}}>
+                                            {message}
+                                        </p>
                                     </div>
                                 </div>
                             )}

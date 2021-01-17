@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly react-test-renderer 1`] = `
+exports[`Register Successfully renders register 1`] = `
 <div
   className="modal-dialog modal-login"
 >
@@ -26,118 +26,80 @@ exports[`renders correctly react-test-renderer 1`] = `
           <div
             className="form-group"
           >
-            <div
-              className="input-group"
+            <label
+              htmlFor="username"
             >
-              <Control(s)
-                className="form-control"
-                name="username"
-                onChange={[Function]}
-                placeholder="Username"
-                style={
-                  Object {
-                    "fontSize": "20px",
-                  }
-                }
-                type="text"
-                validations={
-                  Array [
-                    [Function],
-                    [Function],
-                  ]
-                }
-                value=""
-              />
-            </div>
+              Username
+            </label>
+            <Control(s)
+              className="form-control"
+              data-testid="register-input-username"
+              name="username"
+              onChange={[Function]}
+              type="text"
+              validations={
+                Array [
+                  [Function],
+                  [Function],
+                ]
+              }
+              value=""
+            />
           </div>
           <div
             className="form-group"
           >
-            <div
-              className="input-group"
+            <label
+              htmlFor="email"
             >
-              <Control(s)
-                className="form-control"
-                name="email"
-                onChange={[Function]}
-                placeholder="Email"
-                style={
-                  Object {
-                    "fontSize": "20px",
-                  }
-                }
-                type="text"
-                validations={
-                  Array [
-                    [Function],
-                    [Function],
-                  ]
-                }
-                value=""
-              />
-            </div>
+              Email
+            </label>
+            <Control(s)
+              className="form-control"
+              data-testid="register-input-email"
+              name="email"
+              onChange={[Function]}
+              type="text"
+              validations={
+                Array [
+                  [Function],
+                  [Function],
+                ]
+              }
+              value=""
+            />
           </div>
           <div
             className="form-group"
           >
-            <div
-              className="input-group"
+            <label
+              htmlFor="password"
             >
-              <Control(s)
-                className="form-control"
-                name="password"
-                onChange={[Function]}
-                placeholder="Password"
-                style={
-                  Object {
-                    "fontSize": "20px",
-                  }
-                }
-                type="password"
-                validations={
-                  Array [
-                    [Function],
-                    [Function],
-                  ]
-                }
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            className="form-group"
-          >
-            <div
-              className="input-group"
-            >
-              <Control(s)
-                className="form-control"
-                name="confirmPassword"
-                onChange={[Function]}
-                placeholder="Confirm Password"
-                style={
-                  Object {
-                    "fontSize": "20px",
-                  }
-                }
-                type="password"
-                validations={
-                  Array [
-                    [Function],
-                    [Function],
-                  ]
-                }
-                value=""
-              />
-            </div>
+              Password
+            </label>
+            <Control(s)
+              className="form-control"
+              data-testid="register-input-password"
+              name="password"
+              onChange={[Function]}
+              type="password"
+              validations={
+                Array [
+                  [Function],
+                  [Function],
+                ]
+              }
+              value=""
+            />
           </div>
           <div
             className="form-group"
           >
             <button
               className="btn btn-primary btn-block"
+              data-testid="register-button-submit"
             >
-              Register
+              Sign Up
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly react-test-renderer 1`] = `
+exports[`Login Renders login correctly 1`] = `
 <div
   className="modal-dialog modal-login "
 >
@@ -22,22 +22,20 @@ exports[`renders correctly react-test-renderer 1`] = `
       <Form(t)
         onSubmit={[Function]}
       >
-        <div
-          className="form-group"
-        >
+        <div>
           <div
-            className="input-group"
+            className="form-group"
           >
+            <label
+              htmlFor="username"
+            >
+              Username
+            </label>
             <Control(s)
               className="form-control"
+              data-testid="login-input-username"
               name="username"
               onChange={[Function]}
-              placeholder="Username"
-              style={
-                Object {
-                  "fontSize": "20px",
-                }
-              }
               type="text"
               validations={
                 Array [
@@ -47,23 +45,19 @@ exports[`renders correctly react-test-renderer 1`] = `
               value=""
             />
           </div>
-        </div>
-        <div
-          className="form-group"
-        >
           <div
-            className="input-group"
+            className="form-group"
           >
+            <label
+              htmlFor="password"
+            >
+              Password
+            </label>
             <Control(s)
               className="form-control"
+              data-testid="login-input-password"
               name="password"
               onChange={[Function]}
-              placeholder="Password"
-              style={
-                Object {
-                  "fontSize": "20px",
-                }
-              }
               type="password"
               validations={
                 Array [
@@ -73,24 +67,19 @@ exports[`renders correctly react-test-renderer 1`] = `
               value=""
             />
           </div>
-        </div>
-        <div
-          className="form-group"
-        >
-          <button
-            className="btn btn-primary btn-block btn-lg"
-            disabled={false}
+          <div
+            className="form-group"
           >
-            <p
-              style={
-                Object {
-                  "marginBottom": "5px",
-                }
-              }
+            <button
+              className="btn btn-primary btn-block"
+              data-testid="login-button-submit"
+              disabled={false}
             >
-              Sign In
-            </p>
-          </button>
+              <span>
+                Login
+              </span>
+            </button>
+          </div>
         </div>
         
         <Button(s)

@@ -43,7 +43,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.29.4",
     "detect-ssid": "^1.0.3",
+    "history": "^5.0.0",
     "http-proxy-middleware": "^1.0.6",
     "react-router-dom": "^5.2.0"
   }

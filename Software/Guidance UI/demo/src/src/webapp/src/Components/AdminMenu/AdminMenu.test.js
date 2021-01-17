@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, cleanup, fireEvent} from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import AdminMenu from "./AdminMenu";
+
 
 afterEach(cleanup);
 

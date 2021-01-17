@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly react-test-renderer 1`] = `
+<div
+  className="modal-dialog modal-login"
+>
+  <div
+    className="modal-content"
+  >
+    <div
+      className="modal-header"
+    >
+      <h4
+        className="modal-title"
+      >
+        Register
+      </h4>
+    </div>
+    <div
+      className="modal-body"
+    >
+      <Form(t)
+        onSubmit={[Function]}
+      >
+        <div>
+          <div
+            className="form-group"
+          >
+            <div
+              className="input-group"
+            >
+              <Control(s)
+                className="form-control"
+                name="username"
+                onChange={[Function]}
+                placeholder="Username"
+                style={
+                  Object {
+                    "fontSize": "20px",
+                  }
+                }
+                type="text"
+                validations={
+                  Array [
+                    [Function],
+                    [Function],
+                  ]
+                }
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-group"
+          >
+            <div
+              className="input-group"
+            >
+              <Control(s)
+                className="form-control"
+                name="email"
+                onChange={[Function]}
+                placeholder="Email"
+                style={
+                  Object {
+                    "fontSize": "20px",
+                  }
+                }
+                type="text"
+                validations={
+                  Array [
+                    [Function],
+                    [Function],
+                  ]
+                }
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-group"
+          >
+            <div
+              className="input-group"
+            >
+              <Control(s)
+                className="form-control"
+                name="password"
+                onChange={[Function]}
+                placeholder="Password"
+                style={
+                  Object {
+                    "fontSize": "20px",
+                  }
+                }
+                type="password"
+                validations={
+                  Array [
+                    [Function],
+                    [Function],
+                  ]
+                }
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-group"
+          >
+            <div
+              className="input-group"
+            >
+              <Control(s)
+                className="form-control"
+                name="confirmPassword"
+                onChange={[Function]}
+                placeholder="Confirm Password"
+                style={
+                  Object {
+                    "fontSize": "20px",
+                  }
+                }
+                type="password"
+                validations={
+                  Array [
+                    [Function],
+                    [Function],
+                  ]
+                }
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-group"
+          >
+            <button
+              className="btn btn-primary btn-block"
+            >
+              Register
+            </button>
+          </div>
+        </div>
+        
+        <Button(s)
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        />
+      </Form(t)>
+    </div>
+  </div>
+</div>
+`;

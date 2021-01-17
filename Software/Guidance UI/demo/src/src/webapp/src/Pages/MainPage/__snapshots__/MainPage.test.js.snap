@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly react-test-renderer 1`] = `
+<div
+  className="MainPage"
+>
+  <Logo />
+  <MobileMenu />
+  <SettingsPanel />
+  <AccountPanel />
+  <Floorplan />
+</div>
+`;

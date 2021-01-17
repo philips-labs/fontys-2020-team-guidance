@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly react-test-renderer 1`] = `
+<div
+  className="container"
+>
+  <header
+    className="jumbotron"
+  >
+    <h3
+      style={
+        Object {
+          "color": "#FFFFFF",
+        }
+      }
+    >
+      
+       Profile
+    </h3>
+  </header>
+  <p
+    style={
+      Object {
+        "color": "#FFFFFF",
+      }
+    }
+  >
+    Email: 
+    
+  </p>
+</div>
+`;

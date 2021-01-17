@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly react-test-renderer 1`] = `
+<div>
+  <img
+    alt=""
+    className="nodeImg"
+    src="waypoint.png"
+  />
+  <p
+    className="nodeTxt"
+  />
+</div>
+`;

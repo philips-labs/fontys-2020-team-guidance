@@ -48,7 +48,7 @@ class AccountPanel extends Component {
                 <p data-testid={"setting-header"} className="settingsHeader">Account</p>
                 <div className="divider"/>
                 <div className="accountObject">
-                    <p data-testid={"setting-name"} className="settingName">{AuthService.getCurrentUser().email}</p>
+                    <p data-testid={"setting-name"} className="settingName">{this.state.email}</p>
                     <p className="settingName"><Link to={"/Login"} onClick={AuthService.logout}>Log out</Link></p>
                 </div>
             </div>

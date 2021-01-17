@@ -76,11 +76,12 @@ const Login = (props) => {
                         <h4 className="modal-title">Sign In</h4>
                     </div>
 
-                    <div className="modal-body">
-                        <Form onSubmit={handleLogin} ref={form}>
+                    <div className="modal-body" >
+                        <Form onSubmit={handleLogin} ref={form}  >
 
                             <div className="form-group">
-                                <div className="input-group">
+                                <div className="input-group"
+                                >
                                     <Input
                                         type="text"
                                         className="form-control"

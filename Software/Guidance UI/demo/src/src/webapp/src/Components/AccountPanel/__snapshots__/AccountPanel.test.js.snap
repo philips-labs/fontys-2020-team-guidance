@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly react-test-renderer 1`] = `
+exports[`Render Account Panel renders correctly react-test-renderer 1`] = `
 <div
-  className="settingsPanel"
+  className="settingsPanel accountPanel"
   id="accountPanel"
 >
   <p
@@ -21,42 +21,16 @@ exports[`renders correctly react-test-renderer 1`] = `
       className="settingName"
       data-testid="setting-name"
     />
-    <input
-      className="ssidInput"
-      data-testid="setting-input"
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      readOnly={true}
-      value="Name"
-    />
-  </div>
-  <div
-    className="accountObject"
-  >
-    <img
-      alt=""
-      className="accountObjectPP"
-      src="pf.png"
-    />
-    <input
-      className="ssidInput"
-      defaultValue="Image link"
-      readOnly={true}
-    />
-  </div>
-  <div
-    className="accountObject"
-  >
     <p
       className="settingName"
-      data-testid="setting-name"
-    />
-    <ForwardRef(Link)
-      onClick={[Function]}
-      to="/Login"
     >
-      Log out
-    </ForwardRef(Link)>
+      <ForwardRef(Link)
+        onClick={[Function]}
+        to="/Login"
+      >
+        Log out
+      </ForwardRef(Link)>
+    </p>
   </div>
 </div>
 `;

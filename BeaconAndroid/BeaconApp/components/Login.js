@@ -56,7 +56,6 @@ export default class Login extends React.Component {
 
         return(
             <View style={styles.loginPageBody}>
-                <Image source ={require('../components/images/image.png')} style={styles.loginImg}/>
                 <Text style={styles.loginWelcomeText}>Login</Text>
                 <Text style={styles.guidanceText}>
                     login to guidance, a new pathfinding app to use in your favourite building.
@@ -67,13 +66,13 @@ export default class Login extends React.Component {
                     onSubmit={values => handleLogin(values)
                     }
                     validationSchema={yup.object().shape({
-                        // username: yup
-                        //     .string()
-                        //     .required()
-                        //     .min(3, "Must be longer than 3 characters"),
-                        // password: yup
-                        //     .string()
-                        //     .required()
+                        username: yup
+                            .string()
+                            .required()
+                            .min(3, "Must be longer than 3 characters"),
+                        password: yup
+                            .string()
+                            .required()
                     })}
                 >
                     {({ values, handleChange, errors, setFieldTouched, touched, isValid, handleSubmit }) => (
@@ -84,6 +83,7 @@ export default class Login extends React.Component {
                                     value={values.username}
                                     style={styles.loginTextInput}
                                     placeholder="Username"
+                                    placeholderTextColor="white"
                                 />
                             </View>
 
@@ -97,6 +97,7 @@ export default class Login extends React.Component {
                                     value={values.password}
                                     style={styles.loginTextInput}
                                     placeholder="Password"
+                                    placeholderTextColor="white"
                                     secureTextEntry={true}
                                 />
                             </View>
@@ -123,6 +124,7 @@ export default class Login extends React.Component {
 
                                 <Text
                                     style={styles.userText}
+                                    onPress={()=>navigate('ForgotPassword')}
                                 >
                                     Forgot password?
                                 </Text>
@@ -141,16 +143,14 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
     loginPageBody: {
-        backgroundColor: '#FFF',
-        height: '100%'
-    },
-    loginImg: {
-        width: '100%',
-        height: '40%'
+        backgroundColor: '#1a1a1a',
+        height: '100%',
+        justifyContent:'center',
     },
     loginWelcomeText:  {
         fontSize: 28,
         alignSelf: 'center',
+        color: '#FFFFFF'
 
     },
     guidanceText: {
@@ -158,8 +158,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 55,
         textAlign: 'center',
         marginTop: 5,
-        opacity: 0.4,
-        marginBottom: 20
+        opacity: 0.65,
+        marginBottom: 20,
+        color: '#FFFFFF'
     },
     loginContainer: {
         flexDirection: 'row',
@@ -168,11 +169,12 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginTop: 15,
         paddingHorizontal: 10,
-        borderColor: '#00716F',
+        borderColor: '#2296F3',
         borderRadius: 23,
     },
     loginTextInput: {
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        color: '#FFFFFF'
     },
     memberButton: {
         marginHorizontal: 55,
@@ -181,19 +183,21 @@ const styles = StyleSheet.create({
         marginTop: 30,
     },
     memberText: {
-        color: 'black',
+        color: '#FFFFFF',
         fontWeight: 'bold',
         textAlign: 'center'
     },
     userText: {
         alignSelf: 'center',
-        color: '#00716F',
+        color: '#FFFFFF',
         fontWeight: 'bold',
         paddingVertical: 10,
+        paddingTop: 15
     },
     alert: {
         color: '#d90000',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        paddingTop: 5
     }
 });
 

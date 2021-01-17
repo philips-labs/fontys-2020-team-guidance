@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: '#121212',
+    backgroundColor: '#1a1a1a'
   },
   basicScannedText: {
     fontSize: 20,

@@ -43,10 +43,7 @@ export default class Register extends React.Component {
 
         return(
             <View style={styles.loginPageBody}>
-                <Image source ={require('../components/images/image.png')}
-                       style={styles.loginImg}
-                />
-                <Text style={styles.loginWelcomeText}>Register</Text>
+                <Text style={styles.loginWelcomeText}>SIGN UP</Text>
 
                 <Formik
                     initialValues={{username: '', email: '', password: '', confirmPassword: ''}}
@@ -76,7 +73,7 @@ export default class Register extends React.Component {
                             value={values.email}
                             style={styles.loginTextInput}
                             placeholder="Email"
-                            placeholderTextColor='#00716F'
+                            placeholderTextColor='white'
                         />
                     </View>
 
@@ -90,7 +87,7 @@ export default class Register extends React.Component {
                             value={values.username}
                             style={styles.loginTextInput}
                             placeholder="Username"
-                            placeholderTextColor='#00716F'
+                            placeholderTextColor='white'
                         />
                     </View>
 
@@ -105,7 +102,7 @@ export default class Register extends React.Component {
                             style={styles.loginTextInput}
                             secureTextEntry={true}
                             placeholder="Password"
-                            placeholderTextColor='#00716F'
+                            placeholderTextColor='white'
                         />
                     </View>
 
@@ -120,7 +117,7 @@ export default class Register extends React.Component {
                             style={styles.loginTextInput}
                             secureTextEntry={true}
                             placeholder="Confirm Password"
-                            placeholderTextColor='#00716F'
+                            placeholderTextColor='white'
                         />
                     </View>
 
@@ -145,17 +142,15 @@ export default class Register extends React.Component {
 
 const styles = StyleSheet.create({
     loginPageBody: {
-        backgroundColor: '#FFF',
-        height: '100%'
-    },
-    loginImg: {
-        width: '100%',
-        height: '40%'
+        backgroundColor: '#1a1a1a',
+        height: '100%',
+        justifyContent:'center',
     },
     loginWelcomeText:  {
         fontSize: 28,
         alignSelf: 'center',
-        paddingBottom: 50
+        paddingBottom: 50,
+        color: '#FFFFFF'
 
     },
     guidanceText: {
@@ -173,7 +168,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginTop: 15,
         paddingHorizontal: 10,
-        borderColor: '#00716F',
+        borderColor: '#2296F3',
         borderRadius: 23,
     },
     loginTextInput: {
@@ -199,6 +194,8 @@ const styles = StyleSheet.create({
     },
     alert: {
         color: '#d90000',
+        textAlign: 'center',
+        paddingTop: 5
     }
 });
 

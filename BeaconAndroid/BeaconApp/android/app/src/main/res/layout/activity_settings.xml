@@ -8,22 +8,23 @@
               android:paddingRight="16dp"
               android:paddingTop="16dp"
               android:orientation="vertical"
-              tools:context=".MainActivity">
+              tools:context=".MainActivity" android:background="#181818">
 
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"
             android:fillViewport="true"
-            android:id="@+id/scrollView">
+            android:id="@+id/scrollView" android:background="#181818">
     </ScrollView>
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="72dp">
+            android:layout_height="72dp" android:background="#2296F3">
         <Button
                 android:text="Logout"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:id="@+id/btn_Logout" android:layout_weight="1"/>
+                android:layout_height="match_parent" android:id="@+id/btn_Logout" android:layout_weight="1"
+                android:background="#2296F3" android:textColor="#FFFFFF"/>
     </LinearLayout>
 </LinearLayout>

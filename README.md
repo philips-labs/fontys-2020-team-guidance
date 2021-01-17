@@ -1,4 +1,14 @@
 ﻿# fontys-2020-team-guidance
+ 
+Design:
+  - (Web Application) Admin page wireframe ~ (Design/adminPage wireframe.png)
+  - (Web Application) Main page wireframe ~ (Design/mainPage wireframe.png)
+  - (Mobile Application) Forgot password wireframe ~ (Design/forgotPassApp wireframe.png)
+  - (Mobile Application) Logged in wireframe ~ (Design/loggedInApp wireframe.png)
+  - (Mobile Application) Login app wireframe ~ (Design/loginApp wireframe.png)
+  - (Mobile Application) Scanning app wireframe ~ (Design/scanningApp wireframe.png)
+  - (Mobile Application) Signup app wireframe ~ (Design/signupApp wireframe.png)
+________________________________________________________________
 
 Documentation:
   - Architecture document ~ (Documentation/Architecture document.pdf)

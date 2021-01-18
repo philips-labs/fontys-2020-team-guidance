@@ -36,6 +36,7 @@ export default class Node extends Component {
             return (
                 <div>
                     <img className='nodeImg' src={Stair} alt=''/>
+                    <p className={"nodeTxt"}>{this.props.nodeId}</p>
                 </div>
             )
         }

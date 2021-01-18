@@ -61,8 +61,10 @@ export default class Linking extends Component {
                         <input className={"CheckBox"} type="checkbox" id="destinationNode" name="destinationNode" onChange={this.handleCheck}/><br/>
                         <button onClick={this.saveLinks}>Add Node</button><br/><br/>
                         <button onClick={this.deleteLinks}>Delete Node</button><br/><br/>
-                        <button className={"green"} onClick={this.saveNodes}>Save</button><br/>
                     </div>
+
+                    <button className={"green"} onClick={this.saveNodes}>Save</button><br/>
+                    <button onClick={this.props.goBack} className={"back"}>Go back</button>
                 </div>
                 {/* <div>
                     <p>Path Finder</p>

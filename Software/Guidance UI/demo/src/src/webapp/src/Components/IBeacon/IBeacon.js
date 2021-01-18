@@ -13,7 +13,7 @@ export default class Node extends Component {
         return (
             <div>
                 <img className='nodeImg' src= {IBeacon} alt=''/>
-                <p>{this.state.nodeId}</p>
+                <p className={"beaconTxt"}>{this.props.ibeaconId}</p>
             </div>
         )
     }

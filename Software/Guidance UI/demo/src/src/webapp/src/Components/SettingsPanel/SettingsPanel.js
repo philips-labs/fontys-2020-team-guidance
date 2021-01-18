@@ -115,10 +115,6 @@ class SettingsPanel extends Component {
             document.getElementById("user").style.left = floorplan.getBoundingClientRect().left + parseInt(userX) + "px"
             document.getElementById("user").style.top = floorplan.getBoundingClientRect().top + parseInt(userY) + "px"
         }
-
-        if(this.state.location.split) {
-            this.getClosesNode();
-        }
     };
 
 
@@ -328,7 +324,7 @@ class SettingsPanel extends Component {
                         {
                             this.state.pathLineCoords.map((item, key) => {
                                 return (
-                                    <Line key={key} x0={item[0] + this.state.imageOffsetX} y0={item[1] + this.state.imageOffsetY} x1={item[2] + this.state.imageOffsetX} y1={item[3] + this.state.imageOffsetY} borderColor={"green"} borderWidth={"6px"} zIndex={"10000000000"}/>
+                                    <Line key={key} x0={item[0] + this.state.imageOffsetX} y0={item[1] + this.state.imageOffsetY} x1={item[2] + this.state.imageOffsetX} y1={item[3] + this.state.imageOffsetY} borderColor={"#3273cf"} borderWidth={"6px"} zIndex={"10000000000"}/>
                                 );
                             })
                         }

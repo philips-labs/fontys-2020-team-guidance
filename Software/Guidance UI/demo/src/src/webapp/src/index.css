@@ -496,7 +496,7 @@ input:focus, textarea:focus, select:focus{
     left: 25vw;
   }
 
-  a.NewAdminText {
+  p.NewAdminText {
     color: #c1c1c1;
     font-size: 1vw;
     display: block;
@@ -534,11 +534,11 @@ input:focus, textarea:focus, select:focus{
     position: relative;
     left: 25%;
     color: #c1c1c1;
+    text-align: center;
   }
 
   td, th {
     border: 1px solid #343434;
-    text-align: center;
     padding: 8px;
     font-size: 1vw;
     width: 50%;
@@ -822,12 +822,45 @@ input:focus, textarea:focus, select:focus{
     border: 1px solid lime;
   }
 
+  button.back {
+    color: #c8c8c8;
+    font-size: 1vw;
+    margin-top: 7vh;
+    background-color: transparent;
+    border: 1px solid #4c4c4c;
+    padding-top: 0.3vh;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    width: 10vw;
+    height: 4vh;
+    margin-bottom: 1vh;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+    transition: border .5s;
+  }
+
+  button.back:hover {
+    cursor: pointer;
+    border: 1px solid #0071d4;
+  }
+
   input.CheckBox {
     padding: 1vw;
   }
 
   p.nodeTxt {
     color: #2c7dea;
+    font-size: .6vw;
+    font-weight: bold;
+  }
+
+  p.beaconTxt {
+    color: #c12727;
+    font-size: .6vw;
+    font-weight: bold;
   }
 
   div.stairMainpage {

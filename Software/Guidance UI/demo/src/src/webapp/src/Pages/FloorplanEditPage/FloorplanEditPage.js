@@ -284,12 +284,18 @@ class FloorplanEditPage extends Component {
         this.fetchPaths();
     }
 
+    goBack = () => {
+        this.setState({
+            nodeToggle: "unlockedNodes"
+        })
+    }
+
     // renders the heatmap and draggable nodes
     render() {
         if (this.state.nodeToggle === "lockNodes") {
             return (
                 <div className={'FloorplanEditPage'}>
-                    <Linking parentCallback={this.reloadpage} nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} pathList={this.state.presetPaths} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
+                    <Linking goBack={this.goBack} parentCallback={this.reloadpage} nodeList={this.state.nodeList} iBeaconList={this.state.iBeaconList} pathList={this.state.presetPaths} ssid={this.state.ssid} floorplanid={this.state.floorplanid}/>
                     <div>
                         {
                             this.state.pathLineCoords.map(item => {
@@ -320,7 +326,7 @@ class FloorplanEditPage extends Component {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={item.id} type={item.type} name={item.name}
                                                key={item.id} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
-                                        <IBeacon/>
+                                        <IBeacon ibeaconId={item.id}/>
                                     </Draggable>
                                 );
                             })}
@@ -377,7 +383,7 @@ class FloorplanEditPage extends Component {
                                 return (
                                     <Draggable x={item.x} y={item.y} parentCallback={this.onSaveBeacon} id={item.id} type={item.type}
                                                name={item.name} key={item.id} boundx={this.state.imgWidth} boundy={this.state.imgHeight}>
-                                        <IBeacon/>
+                                        <IBeacon ibeaconId={item.id}/>
                                     </Draggable>
                                 );
                             })}
